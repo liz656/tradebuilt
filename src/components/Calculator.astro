@@ -1,0 +1,405 @@
+---
+---
+
+<div class="calc-wrap">
+  <div class="calc-header">
+    <h2>College vs. Apprenticeship</h2>
+    <p>Adjust the inputs to see the real 4-year financial picture — including what you spend, what you earn, and where you end up.</p>
+  </div>
+
+  <div class="inputs-grid">
+    <div class="input-col">
+      <div class="col-label college">4-Year College</div>
+
+      <div class="field">
+        <label for="tuition">Annual tuition &amp; fees</label>
+        <div class="field-row">
+          <span class="prefix">$</span>
+          <input type="range" id="tuition" min="8000" max="60000" step="1000" value="28000" />
+          <span class="field-val" id="tuition-out">$28,000</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="room">Annual room &amp; board</label>
+        <div class="field-row">
+          <span class="prefix">$</span>
+          <input type="range" id="room" min="5000" max="20000" step="500" value="12000" />
+          <span class="field-val" id="room-out">$12,000</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="grants">Annual grants / scholarships</label>
+        <div class="field-row">
+          <span class="prefix">$</span>
+          <input type="range" id="grants" min="0" max="30000" step="500" value="5000" />
+          <span class="field-val" id="grants-out">$5,000</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="college-salary">Starting salary after graduation</label>
+        <div class="field-row">
+          <span class="prefix">$</span>
+          <input type="range" id="college-salary" min="30000" max="90000" step="1000" value="48000" />
+          <span class="field-val" id="college-salary-out">$48,000</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="input-col">
+      <div class="col-label apprentice">Apprenticeship (Construction)</div>
+
+      <div class="field">
+        <label for="wage1">Year 1 apprentice wage (annual)</label>
+        <div class="field-row">
+          <span class="prefix">$</span>
+          <input type="range" id="wage1" min="20000" max="50000" step="1000" value="32000" />
+          <span class="field-val" id="wage1-out">$32,000</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="raise">Annual wage increase</label>
+        <div class="field-row">
+          <span class="prefix">$</span>
+          <input type="range" id="raise" min="1000" max="8000" step="500" value="4000" />
+          <span class="field-val" id="raise-out">$4,000/yr</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="app-cost">Program / tools cost (total)</label>
+        <div class="field-row">
+          <span class="prefix">$</span>
+          <input type="range" id="app-cost" min="0" max="10000" step="250" value="2000" />
+          <span class="field-val" id="app-cost-out">$2,000</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="journey-salary">Journeyman salary (after 4 yrs)</label>
+        <div class="field-row">
+          <span class="prefix">$</span>
+          <input type="range" id="journey-salary" min="45000" max="110000" step="1000" value="68000" />
+          <span class="field-val" id="journey-salary-out">$68,000</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bar-section">
+    <div class="bar-row">
+      <div class="bar-label-row">
+        <span class="bar-label">College — 4-year total cost</span>
+        <span class="bar-val" id="college-cost-label">$0</span>
+      </div>
+      <div class="bar-track"><div class="bar-fill college-fill" id="bar-college" style="width:0%"></div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label-row">
+        <span class="bar-label">Apprenticeship — 4-year total cost</span>
+        <span class="bar-val" id="app-cost-label">$0</span>
+      </div>
+      <div class="bar-track"><div class="bar-fill app-fill" id="bar-app" style="width:0%"></div></div>
+    </div>
+  </div>
+
+  <div class="results">
+    <div class="result-col">
+      <div class="result-label">4-Year College</div>
+      <div class="result-big red" id="college-net">—</div>
+      <div class="result-sublabel">net financial position at graduation</div>
+      <div class="result-rows">
+        <div class="result-row"><span>Total spent</span><span id="c-spent">—</span></div>
+        <div class="result-row"><span>Student debt (est.)</span><span id="c-debt">—</span></div>
+        <div class="result-row"><span>Earned during 4 yrs</span><span id="c-earned">—</span></div>
+        <div class="result-row"><span>Starting salary</span><span id="c-salary">—</span></div>
+      </div>
+    </div>
+    <div class="result-col highlight">
+      <div class="result-label">Apprenticeship</div>
+      <div class="result-big green" id="app-net">—</div>
+      <div class="result-sublabel">net financial position after 4 yrs</div>
+      <div class="result-rows">
+        <div class="result-row"><span>Total spent</span><span id="a-spent">—</span></div>
+        <div class="result-row"><span>Debt at completion</span><span id="a-debt">$0</span></div>
+        <div class="result-row"><span>Earned during 4 yrs</span><span id="a-earned">—</span></div>
+        <div class="result-row"><span>Journeyman salary</span><span id="a-salary">—</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="verdict">
+    <div class="verdict-icon">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="var(--tb-text-cream)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="20 6 9 17 4 12"/>
+      </svg>
+    </div>
+    <div class="verdict-text" id="verdict-text">Calculating...</div>
+  </div>
+
+  <p class="disclaimer">
+    Estimates based on user inputs. College earnings assume part-time work (~$6,000/yr). Debt estimate assumes 60% of net cost financed. Apprenticeship earnings grow annually by the raise amount entered. This calculator is for illustration purposes — actual outcomes vary by program, region, and trade.
+  </p>
+</div>
+
+<style>
+  .calc-wrap {
+    background: var(--tb-bg-deep);
+    padding: 40px;
+    border: 0.5px solid var(--tb-border);
+  }
+
+  .calc-header { margin-bottom: 32px; }
+
+  .calc-header h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 32px;
+    text-transform: uppercase;
+    color: var(--tb-text-cream);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .calc-header p {
+    font-size: 13px;
+    color: var(--tb-text-dim);
+    line-height: 1.6;
+  }
+
+  .inputs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 32px;
+  }
+
+  .input-col {
+    background: var(--tb-bg-base);
+    border: 0.5px solid var(--tb-border);
+    padding: 24px;
+  }
+
+  .col-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--tb-border);
+    color: var(--tb-text-muted);
+  }
+
+  .col-label.apprentice { color: var(--tb-text-cream); }
+
+  .field { margin-bottom: 16px; }
+
+  .field label {
+    display: block;
+    font-size: 12px;
+    color: var(--tb-text-dim);
+    margin-bottom: 6px;
+  }
+
+  .field-row { display: flex; align-items: center; gap: 8px; }
+
+  .prefix { font-size: 13px; color: var(--tb-text-faint); }
+
+  .field input[type="range"] {
+    flex: 1;
+    accent-color: var(--tb-text-cream);
+  }
+
+  .field-val {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--tb-text-cream);
+    min-width: 72px;
+    text-align: right;
+  }
+
+  .bar-section { margin-bottom: 24px; }
+
+  .bar-row { margin-bottom: 12px; }
+
+  .bar-label-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 4px;
+  }
+
+  .bar-label { font-size: 11px; color: var(--tb-text-dim); }
+  .bar-val { font-size: 11px; font-weight: 500; color: var(--tb-text-cream); }
+
+  .bar-track { background: var(--tb-border); height: 8px; width: 100%; }
+
+  .bar-fill { height: 8px; transition: width 0.4s ease; }
+  .college-fill { background: var(--tb-text-ghost); }
+  .app-fill { background: var(--tb-text-cream); }
+
+  .results {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border: 0.5px solid var(--tb-border);
+    margin-bottom: 24px;
+  }
+
+  .result-col { padding: 28px 24px; border-right: 0.5px solid var(--tb-border); }
+  .result-col:last-child { border-right: none; }
+  .result-col.highlight { background: var(--tb-bg-base); }
+
+  .result-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--tb-text-ghost);
+    margin-bottom: 16px;
+  }
+
+  .result-big {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 42px;
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .result-big.red { color: #c94040; }
+  .result-big.green { color: #4a9e6e; }
+
+  .result-sublabel { font-size: 11px; color: var(--tb-text-faint); margin-bottom: 20px; }
+
+  .result-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 7px 0;
+    border-bottom: 0.5px solid var(--tb-border-dim);
+    font-size: 12px;
+  }
+
+  .result-row:last-child { border-bottom: none; }
+  .result-row span:first-child { color: var(--tb-text-dim); }
+  .result-row span:last-child { color: var(--tb-text-cream); font-weight: 500; }
+
+  .verdict {
+    background: var(--tb-bg-base);
+    border: 0.5px solid var(--tb-border);
+    border-left: 2px solid var(--tb-text-cream);
+    padding: 20px 24px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .verdict-icon {
+    width: 32px;
+    height: 32px;
+    background: var(--tb-border-mid);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .verdict-text {
+    font-size: 13px;
+    line-height: 1.65;
+    color: var(--tb-text-muted);
+  }
+
+  .verdict-text strong { color: var(--tb-text-cream); font-weight: 500; }
+
+  .disclaimer {
+    font-size: 11px;
+    color: var(--tb-text-ghost);
+    line-height: 1.6;
+    padding-top: 16px;
+    border-top: 0.5px solid var(--tb-border-dim);
+  }
+</style>
+
+<script>
+  const fmt = (n: number) => '$' + Math.round(n).toLocaleString();
+  const fmtSigned = (n: number) => (n >= 0 ? '+' : '') + '$' + Math.abs(Math.round(n)).toLocaleString();
+
+  function calc() {
+    const tuition = +(document.getElementById('tuition') as HTMLInputElement).value;
+    const room = +(document.getElementById('room') as HTMLInputElement).value;
+    const grants = +(document.getElementById('grants') as HTMLInputElement).value;
+    const collegeSalary = +(document.getElementById('college-salary') as HTMLInputElement).value;
+    const wage1 = +(document.getElementById('wage1') as HTMLInputElement).value;
+    const raise = +(document.getElementById('raise') as HTMLInputElement).value;
+    const appCost = +(document.getElementById('app-cost') as HTMLInputElement).value;
+    const journeySalary = +(document.getElementById('journey-salary') as HTMLInputElement).value;
+
+    (document.getElementById('tuition-out') as HTMLElement).textContent = fmt(tuition);
+    (document.getElementById('room-out') as HTMLElement).textContent = fmt(room);
+    (document.getElementById('grants-out') as HTMLElement).textContent = fmt(grants);
+    (document.getElementById('college-salary-out') as HTMLElement).textContent = fmt(collegeSalary);
+    (document.getElementById('wage1-out') as HTMLElement).textContent = fmt(wage1);
+    (document.getElementById('raise-out') as HTMLElement).textContent = fmt(raise) + '/yr';
+    (document.getElementById('app-cost-out') as HTMLElement).textContent = fmt(appCost);
+    (document.getElementById('journey-salary-out') as HTMLElement).textContent = fmt(journeySalary);
+
+    const annualCost = tuition + room - grants;
+    const totalCollegeCost = annualCost * 4;
+    const collegeEarned = 6000 * 4;
+    const collegeDebt = Math.round(totalCollegeCost * 0.6);
+    const collegeNet = collegeEarned - totalCollegeCost;
+
+    const appEarned = wage1 + (wage1 + raise) + (wage1 + raise * 2) + (wage1 + raise * 3);
+    const appNet = appEarned - appCost;
+
+    const maxBar = Math.max(totalCollegeCost, appCost) * 1.1;
+    (document.getElementById('bar-college') as HTMLElement).style.width = Math.round((totalCollegeCost / maxBar) * 100) + '%';
+    (document.getElementById('bar-app') as HTMLElement).style.width = Math.round((appCost / maxBar) * 100) + '%';
+    (document.getElementById('college-cost-label') as HTMLElement).textContent = fmt(totalCollegeCost);
+    (document.getElementById('app-cost-label') as HTMLElement).textContent = fmt(appCost);
+
+    const collegeNetEl = document.getElementById('college-net') as HTMLElement;
+    collegeNetEl.textContent = fmtSigned(collegeNet);
+    collegeNetEl.className = 'result-big ' + (collegeNet >= 0 ? 'green' : 'red');
+
+    const appNetEl = document.getElementById('app-net') as HTMLElement;
+    appNetEl.textContent = fmtSigned(appNet);
+    appNetEl.className = 'result-big ' + (appNet >= 0 ? 'green' : 'red');
+
+    (document.getElementById('c-spent') as HTMLElement).textContent = fmt(totalCollegeCost);
+    (document.getElementById('c-debt') as HTMLElement).textContent = fmt(collegeDebt);
+    (document.getElementById('c-earned') as HTMLElement).textContent = fmt(collegeEarned);
+    (document.getElementById('c-salary') as HTMLElement).textContent = fmt(collegeSalary);
+    (document.getElementById('a-spent') as HTMLElement).textContent = fmt(appCost);
+    (document.getElementById('a-earned') as HTMLElement).textContent = fmt(appEarned);
+    (document.getElementById('a-salary') as HTMLElement).textContent = fmt(journeySalary);
+
+    const diff = appNet - collegeNet;
+    const salaryDiff = journeySalary - collegeSalary;
+    const verdictEl = document.getElementById('verdict-text') as HTMLElement;
+
+    let v = '';
+    if (diff > 0) {
+      v = `After 4 years, the apprenticeship path leaves you <strong>${fmtSigned(appNet)}</strong> ahead financially — while the college path results in <strong>${fmtSigned(collegeNet)}</strong>. That's a <strong>${fmt(Math.abs(diff))}</strong> swing before either career really gets started.`;
+    } else {
+      v = `With these inputs, both paths are competitive. The college path results in <strong>${fmtSigned(collegeNet)}</strong> and the apprenticeship in <strong>${fmtSigned(appNet)}</strong> after 4 years.`;
+    }
+    if (salaryDiff > 0) {
+      v += ` The journeyman salary is also <strong>${fmt(salaryDiff)}/yr higher</strong> than the college starting salary shown.`;
+    } else if (salaryDiff < 0) {
+      v += ` The college starting salary is <strong>${fmt(Math.abs(salaryDiff))}/yr higher</strong> with these inputs.`;
+    }
+    verdictEl.innerHTML = v;
+  }
+
+  document.querySelectorAll('input[type="range"]').forEach(el => el.addEventListener('input', calc));
+  calc();
+</script>

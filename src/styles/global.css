@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@400;500;600&display=swap');
+
+/* ── Brand Tokens ── */
+:root {
+  --tb-bg-deep:     #0e1520;
+  --tb-bg-base:     #141b28;
+  --tb-border:      #1e2a3e;
+  --tb-border-mid:  #2d3f5f;
+  --tb-border-dim:  #1a2235;
+  --tb-text-cream:  #e8e3d5;
+  --tb-text-muted:  #9aa4b4;
+  --tb-text-dim:    #7a8a9e;
+  --tb-text-faint:  #5a6880;
+  --tb-text-ghost:  #3a4d66;
+  --tb-text-dark:   #2d3f5f;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Barlow', sans-serif;
+  background: var(--tb-bg-base);
+  color: var(--tb-text-cream);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Utility ── */
+.section-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--tb-text-ghost);
+  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 0.5px;
+  background: var(--tb-border);
+}
+
+.btn-primary {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: var(--tb-text-cream);
+  color: var(--tb-bg-base);
+  border: none;
+  padding: 14px 28px;
+  cursor: pointer;
+  transition: background 0.2s;
+  text-decoration: none;
+  display: inline-block;
+}
+.btn-primary:hover { background: #c8c4b8; }
+
+.btn-outline {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: transparent;
+  color: var(--tb-text-cream);
+  border: 1px solid var(--tb-border-mid);
+  padding: 14px 28px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-cream {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: var(--tb-text-cream);
+  color: var(--tb-bg-base);
+  border: none;
+  padding: 14px 32px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  text-decoration: none;
+  display: inline-block;
+}
+.btn-cream:hover { background: #9aa4b4; color: var(--tb-bg-deep); }

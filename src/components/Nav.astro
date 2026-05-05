@@ -1,0 +1,101 @@
+---
+---
+
+<nav class="tb-nav">
+  <div class="tb-logo-wrap">
+    <!-- Swap src for your actual logo file in /public/logo.png -->
+   <img 
+  src="/TradeBuilt Logo_NavyBckgdCreamLogo.png" 
+  alt="TradeBuilt" 
+  height="100"
+  style="display:block;"
+/>
+  </div>
+
+  <ul class="tb-nav-links">
+    <li><a href="/study">The Study</a></li>
+    <li><a href="/careers">Explore the Trades</a></li>
+      <li><a href="/platform">Toolkits</a></li>
+    <li><a href="/about">About</a></li>
+  </ul>
+
+  <a href="/contact" class="btn-primary tb-nav-cta">Work With Me</a>
+</nav>
+
+<style>
+  .tb-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 40px;
+    border-bottom: 0.5px solid var(--tb-border);
+    background: var(--tb-bg-deep);
+  }
+
+  .tb-logo-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .tb-logo-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid var(--tb-text-cream);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .tb-logo-initials {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 15px;
+    color: var(--tb-text-cream);
+  }
+
+  .tb-logo-text {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 20px;
+    letter-spacing: 0.08em;
+    color: var(--tb-text-cream);
+    text-transform: uppercase;
+    line-height: 1;
+  }
+
+  .tb-logo-sub {
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    color: var(--tb-text-faint);
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  .tb-nav-links {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+  }
+
+  .tb-nav-links li a {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--tb-text-dim);
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .tb-nav-links li a:hover {
+    color: var(--tb-text-cream);
+  }
+
+  .tb-nav-cta {
+    font-size: 12px;
+    padding: 9px 20px;
+  }
+</style>
