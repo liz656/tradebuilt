@@ -7,25 +7,27 @@ import Nav from '../components/Nav.astro';
   <Nav />
 
   <!-- ── HERO ── -->
-  <section class="hero">
-    <div class="blueprint"></div>
-    <div class="corner"></div>
-    <div class="hero-content">
-      <div class="eyebrow">Georgia Construction Talent Initiative</div>
-      <h1>Amplifying<br>Real Stories.<br><em>Attracting</em><br>Genuine Talent.</h1>
-            <p class="hero-body">
-        This is a space where we bring together
-        <strong>educators, parents, students, employers, trade associations, and training providers</strong>
-        through collaborative research — highlighting what is actually working in our industry and the
-        strategies that are attracting the next generation in the state of Georgia.
-      </p>
-      <div class="cta-row">
-        <a href="/study" class="btn-primary">Explore the Study</a>
-        <a href="/careers" class="btn-outline">Explore Construction Careers</a>
-        <a href="/contact" class="btn-outline">Explore the Why</a>
-      </div>
+<section class="hero">
+  <div class="hero-left">
+    <div class="eyebrow">Georgia Construction Talent Initiative</div>
+    <h1>Amplifying<br>Real Stories.<br><em>Attracting</em><br><em>Genuine Talent.</em></h1>
+    <p class="hero-body">
+      This is a field-driven space where we bring together
+      <strong>educators, parents, students, employers, trade associations, and training providers</strong>
+      through collaborative research — highlighting what is actually working in our industry and the
+      strategies that are attracting the next generation in the state of Georgia.
+    </p>
+    <div class="cta-row">
+      <a href="/study" class="btn-hero">Explore the Study</a>
+      <a href="/careers" class="btn-hero">Explore Construction Careers</a>
+      <a href="/about" class="btn-hero">Explore the Why</a>
     </div>
-  </section>
+  </div>
+  <div class="hero-right">
+    <div class="hero-fade"></div>
+    <img src="/Main_SC2023.jpg" alt="Skills Challenge 2023" />
+  </div>
+</section>
 
   <!-- ── REALITY ── -->
   <section class="reality">
@@ -61,7 +63,7 @@ import Nav from '../components/Nav.astro';
     <div class="section-label">The initiative</div>
     <h2>Three Connected Parts.<br>One Workforce Message.</h2>
     <p class="pillars-sub">
-      This isn't just a study or a website. This is an infrastructure that has been built by you —
+      This isn't just a study or a website. This is an infrastructure that has been built by you
       and I will amplify the incredible work that is going on in our schools and on our jobsites.
     </p>
     <div class="pillar-grid">
@@ -157,87 +159,133 @@ import Nav from '../components/Nav.astro';
 </Layout>
 
 <style>
-  /* ── HERO ── */
+/* ── HERO ── */
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 580px;
+  border-bottom: 0.5px solid var(--tb-border);
+  background: var(--tb-bg-deep);
+  overflow: hidden;
+  position: relative;
+}
+
+.hero-left {
+  padding: 72px 48px 64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-right {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-right img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  display: block;
+}
+
+.hero-fade {
+  position: absolute;
+  top: 0; left: 0;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(to right, #0e1520 0%, rgba(14,21,32,0.6) 60%, transparent 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--tb-text-dim);
+  margin-bottom: 28px;
+  border: 0.5px solid var(--tb-border);
+  padding: 6px 14px;
+  width: fit-content;
+}
+
+.hero h1 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 68px;
+  line-height: 0.93;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: var(--tb-text-cream);
+  margin-bottom: 28px;
+}
+
+.hero h1 em {
+  font-style: normal;
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--tb-text-cream);
+}
+
+.hero-body {
+  max-width: 480px;
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--tb-text-dim);
+  margin-bottom: 40px;
+}
+
+.hero-body strong { color: var(--tb-text-cream); font-weight: 500; }
+
+.cta-row { display: flex; gap: 10px; flex-wrap: wrap; }
+
+.btn-hero {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: transparent;
+  color: var(--tb-text-cream);
+  border: 1px solid var(--tb-text-cream);
+  padding: 12px 20px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: background 0.2s, color 0.2s;
+}
+
+.btn-hero:hover {
+  background: var(--tb-text-cream);
+  color: var(--tb-bg-deep);
+}
+
+@media (max-width: 768px) {
   .hero {
-    padding: 80px 40px 64px;
-    border-bottom: 0.5px solid var(--tb-border);
-    position: relative;
-    overflow: hidden;
-    background: var(--tb-bg-deep);
+    grid-template-columns: 1fr;
+    min-height: auto;
   }
 
-  .blueprint {
-    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-    background-image:
-      linear-gradient(rgba(232,227,213,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(232,227,213,0.04) 1px, transparent 1px);
-    background-size: 48px 48px;
-    pointer-events: none;
+  .hero-right {
+    height: 280px;
   }
 
-  .corner {
-    position: absolute; top: 28px; right: 40px;
-    width: 60px; height: 60px;
-    border-top: 1px solid rgba(232,227,213,0.12);
-    border-right: 1px solid rgba(232,227,213,0.12);
+  .hero-left {
+    padding: 48px 24px 40px;
   }
 
-  .hero-content { position: relative; z-index: 2; }
+  .hero h1 { font-size: 48px; }
 
-  .eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--tb-text-dim);
-    margin-bottom: 28px;
-    border: 0.5px solid var(--tb-border);
-    padding: 6px 14px;
-  }
-
-  .hero h1 {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 900;
-    font-size: 100px;
-    line-height: 0.93;
-    letter-spacing: -0.01em;
-    text-transform: uppercase;
-    color: var(--tb-text-cream);
-    margin-bottom: 28px;
-  }
-
-  .hero h1 em {
-    font-style: normal;
-    color: transparent;
-    -webkit-text-stroke: 1.5px var(--tb-text-cream);
-  }
-
-  .tagline {
-    font-size: 20px;
-    color: var(--tb-text-dim);
-    margin-bottom: 36px;
-    padding-left: 16px;
-    border-left: 2px solid var(--tb-border-mid);
-    line-height: 1.6;
-    font-style: italic;
-    max-width: 480px;
-  }
-
-  .hero-body {
-    max-width: 580px;
-    font-size: 18px;
-    line-height: 1.8;
-    color: var(--tb-text-muted);
-    margin-bottom: 44px;
-  }
-
-  .hero-body strong { color: var(--tb-text-cream); font-weight: 500; }
-
-  .cta-row { display: flex; gap: 12px; flex-wrap: wrap; }
-
+  .cta-row { flex-direction: column; }
+  .cta-row a { text-align: center; }
+}
   /* ── REALITY ── */
   .reality {
     padding: 64px 40px;
