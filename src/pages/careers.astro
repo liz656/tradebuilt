@@ -1,0 +1,419 @@
+---
+import Layout from '../components/Layout.astro';
+import Nav from '../components/Nav.astro';
+---
+
+<Layout title="Explore the Trades — TradeBuilt" description="Construction careers in Georgia — coming soon.">
+  <Nav />
+  <div class="coming-soon">
+    <canvas id="site"></canvas>
+    <div class="overlay">
+      <div class="eyebrow">Explore the Trades</div>
+      <h1>Something Big<br>Is Being <em>Built.</em></h1>
+      <p>Georgia's construction careers platform is under construction. Check back soon.</p>
+      <a href="/" class="btn-back">← Back to Home</a>
+    </div>
+  </div>
+  <footer class="site-footer">
+    <div class="footer-logo">TradeBuilt <span>·</span> Est. 2026</div>
+    <div class="footer-copy">Georgia Construction Talent Pipeline Initiative · © 2026</div>
+  </footer>
+</Layout>
+
+<style>
+  .coming-soon {
+    position: relative;
+    width: 100%;
+    height: 70vh;
+    min-height: 500px;
+    background: #0e1520;
+    overflow: hidden;
+  }
+
+  #site {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+  }
+
+  .overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px;
+    z-index: 10;
+    background: rgba(14,21,32,0.72);
+  }
+
+  .eyebrow {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #7a8a9e;
+    margin-bottom: 24px;
+    border: 0.5px solid #1e2a3e;
+    padding: 6px 14px;
+    display: inline-block;
+  }
+
+  .overlay h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 64px;
+    line-height: 0.95;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    color: #e8e3d5;
+    margin-bottom: 20px;
+  }
+
+  .overlay h1 em {
+    font-style: normal;
+    color: transparent;
+    -webkit-text-stroke: 1.5px #e8e3d5;
+  }
+
+  .overlay p {
+    font-size: 15px;
+    line-height: 1.7;
+    color: #7a8a9e;
+    max-width: 400px;
+    margin-bottom: 32px;
+  }
+
+  .btn-back {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: #e8e3d5;
+    color: #141b28;
+    border: none;
+    padding: 12px 28px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s;
+  }
+
+  .btn-back:hover { background: #c8c4b8; }
+
+  .site-footer {
+    padding: 18px 40px;
+    border-top: 0.5px solid #1e2a3e;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #0e1520;
+  }
+
+  .footer-logo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 14px;
+    color: #3a4d66;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .footer-logo span { color: #2d3f5f; }
+  .footer-copy { font-size: 10px; color: #2d3f5f; letter-spacing: 0.06em; }
+
+  @media (max-width: 768px) {
+    .overlay h1 { font-size: 42px; }
+    .coming-soon { height: 80vh; }
+  }
+</style>
+
+<script>
+  const canvas = document.getElementById('site') as HTMLCanvasElement;
+  const ctx = canvas.getContext('2d')!;
+
+  function resize() {
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  const W = () => canvas.width;
+  const H = () => canvas.height;
+
+  const NAVY = '#0e1520';
+  const CREAM = '#e8e3d5';
+  const STEEL = '#2d3f5f';
+  const DIM = '#1e2a3e';
+  const ORANGE = '#c17830';
+
+  // Ground
+  const groundY = () => H() * 0.72;
+
+  // Stars/grid dots
+  const stars: {x:number,y:number,r:number,a:number}[] = [];
+  for(let i=0;i<60;i++){
+    stars.push({x:Math.random(),y:Math.random()*0.65,r:Math.random()*1.2+0.3,a:Math.random()});
+  }
+
+  // Crane
+  let craneAngle = 0;
+  let hookY = 0;
+  let hookDir = 1;
+
+  // Building blocks being stacked
+  const buildingX = () => W() * 0.55;
+  const buildingBaseY = () => groundY();
+  let blocksBuilt = 3;
+  const maxBlocks = 8;
+  let blockProgress = 0; // 0-1 for current block being placed
+
+  // Workers
+  const workers: {x:number, dir:number, step:number, stepT:number}[] = [
+    {x:0.3, dir:1, step:0, stepT:0},
+    {x:0.7, dir:-1, step:0, stepT:0},
+    {x:0.45, dir:1, step:0, stepT:0},
+  ];
+
+  // Scaffolding dots
+  function drawScaffolding(bx:number, by:number, bw:number, bh:number, floors:number) {
+    ctx.strokeStyle = STEEL;
+    ctx.lineWidth = 0.5;
+    // vertical poles
+    for(let i=0;i<=3;i++){
+      const x = bx + (bw/3)*i;
+      ctx.beginPath();
+      ctx.moveTo(x, by);
+      ctx.lineTo(x, by + bh);
+      ctx.stroke();
+    }
+    // horizontal planks
+    for(let f=0;f<=floors;f++){
+      const y = by + (bh/floors)*f;
+      ctx.beginPath();
+      ctx.moveTo(bx, y);
+      ctx.lineTo(bx+bw, y);
+      ctx.stroke();
+    }
+  }
+
+  function drawWorker(wx:number, wy:number, step:number) {
+    const s = 10;
+    ctx.fillStyle = CREAM;
+    // hard hat
+    ctx.beginPath();
+    ctx.ellipse(wx, wy-s*2.2, s*0.6, s*0.35, 0, Math.PI, 0);
+    ctx.fill();
+    // head
+    ctx.beginPath();
+    ctx.arc(wx, wy-s*1.7, s*0.4, 0, Math.PI*2);
+    ctx.fill();
+    // body
+    ctx.fillStyle = STEEL;
+    ctx.fillRect(wx-s*0.35, wy-s*1.3, s*0.7, s);
+    // legs
+    const legSwing = Math.sin(step)*4;
+    ctx.fillStyle = CREAM;
+    ctx.fillRect(wx-s*0.35, wy-s*0.3, s*0.28, s*0.9 + legSwing);
+    ctx.fillRect(wx+s*0.07, wy-s*0.3, s*0.28, s*0.9 - legSwing);
+  }
+
+  function drawCrane(t:number) {
+    const cx = W() * 0.28;
+    const cy = groundY();
+    const towerH = H() * 0.52;
+    const armL = W() * 0.22;
+
+    ctx.strokeStyle = CREAM;
+    ctx.lineWidth = 3;
+
+    // Tower
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.lineTo(cx, cy - towerH);
+    ctx.stroke();
+
+    // Tower bracing
+    ctx.lineWidth = 0.8;
+    ctx.strokeStyle = STEEL;
+    const braces = 6;
+    for(let i=0;i<braces;i++){
+      const y1 = cy - (towerH/braces)*i;
+      const y2 = cy - (towerH/braces)*(i+1);
+      ctx.beginPath();
+      ctx.moveTo(cx-10, y1);
+      ctx.lineTo(cx+10, y2);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(cx+10, y1);
+      ctx.lineTo(cx-10, y2);
+      ctx.stroke();
+    }
+
+    // Horizontal arm
+    ctx.strokeStyle = CREAM;
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(cx - armL*0.3, cy - towerH);
+    ctx.lineTo(cx + armL, cy - towerH);
+    ctx.stroke();
+
+    // Counterweight
+    ctx.fillStyle = STEEL;
+    ctx.fillRect(cx - armL*0.3 - 18, cy - towerH - 8, 18, 16);
+
+    // Cable from arm tip to hook
+    const hookX = cx + armL * 0.85;
+    const hY = cy - towerH + 20 + hookY;
+    ctx.strokeStyle = CREAM;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(hookX, cy - towerH);
+    ctx.lineTo(hookX, hY);
+    ctx.stroke();
+
+    // Hook + load
+    ctx.fillStyle = ORANGE;
+    ctx.fillRect(hookX - 12, hY, 24, 14);
+    ctx.fillStyle = CREAM;
+    ctx.beginPath();
+    ctx.moveTo(hookX, hY);
+    ctx.lineTo(hookX-4, hY+6);
+    ctx.lineTo(hookX+4, hY+6);
+    ctx.closePath();
+    ctx.fill();
+
+    // Cab at top
+    ctx.fillStyle = ORANGE;
+    ctx.fillRect(cx - 14, cy - towerH - 18, 28, 18);
+  }
+
+  function drawBuilding(t:number) {
+    const bw = W() * 0.18;
+    const bx = buildingX() - bw/2;
+    const blockH = 26;
+    const totalBuilt = blocksBuilt + blockProgress;
+
+    // Draw completed floors
+    for(let i=0;i<blocksBuilt;i++){
+      const by = buildingBaseY() - blockH*(i+1);
+      // Floor slab
+      ctx.fillStyle = STEEL;
+      ctx.fillRect(bx, by, bw, blockH-2);
+      // Windows
+      ctx.fillStyle = NAVY;
+      const wins = 3;
+      for(let w=0;w<wins;w++){
+        const wx = bx + (bw/(wins+1))*(w+1) - 6;
+        ctx.fillRect(wx, by+4, 12, 10);
+        // Light in some windows
+        if((i+w)%3===0){
+          ctx.fillStyle = ORANGE;
+          ctx.globalAlpha = 0.6;
+          ctx.fillRect(wx+1, by+5, 10, 8);
+          ctx.globalAlpha = 1;
+          ctx.fillStyle = NAVY;
+        }
+      }
+      ctx.fillStyle = STEEL;
+    }
+
+    // Current block being placed (animated)
+    if(blocksBuilt < maxBlocks && blockProgress > 0) {
+      const by = buildingBaseY() - blockH*(blocksBuilt+1);
+      ctx.fillStyle = STEEL;
+      ctx.globalAlpha = blockProgress;
+      ctx.fillRect(bx, by, bw * blockProgress, blockH-2);
+      ctx.globalAlpha = 1;
+    }
+
+    // Scaffolding on right side
+    drawScaffolding(bx + bw + 2, buildingBaseY() - blockH*blocksBuilt, 18, blockH*blocksBuilt, blocksBuilt);
+  }
+
+  function drawGround() {
+    const gy = groundY();
+    // Ground line
+    ctx.strokeStyle = DIM;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(0, gy);
+    ctx.lineTo(W(), gy);
+    ctx.stroke();
+
+    // Ground fill
+    ctx.fillStyle = '#0a1018';
+    ctx.fillRect(0, gy, W(), H()-gy);
+
+    // Rubble/materials on ground
+    ctx.fillStyle = STEEL;
+    for(let i=0;i<8;i++){
+      const rx = W()*0.1 + i*(W()*0.1);
+      ctx.fillRect(rx, gy+2, 14+i%3*4, 7+i%2*3);
+    }
+  }
+
+  function drawStars() {
+    stars.forEach(s => {
+      ctx.fillStyle = CREAM;
+      ctx.globalAlpha = s.a * 0.4;
+      ctx.beginPath();
+      ctx.arc(s.x*W(), s.y*H(), s.r, 0, Math.PI*2);
+      ctx.fill();
+    });
+    ctx.globalAlpha = 1;
+  }
+
+  // Moon / site light
+  function drawSiteLight() {
+    ctx.fillStyle = ORANGE;
+    ctx.globalAlpha = 0.12;
+    ctx.beginPath();
+    ctx.arc(W()*0.28, groundY() - H()*0.52, 80, 0, Math.PI*2);
+    ctx.fill();
+    ctx.globalAlpha = 1;
+  }
+
+  let t = 0;
+  function animate() {
+    requestAnimationFrame(animate);
+    t += 0.016;
+
+    ctx.clearRect(0, 0, W(), H());
+    ctx.fillStyle = NAVY;
+    ctx.fillRect(0, 0, W(), H());
+
+    drawStars();
+    drawSiteLight();
+    drawGround();
+    drawCrane(t);
+    drawBuilding(t);
+
+    // Animate hook
+    hookY += hookDir * 0.4;
+    if(hookY > H()*0.25 || hookY < 0) hookDir *= -1;
+
+    // Animate block progress
+    blockProgress += 0.002;
+    if(blockProgress >= 1) {
+      blockProgress = 0;
+      if(blocksBuilt < maxBlocks) blocksBuilt++;
+      else blocksBuilt = 1;
+    }
+
+    // Draw workers
+    workers.forEach((w, i) => {
+      w.stepT += 0.08;
+      w.step = w.stepT;
+      w.x += w.dir * 0.0008;
+      if(w.x > 0.85 || w.x < 0.15) w.dir *= -1;
+      drawWorker(w.x * W(), groundY(), w.step);
+    });
+  }
+
+  animate();
+</script>
