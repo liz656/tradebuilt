@@ -3,7 +3,7 @@ import Layout from '../components/Layout.astro';
 import Nav from '../components/Nav.astro';
 ---
 
-<Layout title="The Study â€” TradeBuilt" description="The Georgia Construction Talent Pipeline Study is a field-informed research initiative capturing what's working across education, industry, and workforce development in Georgia.">
+<Layout title="The Study-TradeBuilt" description="The Georgia Construction Talent Pipeline Study is a field-informed research initiative capturing what's working across education, industry, and workforce development in Georgia.">
   <Nav />
 
   <!-- â”€â”€ HERO â”€â”€ -->
@@ -128,7 +128,7 @@ import Nav from '../components/Nav.astro';
       </div>
 
       <div class="form-wrap">
-        <form name="study-participation" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="study-form">
+        <form name="study-participation" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/thank-you" class="study-form">
           <input type="hidden" name="form-name" value="study-participation" />
           <p class="hidden"><label>Don't fill this out: <input name="bot-field" /></label></p>
 
