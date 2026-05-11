@@ -1,0 +1,677 @@
+---
+import Layout from '../components/Layout.astro';
+import Nav from '../components/Nav.astro';
+---
+
+<Layout title="The Study â€” TradeBuilt" description="The Georgia Construction Talent Pipeline Study is a field-informed research initiative capturing what's working across education, industry, and workforce development in Georgia.">
+  <Nav />
+
+  <!-- â”€â”€ HERO â”€â”€ -->
+  <section class="study-hero">
+    <div class="blueprint"></div>
+    <div class="hero-content">
+      <div class="eyebrow">Georgia Construction Talent Pipeline Initiative</div>
+      <h1>The Study.</h1>
+      <p class="hero-sub">Field-informed. Industry-driven. Built on what's actually working.</p>
+    </div>
+  </section>
+
+  <!-- â”€â”€ WHAT IT IS â”€â”€ -->
+  <section class="what-section">
+    <div class="what-grid">
+      <div class="what-text">
+        <div class="section-label">What this is</div>
+        <h2>A Statewide Look at What's Working in Georgia's Construction Workforce.</h2>
+        <p>The Georgia Construction Talent Pipeline Study is a field-informed research initiative designed to capture insight from the people closest to the work educators, contractors, trade associations, training providers, and parents to understand what strategies are successfully attracting the next generation into construction careers.</p>
+        <p>This isn't a government report or an academic exercise. It's a ground-level look at what's actually happening in Georgia classrooms, jobsites, and apprenticeship programs and what's producing real results.</p>
+        <p>The findings will be used to highlight effective approaches, strengthen industry-education alignment, and inform how construction career pathways are communicated across the state.</p>
+      </div>
+      <div class="what-aside">
+        <div class="aside-block">
+          <div class="aside-num">3</div>
+          <div class="aside-label">Sectors being engaged</div>
+        </div>
+        <div class="aside-block">
+          <div class="aside-num">Georgia</div>
+          <div class="aside-label">Statewide focus</div>
+        </div>
+        <div class="aside-block">
+          <div class="aside-num">2026</div>
+          <div class="aside-label">Results releasing this summer</div>
+        </div>
+        <div class="aside-block">
+          <div class="aside-num">Field-first</div>
+          <div class="aside-label">Not theory. Not assumptions. Real insight from real people.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- â”€â”€ WHY IT MATTERS â”€â”€ -->
+  <section class="why-section">
+    <div class="section-label">Why it matters</div>
+    <h2>The Industry Doesn't Need Another Career Fair.<br>It Needs the Right Megaphone.</h2>
+    <div class="why-grid">
+      <div class="why-item">
+        <h4>Strong programs exist</h4>
+        <p>Across Georgia, educators and contractors are doing incredible work connecting students to construction careers. Those stories deserve to be told.</p>
+      </div>
+      <div class="why-item">
+        <h4>But they're often invisible</h4>
+        <p>The most effective approaches are rarely the loudest. This study is designed to surface what's working at the ground level and make it accessible on a state and national level.</p>
+      </div>
+      <div class="why-item">
+        <h4>Alignment is the missing piece</h4>
+        <p>When educators, contractors, and trade organizations are working from the same picture, the pipeline strengthens. This study helps build that shared picture.</p>
+      </div>
+      <div class="why-item">
+        <h4>Your voice shapes the outcome</h4>
+        <p>The findings are only as strong as the people who contribute. If you're in the field, in the classroom, or leading an organization your perspective matters here.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- â”€â”€ WHO WE'RE HEARING FROM â”€â”€ -->
+  <section class="who-section">
+    <div class="section-label">Who we're hearing from</div>
+    <h2>This Study Belongs to the People<br>Doing the Work.</h2>
+    <div class="who-grid">
+      <div class="who-card">
+        <h4>Educators</h4>
+        <p>CTAE teachers, school counselors, work-based learning coordinators, and career pathway leaders who are connecting students to construction every day.</p>
+      </div>
+      <div class="who-card">
+        <h4>Contractors</h4>
+        <p>General contractors, specialty trade contractors, and field leaders who are actively recruiting, training, and developing the next generation of craft professionals.</p>
+      </div>
+      <div class="who-card">
+        <h4>Trade Associations</h4>
+        <p>Industry organizations investing in workforce development, member engagement, and building stronger pipelines across Georgia's construction sector.</p>
+      </div>
+      <div class="who-card">
+        <h4>Training Providers</h4>
+        <p>Apprenticeship programs, technical colleges, and trade schools producing skilled workers and building pathways into the industry.</p>
+      </div>
+      <div class="who-card">
+        <h4>Parents</h4>
+        <p>Parents who want honest, clear information about what a career in construction actually looks like and what it can offer their child's future.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- â”€â”€ FORM â”€â”€ -->
+  <section class="form-section">
+    <div class="form-layout">
+      <div class="form-text">
+        <div class="section-label">Participate</div>
+        <h2>Join the Study.</h2>
+        <p>If you're working in Georgia's construction ecosystem as an educator, contractor, association leader, training provider, or parent your perspective is exactly what this study needs.</p>
+        <p>Submit your information below and you'll be contacted with next steps. Participation takes approximately 10-15 minutes and your responses will be kept confidential.</p>
+        <div class="form-promise">
+          <div class="promise-item">
+            <span class="promise-dot"></span>
+            10-15 minutes of your time
+          </div>
+          <div class="promise-item">
+            <span class="promise-dot"></span>
+            Responses kept confidential
+          </div>
+          <div class="promise-item">
+            <span class="promise-dot"></span>
+            Early access to findings for participants
+          </div>
+          <div class="promise-item">
+            <span class="promise-dot"></span>
+            No spam. No selling your information.
+          </div>
+        </div>
+      </div>
+
+      <div class="form-wrap">
+        <form name="study-participation" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="study-form">
+          <input type="hidden" name="form-name" value="study-participation" />
+          <p class="hidden"><label>Don't fill this out: <input name="bot-field" /></label></p>
+
+          <div class="field-group">
+            <label for="name">Full Name <span class="required">*</span></label>
+            <input type="text" id="name" name="name" required placeholder="Your full name" />
+          </div>
+
+          <div class="field-group">
+            <label for="email">Email Address <span class="required">*</span></label>
+            <input type="email" id="email" name="email" required placeholder="your@email.com" />
+          </div>
+
+          <div class="field-group">
+            <label for="organization">Organization / School Name <span class="required">*</span></label>
+            <input type="text" id="organization" name="organization" required placeholder="Where do you work or teach?" />
+          </div>
+
+          <div class="field-group">
+            <label for="role">Your Role <span class="required">*</span></label>
+            <select id="role" name="role" required>
+              <option value="" disabled selected>Select your role</option>
+              <option value="educator">Educator</option>
+              <option value="parent">Parent</option>
+              <option value="contractor">Contractor</option>
+              <option value="trade-association">Trade Association</option>
+              <option value="training-provider">Training Provider</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <label for="location">City / State <span class="required">*</span></label>
+            <input type="text" id="location" name="location" required placeholder="e.g. Atlanta, GA" />
+          </div>
+
+          <button type="submit" class="btn-submit">Join the Study</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- â”€â”€ CTA â”€â”€ -->
+  <section class="study-cta">
+    <div class="fc-grid"></div>
+    <h2>Have Questions?<br>Let's <em>Talk.</em></h2>
+    <p>If you'd like to learn more about the study before participating, or if you're interested in partnering with TradeBuilt on this initiative, reach out directly.</p>
+    <div class="cta-btns">
+      <a href="/contact" class="btn-cream">Contact Liz</a>
+    </div>
+  </section>
+
+  <!-- â”€â”€ FOOTER â”€â”€ -->
+  <footer class="site-footer">
+    <div class="footer-logo">TradeBuilt <span>Â·</span> Est. 2026</div>
+    <div class="footer-copy">Georgia Construction Talent Pipeline Initiative Â· Â© 2026</div>
+  </footer>
+
+</Layout>
+
+<style>
+  /* â”€â”€ HERO â”€â”€ */
+  .study-hero {
+    padding: 80px 40px 64px;
+    border-bottom: 0.5px solid var(--tb-border);
+    position: relative;
+    overflow: hidden;
+    background: var(--tb-bg-deep);
+    text-align: center;
+  }
+
+  .blueprint {
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background-image:
+      linear-gradient(rgba(232,227,213,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(232,227,213,0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--tb-text-dim);
+    margin-bottom: 24px;
+    border: 0.5px solid var(--tb-border);
+    padding: 6px 14px;
+  }
+
+  .study-hero h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 96px;
+    line-height: 0.93;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    color: var(--tb-text-cream);
+    margin-bottom: 20px;
+  }
+
+  .hero-sub {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--tb-text-dim);
+    font-style: italic;
+  }
+
+  /* â”€â”€ WHAT SECTION â”€â”€ */
+  .what-section {
+    padding: 64px 40px;
+    border-bottom: 0.5px solid var(--tb-border);
+    background: var(--tb-bg-base);
+  }
+
+  .what-grid {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 56px;
+    max-width: 1100px;
+    margin: 0 auto;
+    align-items: start;
+  }
+
+  .what-text h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 38px;
+    line-height: 1.05;
+    text-transform: uppercase;
+    color: var(--tb-text-cream);
+    margin-bottom: 24px;
+  }
+
+  .what-text p {
+    font-size: 15px;
+    line-height: 1.85;
+    color: var(--tb-text-dim);
+    margin-bottom: 16px;
+  }
+
+  .what-text p:last-child { margin-bottom: 0; }
+
+  .what-aside {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: var(--tb-border);
+    border: 0.5px solid var(--tb-border);
+  }
+
+  .aside-block {
+    background: var(--tb-bg-deep);
+    padding: 20px 20px;
+  }
+
+  .aside-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--tb-text-cream);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .aside-label {
+    font-size: 14px;
+    color: var(--tb-text-ghost);
+    line-height: 1.4;
+  }
+
+  /* â”€â”€ WHY SECTION â”€â”€ */
+  .why-section {
+    padding: 64px 40px;
+    border-bottom: 0.5px solid var(--tb-border);
+    background: var(--tb-bg-deep);
+    max-width: 100%;
+  }
+
+  .why-section h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 40px;
+    line-height: 1.05;
+    text-transform: uppercase;
+    color: var(--tb-text-cream);
+    margin-bottom: 40px;
+    max-width: 700px;
+  }
+
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border: 0.5px solid var(--tb-border);
+    max-width: 1100px;
+  }
+
+  .why-item {
+    padding: 24px;
+    border-right: 0.5px solid var(--tb-border);
+  }
+
+  .why-item:last-child { border-right: none; }
+
+  .why-item h4 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--tb-text-cream);
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--tb-border-mid);
+  }
+
+  .why-item p {
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--tb-text-dim);
+    margin: 0;
+  }
+
+  /* â”€â”€ WHO SECTION â”€â”€ */
+  .who-section {
+    padding: 64px 40px;
+    border-bottom: 0.5px solid var(--tb-border);
+    background: var(--tb-bg-base);
+  }
+
+  .who-section h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 40px;
+    line-height: 1.05;
+    text-transform: uppercase;
+    color: var(--tb-text-cream);
+    margin-bottom: 40px;
+    max-width: 700px;
+  }
+
+  .who-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    max-width: 1100px;
+  }
+
+  .who-card {
+    background: var(--tb-bg-deep);
+    border: 0.5px solid var(--tb-border);
+    padding: 20px;
+  }
+
+  .who-card h4 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--tb-text-cream);
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--tb-border-mid);
+  }
+
+  .who-card p {
+    font-size: 13px;
+    line-height: 1.65;
+    color: var(--tb-text-dim);
+    margin: 0;
+  }
+
+  /* â”€â”€ FORM SECTION â”€â”€ */
+  .form-section {
+    padding: 64px 40px;
+    border-bottom: 0.5px solid var(--tb-border);
+    background: var(--tb-bg-deep);
+  }
+
+  .form-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    max-width: 1100px;
+    margin: 0 auto;
+    align-items: start;
+  }
+
+  .form-text h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 48px;
+    line-height: 1;
+    text-transform: uppercase;
+    color: var(--tb-text-cream);
+    margin-bottom: 20px;
+  }
+
+  .form-text p {
+    font-size: 15px;
+    line-height: 1.85;
+    color: var(--tb-text-dim);
+    margin-bottom: 16px;
+  }
+
+  .form-promise {
+    margin-top: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .promise-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    color: var(--tb-text-muted);
+  }
+
+  .promise-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--tb-text-cream);
+    flex-shrink: 0;
+  }
+
+  /* â”€â”€ FORM STYLES â”€â”€ */
+  .study-form {
+    background: var(--tb-bg-base);
+    border: 0.5px solid var(--tb-border);
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .hidden { display: none; }
+
+  .field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .field-group label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--tb-text-muted);
+  }
+
+  .required { color: var(--tb-text-cream); }
+
+  .field-group input,
+  .field-group select {
+    background: var(--tb-bg-deep);
+    border: 0.5px solid var(--tb-border);
+    color: var(--tb-text-cream);
+    padding: 12px 16px;
+    font-family: 'Barlow', sans-serif;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+    appearance: none;
+    -webkit-appearance: none;
+    width: 100%;
+  }
+
+  .field-group input::placeholder {
+    color: var(--tb-text-ghost);
+  }
+
+  .field-group input:focus,
+  .field-group select:focus {
+    border-color: var(--tb-text-cream);
+  }
+
+  .field-group select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237a8a9e' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    padding-right: 40px;
+    cursor: pointer;
+  }
+
+  .field-group select option {
+    background: var(--tb-bg-deep);
+    color: var(--tb-text-cream);
+  }
+
+  .btn-submit {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: var(--tb-text-cream);
+    color: var(--tb-bg-base);
+    border: none;
+    padding: 16px 32px;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 8px;
+  }
+
+  .btn-submit:hover { background: #c8c4b8; }
+
+  /* â”€â”€ CTA â”€â”€ */
+  .study-cta {
+    padding: 72px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    background: var(--tb-bg-base);
+  }
+
+  .fc-grid {
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background-image:
+      linear-gradient(rgba(232,227,213,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(232,227,213,0.03) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+  }
+
+  .study-cta h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 52px;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: var(--tb-text-cream);
+    line-height: 0.95;
+    margin-bottom: 16px;
+    position: relative;
+  }
+
+  .study-cta h2 em {
+    font-style: normal;
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--tb-text-cream);
+  }
+
+  .study-cta p {
+    font-size: 15px;
+    color: var(--tb-text-dim);
+    max-width: 480px;
+    margin: 0 auto 32px;
+    line-height: 1.7;
+    position: relative;
+  }
+
+  .cta-btns {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    position: relative;
+  }
+
+  /* â”€â”€ FOOTER â”€â”€ */
+  .site-footer {
+    padding: 18px 40px;
+    border-top: 0.5px solid var(--tb-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--tb-bg-deep);
+  }
+
+  .footer-logo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 14px;
+    color: var(--tb-text-ghost);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .footer-logo span { color: var(--tb-text-dark); }
+  .footer-copy { font-size: 10px; color: var(--tb-text-dark); letter-spacing: 0.06em; }
+
+  /* â”€â”€ SECTION LABEL â”€â”€ */
+  .section-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--tb-text-ghost);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 0.5px;
+    background: var(--tb-border);
+  }
+
+  /* â”€â”€ MOBILE â”€â”€ */
+  @media (max-width: 768px) {
+    .study-hero { padding: 56px 24px 48px; }
+    .study-hero h1 { font-size: 64px; }
+
+    .what-section { padding: 48px 24px; }
+    .what-grid { grid-template-columns: 1fr; gap: 32px; }
+
+    .why-section { padding: 48px 24px; }
+    .why-section h2 { font-size: 30px; }
+    .why-grid { grid-template-columns: 1fr 1fr; }
+    .why-item:nth-child(2n) { border-right: none; }
+    .why-item { border-bottom: 0.5px solid var(--tb-border); }
+    .why-item:nth-last-child(-n+2) { border-bottom: none; }
+
+    .who-section { padding: 48px 24px; }
+    .who-section h2 { font-size: 30px; }
+    .who-grid { grid-template-columns: 1fr 1fr; }
+
+    .form-section { padding: 48px 24px; }
+    .form-layout { grid-template-columns: 1fr; gap: 32px; }
+    .study-form { padding: 28px 20px; }
+    .form-text h2 { font-size: 36px; }
+
+    .study-cta { padding: 56px 24px; }
+    .study-cta h2 { font-size: 38px; }
+
+    .site-footer {
+      flex-direction: column;
+      gap: 8px;
+      text-align: center;
+      padding: 24px;
+    }
+  }
+</style>
