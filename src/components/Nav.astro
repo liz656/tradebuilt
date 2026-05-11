@@ -2,21 +2,26 @@
 ---
 
 <nav class="tb-nav">
-<a href="/" class="tb-logo-wrap">
-   <img 
-  src="/TradeBuilt Logo_NavyBckgdCreamLogo.png" 
-  alt="TradeBuilt" 
-  height="100"
-  style="display:block;"
-/>
+  <a href="/" class="tb-logo-wrap">
+    <img 
+      src="/TradeBuilt Logo_NavyBckgdCreamLogo.png" 
+      alt="TradeBuilt" 
+      height="50"
+      style="display:block;"
+    />
   </a>
 
-  <ul class="tb-nav-links">
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <ul class="tb-nav-links" id="nav-links">
     <li><a href="/study">The Study</a></li>
     <li><a href="/careers">Explore the Trades</a></li>
     <li><a href="/about">About</a></li>
   </ul>
-
 </nav>
 
 <style>
@@ -27,48 +32,14 @@
     padding: 16px 40px;
     border-bottom: 0.5px solid var(--tb-border);
     background: var(--tb-bg-deep);
+    position: relative;
+    z-index: 100;
   }
 
-  .tb-logo-wrap {
+  a.tb-logo-wrap {
+    text-decoration: none;
     display: flex;
     align-items: center;
-    gap: 12px;
-  }
-
-  .tb-logo-circle {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    border: 2px solid var(--tb-text-cream);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-
-  .tb-logo-initials {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 900;
-    font-size: 15px;
-    color: var(--tb-text-cream);
-  }
-
-  .tb-logo-text {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 900;
-    font-size: 20px;
-    letter-spacing: 0.08em;
-    color: var(--tb-text-cream);
-    text-transform: uppercase;
-    line-height: 1;
-  }
-
-  .tb-logo-sub {
-    font-size: 13px;
-    letter-spacing: 0.14em;
-    color: var(--tb-text-faint);
-    text-transform: uppercase;
-    margin-top: 2px;
   }
 
   .tb-nav-links {
@@ -78,7 +49,7 @@
   }
 
   .tb-nav-links li a {
-    font-size: 24x;
+    font-size: 15px;
     font-weight: 500;
     color: var(--tb-text-dim);
     text-decoration: none;
@@ -91,12 +62,93 @@
     color: var(--tb-text-cream);
   }
 
-  .tb-nav-cta {
-    font-size: 15px;
-    padding: 9px 20px;
+  /* ── HAMBURGER ── */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    z-index: 101;
   }
 
-a.tb-logo-wrap {
-    text-decoration: none;
+  .hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--tb-text-cream);
+    transition: all 0.3s ease;
+  }
+
+  .hamburger.open span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .hamburger.open span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburger.open span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  /* ── MOBILE ── */
+  @media (max-width: 768px) {
+    .tb-nav {
+      padding: 16px 24px;
+      flex-wrap: wrap;
+    }
+
+    .hamburger {
+      display: flex;
+    }
+
+    .tb-nav-links {
+      display: none;
+      flex-direction: column;
+      gap: 0;
+      width: 100%;
+      background: var(--tb-bg-deep);
+      border-top: 0.5px solid var(--tb-border);
+      margin-top: 16px;
+    }
+
+    .tb-nav-links.open {
+      display: flex;
+    }
+
+    .tb-nav-links li {
+      border-bottom: 0.5px solid var(--tb-border);
+    }
+
+    .tb-nav-links li:last-child {
+      border-bottom: none;
+    }
+
+    .tb-nav-links li a {
+      display: block;
+      padding: 16px 0;
+      font-size: 16px;
+    }
   }
 </style>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('nav-links');
+
+  hamburger?.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    navLinks?.classList.toggle('open');
+  });
+
+  // Close menu when a link is clicked
+  navLinks?.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger?.classList.remove('open');
+      navLinks?.classList.remove('open');
+    });
+  });
+</script>
