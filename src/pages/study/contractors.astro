@@ -321,50 +321,50 @@ const SCHOOL_ACTIONS = ["Guest speaking","Jobsite tour","Donated materials","Int
   /* ── PROGRESS ── */
   .progress-bar {
     position: sticky; top: 0; z-index: 90;
-    height: 3px; background: var(--tb-border-dim);
+    height: 3px; background: #d4cfc0;
   }
   .progress-fill {
     height: 100%; width: 0%;
-    background: var(--tb-text-cream);
+    background: #141b28;
     transition: width 0.2s ease-out;
   }
 
-  /* ── FORM ── */
-  .form-section { padding: 56px 40px 72px; background: var(--tb-bg-base); }
+  /* ── FORM (cream) ── */
+  .form-section { padding: 56px 40px 72px; background: #e8e3d5; }
   .tb-form { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; }
   .hidden { display: none; }
 
   .fs-head {
     display: flex; align-items: baseline; gap: 14px;
     margin: 48px 0 8px; padding-bottom: 14px;
-    border-bottom: 0.5px solid var(--tb-border-mid);
+    border-bottom: 0.5px solid rgba(20,27,40,0.28);
   }
   .fs-head:first-of-type { margin-top: 0; }
   .fs-num {
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 13px; font-weight: 700; letter-spacing: 0.12em;
-    color: var(--tb-text-ghost);
+    color: #8a8778;
   }
   .fs-head h2 {
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 900; font-size: 26px;
     text-transform: uppercase; letter-spacing: 0.01em;
-    color: var(--tb-text-cream);
+    color: #141b28;
   }
 
-  .q { padding: 24px 0; border-bottom: 0.5px solid var(--tb-border-dim); }
+  .q { padding: 24px 0; border-bottom: 0.5px solid rgba(20,27,40,0.1); }
   .q:last-of-type { border-bottom: none; }
-  .q-chorus { border-top: 0.5px solid var(--tb-border-mid); margin-top: 8px; }
+  .q-chorus { border-top: 0.5px solid rgba(20,27,40,0.28); margin-top: 8px; }
 
   .q-label {
     display: block;
     font-size: 15px; font-weight: 500; line-height: 1.5;
-    color: var(--tb-text-cream); margin-bottom: 14px;
+    color: #141b28; margin-bottom: 14px;
   }
-  .req { color: var(--tb-text-faint); }
+  .req { color: #8a8778; }
   .hint {
     font-size: 12px; font-weight: 400; font-style: italic;
-    color: var(--tb-text-ghost); letter-spacing: 0.02em;
+    color: #7a7768; letter-spacing: 0.02em;
   }
   .hint-block { display: block; margin: -8px 0 12px; }
 
@@ -372,9 +372,9 @@ const SCHOOL_ACTIONS = ["Guest speaking","Jobsite tour","Donated materials","Int
   .q input[type="email"],
   .q input[type="number"],
   .q textarea {
-    background: var(--tb-bg-deep);
-    border: 0.5px solid var(--tb-border);
-    color: var(--tb-text-cream);
+    background: #f0ece1;
+    border: 0.5px solid rgba(20,27,40,0.2);
+    color: #141b28;
     padding: 13px 16px;
     font-family: 'Barlow', sans-serif;
     font-size: 15px;
@@ -385,61 +385,61 @@ const SCHOOL_ACTIONS = ["Guest speaking","Jobsite tour","Donated materials","Int
     -webkit-appearance: none;
   }
   .q textarea { resize: vertical; line-height: 1.6; }
-  .q input:focus, .q textarea:focus { border-color: var(--tb-text-cream); }
+  .q input:focus, .q textarea:focus { border-color: #141b28; }
 
   /* ── OPTIONS ── */
-  .opts { display: flex; flex-direction: column; gap: 1px; background: var(--tb-border-dim); border: 0.5px solid var(--tb-border); }
+  .opts { display: flex; flex-direction: column; gap: 1px; background: rgba(20,27,40,0.12); border: 0.5px solid rgba(20,27,40,0.2); }
   .opts-row { flex-direction: row; flex-wrap: wrap; }
   .opts-row .opt { flex: 1 1 auto; min-width: 96px; }
 
   .opt {
     display: flex; align-items: center; gap: 12px;
     padding: 13px 16px;
-    background: var(--tb-bg-deep);
+    background: #f0ece1;
     cursor: pointer;
     font-size: 15px; line-height: 1.4;
-    color: var(--tb-text-muted);
+    color: #3d4757;
     transition: background 0.15s, color 0.15s;
     -webkit-tap-highlight-color: transparent;
   }
-  .opt:hover { background: #16202f; color: var(--tb-text-cream); }
+  .opt:hover { background: #e9e4d7; color: #141b28; }
   .opt input { position: absolute; opacity: 0; pointer-events: none; }
   .opt span { flex: 1; }
   .opt::before {
     content: '';
     width: 16px; height: 16px;
-    border: 1px solid var(--tb-border-mid);
+    border: 1px solid rgba(20,27,40,0.35);
     flex-shrink: 0;
     transition: background 0.15s, border-color 0.15s;
   }
   .opt:has(input[type="radio"])::before { border-radius: 50%; }
-  .opt:has(input:checked) { background: #1a2434; color: var(--tb-text-cream); }
+  .opt:has(input:checked) { background: #dbd5c3; color: #141b28; }
   .opt:has(input:checked)::before {
-    background: var(--tb-text-cream);
-    border-color: var(--tb-text-cream);
-    box-shadow: inset 0 0 0 3px var(--tb-bg-deep);
+    background: #141b28;
+    border-color: #141b28;
+    box-shadow: inset 0 0 0 3px #dbd5c3;
   }
-  .opt:has(input:focus-visible) { outline: 1px solid var(--tb-text-cream); outline-offset: -1px; }
+  .opt:has(input:focus-visible) { outline: 1px solid #141b28; outline-offset: -1px; }
 
   /* ── SCALE ── */
   .scale { display: flex; align-items: center; gap: 14px; }
-  .scale-end { font-size: 12px; color: var(--tb-text-ghost); flex: 0 0 auto; max-width: 92px; line-height: 1.3; }
+  .scale-end { font-size: 12px; color: #7a7768; flex: 0 0 auto; max-width: 92px; line-height: 1.3; }
   .scale-end-r { text-align: right; }
-  .scale-opts { display: flex; gap: 1px; background: var(--tb-border-dim); border: 0.5px solid var(--tb-border); flex: 1; }
+  .scale-opts { display: flex; gap: 1px; background: rgba(20,27,40,0.12); border: 0.5px solid rgba(20,27,40,0.2); flex: 1; }
   .scale-opt {
     flex: 1; display: flex; align-items: center; justify-content: center;
     padding: 14px 0;
-    background: var(--tb-bg-deep);
+    background: #f0ece1;
     cursor: pointer;
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 18px; font-weight: 700;
-    color: var(--tb-text-faint);
+    color: #8a8778;
     transition: background 0.15s, color 0.15s;
     -webkit-tap-highlight-color: transparent;
   }
-  .scale-opt:hover { background: #16202f; color: var(--tb-text-cream); }
+  .scale-opt:hover { background: #e9e4d7; color: #141b28; }
   .scale-opt input { position: absolute; opacity: 0; pointer-events: none; }
-  .scale-opt:has(input:checked) { background: var(--tb-text-cream); color: var(--tb-bg-deep); }
+  .scale-opt:has(input:checked) { background: #141b28; color: #e8e3d5; }
 
   /* ── CONDITIONAL ── */
   .cond[hidden] { display: none; }
@@ -448,13 +448,13 @@ const SCHOOL_ACTIONS = ["Guest speaking","Jobsite tour","Donated materials","Int
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 15px; font-weight: 700;
     letter-spacing: 0.1em; text-transform: uppercase;
-    background: var(--tb-text-cream);
-    color: var(--tb-bg-base);
+    background: #141b28;
+    color: #e8e3d5;
     border: none; padding: 18px 32px;
     cursor: pointer; transition: background 0.2s;
     margin-top: 40px;
   }
-  .btn-submit:hover { background: #c8c4b8; }
+  .btn-submit:hover { background: #0e1520; }
 
   /* ── FOOTER ── */
   .site-footer {
