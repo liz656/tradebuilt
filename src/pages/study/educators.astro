@@ -1,0 +1,513 @@
+---
+import Layout from '../../components/Layout.astro';
+import Nav from '../../components/Nav.astro';
+
+const REGIONS = ["Metro Atlanta","North Georgia","West Georgia","East Georgia","Middle Georgia","South Georgia","Coastal Georgia"];
+const PATHWAYS = ["Architectural Drawing and Design","Carpentry","Masonry","Plumbing","Electrical","Machining Operations","Welding","Sheet Metal","HVACR","Industrial Maintenance","Fine Furniture and Cabinetmaking","Heavy Equipment","Other"];
+const PROVIDED = ["Guest speakers","Jobsite tours","Donated materials","Donated equipment","Internships or co-ops","Teacher externships","Funding or sponsorship","Curriculum input","Credentialing support","Hired your students"];
+---
+
+<Layout
+  title="CTAE Educator Survey — Georgia Construction Talent Pipeline Study"
+  description="Teachers are the group everyone talks about and nobody asks. This is that ask. About 7 minutes."
+>
+  <Nav />
+
+  <!-- ── HERO / WELCOME ── -->
+  <section class="s-hero">
+    <div class="blueprint"></div>
+    <div class="hero-inner">
+      <div class="eyebrow">Georgia Construction Talent Pipeline Study</div>
+      <h1>CTAE Educator<br>Survey.</h1>
+      <p class="lede">You see what happens with these students from day 1 in your classroom and after they graduate. Most of the industry does not.</p>
+      <p class="sub">I am building the first statewide picture of what is actually working in Georgia construction workforce development, and teachers are the group everyone talks about and nobody asks. This is that ask.</p>
+      <div class="promise">
+        <div class="p-item"><span class="dot"></span>About 7 minutes</div>
+        <div class="p-item"><span class="dot"></span>Confidential and reported in aggregate</div>
+        <div class="p-item"><span class="dot"></span>Quotes carry no name, school, or district unless you say so</div>
+      </div>
+      <div class="sig">
+        <strong>Liz Manning (Campbell)</strong>
+        <span>Owner, TradeBuilt</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PROGRESS ── -->
+  <div class="progress-bar" id="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+
+  <!-- ── FORM ── -->
+  <section class="form-section">
+    <form
+      name="educator-survey"
+      method="POST"
+      data-netlify="true"
+      netlify-honeypot="bot-field"
+      action="/study/thanks-educators"
+      class="tb-form"
+      id="tb-form"
+    >
+      <input type="hidden" name="form-name" value="educator-survey" />
+      <p class="hidden"><label>Don't fill this out: <input name="bot-field" /></label></p>
+
+      <!-- SECTION 1 -->
+      <div class="fs-head"><span class="fs-num">01</span><h2>About you</h2></div>
+
+      <div class="q">
+        <label class="q-label" for="q01">Name <span class="req">*</span></label>
+        <input type="text" id="q01" name="q01_name" required />
+      </div>
+
+      <div class="q">
+        <label class="q-label" for="q02">Email <span class="req">*</span></label>
+        <input type="email" id="q02" name="q02_email" required />
+      </div>
+
+      <div class="q">
+        <label class="q-label" for="q03">School <span class="req">*</span></label>
+        <input type="text" id="q03" name="q03_school" required />
+      </div>
+
+      <div class="q">
+        <label class="q-label" for="q04">District <span class="req">*</span></label>
+        <input type="text" id="q04" name="q04_district" required />
+      </div>
+
+      <div class="q">
+        <span class="q-label">Which area of Georgia is your school in? <span class="req">*</span></span>
+        <div class="opts">
+          {REGIONS.map((r) => (
+            <label class="opt"><input type="radio" name="q05_region" value={r} required /><span>{r}</span></label>
+          ))}
+        </div>
+      </div>
+
+      <div class="q">
+        <span class="q-label">What do you teach? <span class="hint">Select all that apply</span></span>
+        <div class="opts">
+          {PATHWAYS.map((p) => (
+            <label class="opt"><input type="checkbox" name="q06_pathways" value={p} /><span>{p}</span></label>
+          ))}
+        </div>
+      </div>
+
+      <div class="q">
+        <span class="q-label">Years teaching CTAE or the trades</span>
+        <div class="opts opts-row">
+          {["1-3","4-7","8-15","15+"].map((c) => (
+            <label class="opt"><input type="radio" name="q07_years" value={c} /><span>{c}</span></label>
+          ))}
+        </div>
+      </div>
+
+      <div class="q">
+        <span class="q-label">Students through your program per year</span>
+        <div class="opts opts-row">
+          {["Under 25","25-50","51-100","100+"].map((c) => (
+            <label class="opt"><input type="radio" name="q08_students" value={c} /><span>{c}</span></label>
+          ))}
+        </div>
+      </div>
+
+      <!-- SECTION 2 -->
+      <div class="fs-head"><span class="fs-num">02</span><h2>What industry actually provides</h2></div>
+
+      <div class="q">
+        <span class="q-label">In the past year, which has industry actually provided to your program? <span class="hint">Select all that apply</span></span>
+        <div class="opts">
+          {PROVIDED.map((p) => (
+            <label class="opt"><input type="checkbox" name="q09_provided" value={p} data-provided /><span>{p}</span></label>
+          ))}
+          <label class="opt"><input type="checkbox" name="q09_provided" value="Nothing" id="q09-nothing" /><span>Nothing</span></label>
+        </div>
+      </div>
+
+      <div class="q cond" id="q10-wrap">
+        <span class="q-label">Which ONE made the biggest difference for your students?</span>
+        <div class="opts">
+          {PROVIDED.map((p) => (
+            <label class="opt"><input type="radio" name="q10_biggest_difference" value={p} /><span>{p}</span></label>
+          ))}
+        </div>
+      </div>
+
+      <div class="q">
+        <label class="q-label" for="q11">What do you need most from industry that you are NOT getting?</label>
+        <textarea id="q11" name="q11_need_most" rows="4"></textarea>
+      </div>
+
+      <!-- SECTION 3 -->
+      <div class="fs-head"><span class="fs-num">03</span><h2>What actually works</h2></div>
+
+      <div class="q">
+        <label class="q-label" for="q12">Think of your most effective partnership with industry. What made it work?</label>
+        <textarea id="q12" name="q12_best_partnership" rows="4"></textarea>
+      </div>
+
+      <div class="q">
+        <label class="q-label" for="q13">Have you had one fall apart or fizzle out? What happened?</label>
+        <textarea id="q13" name="q13_partnership_failed" rows="4"></textarea>
+      </div>
+
+      <!-- SECTION 4 -->
+      <div class="fs-head"><span class="fs-num">04</span><h2>Credentials and alignment</h2></div>
+
+      <div class="q">
+        <span class="q-label">Does your program offer industry-recognized credentials? <span class="hint">Select all that apply</span></span>
+        <div class="opts">
+          {["NCCER","OSHA 10 or 30","Other industry credential","Working toward it, not there yet"].map((c) => (
+            <label class="opt"><input type="checkbox" name="q14_credentials" value={c} /><span>{c}</span></label>
+          ))}
+        </div>
+      </div>
+
+      <div class="q">
+        <span class="q-label">How well does your curriculum line up with what local contractors actually want in an entry-level hire?</span>
+        <div class="scale">
+          <span class="scale-end">Not aligned</span>
+          <div class="scale-opts">
+            {[1,2,3,4,5].map((n) => (
+              <label class="scale-opt"><input type="radio" name="q15_alignment" value={n} /><span>{n}</span></label>
+            ))}
+          </div>
+          <span class="scale-end scale-end-r">Closely aligned</span>
+        </div>
+      </div>
+
+      <!-- SECTION 5 -->
+      <div class="fs-head"><span class="fs-num">05</span><h2>Barriers</h2></div>
+
+      <div class="q">
+        <span class="q-label">Biggest barrier to getting students interested in the trades?</span>
+        <div class="opts">
+          {["Parent perception","Counselors steering toward college","Student perception or stigma","Lack of exposure","Program capacity or resources","Scheduling and course conflicts","Other"].map((c) => (
+            <label class="opt"><input type="radio" name="q16_barrier" value={c} /><span>{c}</span></label>
+          ))}
+        </div>
+      </div>
+
+      <div class="q">
+        <label class="q-label" for="q17">When parents push back on the trades, what do they actually say?</label>
+        <textarea id="q17" name="q17_parent_pushback" rows="4"></textarea>
+      </div>
+
+      <div class="q">
+        <span class="q-label">Roughly what percentage of your students go directly into a trade after graduation?</span>
+        <div class="opts opts-row">
+          {["Under 10%","10-25%","26-50%","Over 50%","I don't track this"].map((c) => (
+            <label class="opt"><input type="radio" name="q18_direct_to_trade" value={c} /><span>{c}</span></label>
+          ))}
+        </div>
+      </div>
+
+      <!-- SECTION 6 -->
+      <div class="fs-head"><span class="fs-num">06</span><h2>Close</h2></div>
+
+      <div class="q">
+        <span class="q-label">How confident are you that Georgia will have the construction workforce it needs five years from now?</span>
+        <div class="scale">
+          <span class="scale-end">Not confident</span>
+          <div class="scale-opts">
+            {[1,2,3,4,5].map((n) => (
+              <label class="scale-opt"><input type="radio" name="q19_confidence" value={n} /><span>{n}</span></label>
+            ))}
+          </div>
+          <span class="scale-end scale-end-r">Very confident</span>
+        </div>
+      </div>
+
+      <div class="q">
+        <span class="q-label">Open to a 20-minute follow-up conversation?</span>
+        <div class="opts opts-row">
+          <label class="opt"><input type="radio" name="q20_followup" value="Yes" /><span>Yes</span></label>
+          <label class="opt"><input type="radio" name="q20_followup" value="No" /><span>No</span></label>
+        </div>
+      </div>
+
+      <div class="q q-chorus">
+        <label class="q-label" for="q21">What would you tell a parent who thinks the trades are a fallback? <span class="hint">Optional</span></label>
+        <textarea id="q21" name="q21_chorus" rows="4"></textarea>
+      </div>
+
+      <button type="submit" class="btn-submit">Submit</button>
+    </form>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-logo">TradeBuilt <span>·</span> Est. 2026</div>
+    <div class="footer-copy">Georgia Construction Talent Pipeline Initiative · © 2026</div>
+  </footer>
+</Layout>
+
+<style>
+  /* ── HERO ── */
+  .s-hero {
+    padding: 72px 40px 56px;
+    border-bottom: 0.5px solid var(--tb-border);
+    position: relative;
+    overflow: hidden;
+    background: var(--tb-bg-deep);
+  }
+  .blueprint {
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background-image:
+      linear-gradient(rgba(232,227,213,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(232,227,213,0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+  }
+  .hero-inner { position: relative; z-index: 2; max-width: 720px; margin: 0 auto; }
+  .eyebrow {
+    display: inline-flex;
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--tb-text-dim);
+    margin-bottom: 24px;
+    border: 0.5px solid var(--tb-border);
+    padding: 6px 14px;
+  }
+  .s-hero h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: 76px; line-height: 0.93;
+    letter-spacing: -0.01em; text-transform: uppercase;
+    color: var(--tb-text-cream); margin-bottom: 20px;
+  }
+  .lede {
+    font-size: 19px; line-height: 1.6;
+    color: var(--tb-text-cream); margin-bottom: 16px;
+  }
+  .sub {
+    font-size: 15px; line-height: 1.85;
+    color: var(--tb-text-dim); margin-bottom: 28px;
+  }
+  .promise { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+  .p-item { display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--tb-text-muted); }
+  .dot { width: 6px; height: 6px; background: var(--tb-text-cream); flex-shrink: 0; }
+  .sig { border-top: 0.5px solid var(--tb-border); padding-top: 18px; display: flex; flex-direction: column; gap: 2px; }
+  .sig strong { font-size: 14px; color: var(--tb-text-cream); font-weight: 600; }
+  .sig span { font-size: 13px; color: var(--tb-text-ghost); }
+
+  /* ── PROGRESS ── */
+  .progress-bar {
+    position: sticky; top: 0; z-index: 90;
+    height: 3px; background: var(--tb-border-dim);
+  }
+  .progress-fill {
+    height: 100%; width: 0%;
+    background: var(--tb-text-cream);
+    transition: width 0.2s ease-out;
+  }
+
+  /* ── FORM ── */
+  .form-section { padding: 56px 40px 72px; background: var(--tb-bg-base); }
+  .tb-form { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; }
+  .hidden { display: none; }
+
+  .fs-head {
+    display: flex; align-items: baseline; gap: 14px;
+    margin: 48px 0 8px; padding-bottom: 14px;
+    border-bottom: 0.5px solid var(--tb-border-mid);
+  }
+  .fs-head:first-of-type { margin-top: 0; }
+  .fs-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px; font-weight: 700; letter-spacing: 0.12em;
+    color: var(--tb-text-ghost);
+  }
+  .fs-head h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: 26px;
+    text-transform: uppercase; letter-spacing: 0.01em;
+    color: var(--tb-text-cream);
+  }
+
+  .q { padding: 24px 0; border-bottom: 0.5px solid var(--tb-border-dim); }
+  .q:last-of-type { border-bottom: none; }
+  .q-chorus { border-top: 0.5px solid var(--tb-border-mid); margin-top: 8px; }
+
+  .q-label {
+    display: block;
+    font-size: 15px; font-weight: 500; line-height: 1.5;
+    color: var(--tb-text-cream); margin-bottom: 14px;
+  }
+  .req { color: var(--tb-text-faint); }
+  .hint {
+    font-size: 12px; font-weight: 400; font-style: italic;
+    color: var(--tb-text-ghost); letter-spacing: 0.02em;
+  }
+
+  .q input[type="text"],
+  .q input[type="email"],
+  .q input[type="number"],
+  .q textarea {
+    background: var(--tb-bg-deep);
+    border: 0.5px solid var(--tb-border);
+    color: var(--tb-text-cream);
+    padding: 13px 16px;
+    font-family: 'Barlow', sans-serif;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+    border-radius: 0;
+    -webkit-appearance: none;
+  }
+  .q textarea { resize: vertical; line-height: 1.6; }
+  .q input:focus, .q textarea:focus { border-color: var(--tb-text-cream); }
+
+  /* ── OPTIONS ── */
+  .opts { display: flex; flex-direction: column; gap: 1px; background: var(--tb-border-dim); border: 0.5px solid var(--tb-border); }
+  .opts-row { flex-direction: row; flex-wrap: wrap; }
+  .opts-row .opt { flex: 1 1 auto; min-width: 96px; }
+
+  .opt {
+    display: flex; align-items: center; gap: 12px;
+    padding: 13px 16px;
+    background: var(--tb-bg-deep);
+    cursor: pointer;
+    font-size: 15px; line-height: 1.4;
+    color: var(--tb-text-muted);
+    transition: background 0.15s, color 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .opt:hover { background: #16202f; color: var(--tb-text-cream); }
+  .opt input { position: absolute; opacity: 0; pointer-events: none; }
+  .opt span { flex: 1; }
+  .opt::before {
+    content: '';
+    width: 16px; height: 16px;
+    border: 1px solid var(--tb-border-mid);
+    flex-shrink: 0;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .opt:has(input[type="radio"])::before { border-radius: 50%; }
+  .opt:has(input:checked) { background: #1a2434; color: var(--tb-text-cream); }
+  .opt:has(input:checked)::before {
+    background: var(--tb-text-cream);
+    border-color: var(--tb-text-cream);
+    box-shadow: inset 0 0 0 3px var(--tb-bg-deep);
+  }
+  .opt:has(input:focus-visible) { outline: 1px solid var(--tb-text-cream); outline-offset: -1px; }
+
+  /* ── SCALE ── */
+  .scale { display: flex; align-items: center; gap: 14px; }
+  .scale-end { font-size: 12px; color: var(--tb-text-ghost); flex: 0 0 auto; max-width: 92px; line-height: 1.3; }
+  .scale-end-r { text-align: right; }
+  .scale-opts { display: flex; gap: 1px; background: var(--tb-border-dim); border: 0.5px solid var(--tb-border); flex: 1; }
+  .scale-opt {
+    flex: 1; display: flex; align-items: center; justify-content: center;
+    padding: 14px 0;
+    background: var(--tb-bg-deep);
+    cursor: pointer;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px; font-weight: 700;
+    color: var(--tb-text-faint);
+    transition: background 0.15s, color 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .scale-opt:hover { background: #16202f; color: var(--tb-text-cream); }
+  .scale-opt input { position: absolute; opacity: 0; pointer-events: none; }
+  .scale-opt:has(input:checked) { background: var(--tb-text-cream); color: var(--tb-bg-deep); }
+
+  /* ── CONDITIONAL ── */
+  .cond[hidden] { display: none; }
+
+  .btn-submit {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    background: var(--tb-text-cream);
+    color: var(--tb-bg-base);
+    border: none; padding: 18px 32px;
+    cursor: pointer; transition: background 0.2s;
+    margin-top: 40px;
+  }
+  .btn-submit:hover { background: #c8c4b8; }
+
+  /* ── FOOTER ── */
+  .site-footer {
+    padding: 18px 40px;
+    border-top: 0.5px solid var(--tb-border);
+    display: flex; justify-content: space-between; align-items: center;
+    background: var(--tb-bg-deep);
+  }
+  .footer-logo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: 14px;
+    color: var(--tb-text-ghost);
+    letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .footer-logo span { color: var(--tb-text-dark); }
+  .footer-copy { font-size: 10px; color: var(--tb-text-dark); letter-spacing: 0.06em; }
+
+  /* ── MOBILE ── */
+  @media (max-width: 768px) {
+    .s-hero { padding: 48px 24px 40px; }
+    .s-hero h1 { font-size: 52px; }
+    .lede { font-size: 17px; }
+    .form-section { padding: 40px 20px 56px; }
+    .fs-head h2 { font-size: 22px; }
+    .scale { flex-direction: column; align-items: stretch; gap: 8px; }
+    .scale-end { max-width: none; font-size: 11px; }
+    .scale-end-r { text-align: left; }
+    .opts-row { flex-direction: column; }
+    .site-footer { flex-direction: column; gap: 8px; text-align: center; padding: 24px; }
+  }
+</style>
+
+<script>
+  // Q9 -> Q10: if "Nothing" is the only thing checked, Q10 is meaningless. Hide it.
+  const nothing = document.getElementById('q09-nothing') as HTMLInputElement | null;
+  const provided = document.querySelectorAll('input[data-provided]');
+  const q10 = document.getElementById('q10-wrap');
+
+  function syncQ10() {
+    if (!q10 || !nothing) return;
+    const anyProvided = [...provided].some((el) => (el as HTMLInputElement).checked);
+    if (nothing.checked && !anyProvided) {
+      q10.hidden = true;
+      q10.querySelectorAll('input').forEach((el) => ((el as HTMLInputElement).checked = false));
+    } else {
+      q10.hidden = false;
+    }
+    updateProgress();
+  }
+
+  // "Nothing" and the real options are mutually exclusive.
+  nothing?.addEventListener('change', () => {
+    if (nothing.checked) provided.forEach((el) => ((el as HTMLInputElement).checked = false));
+    syncQ10();
+  });
+  provided.forEach((el) => {
+    el.addEventListener('change', () => {
+      if ((el as HTMLInputElement).checked && nothing) nothing.checked = false;
+      syncQ10();
+    });
+  });
+
+  // Progress bar
+  const form = document.getElementById('tb-form') as HTMLFormElement | null;
+  const fill = document.getElementById('progress-fill');
+
+  function updateProgress() {
+    if (!form || !fill) return;
+    const groups = new Map<string, boolean>();
+    form.querySelectorAll('input, textarea, select').forEach((el) => {
+      const f = el as HTMLInputElement;
+      if (!f.name || f.name === 'form-name' || f.name === 'bot-field') return;
+      const wrap = f.closest('.cond') as HTMLElement | null;
+      if (wrap && wrap.hidden) return;
+      if (!groups.has(f.name)) groups.set(f.name, false);
+      const done =
+        f.type === 'radio' || f.type === 'checkbox' ? f.checked : f.value.trim().length > 0;
+      if (done) groups.set(f.name, true);
+    });
+    const total = groups.size;
+    const answered = [...groups.values()].filter(Boolean).length;
+    fill.style.width = total ? `${Math.round((answered / total) * 100)}%` : '0%';
+  }
+
+  form?.addEventListener('input', updateProgress);
+  form?.addEventListener('change', updateProgress);
+  updateProgress();
+</script>

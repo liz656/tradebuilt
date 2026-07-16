@@ -1,0 +1,157 @@
+---
+import Layout from '../../components/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import { trades } from '../../data/trades.js';
+
+export function getStaticPaths() {
+  return trades.map((t) => ({ params: { trade: t.slug }, props: { trade: t } }));
+}
+
+const { trade } = Astro.props;
+const d = trade.detail;
+---
+
+<Layout title={`${trade.name} — Explore the Trades — TradeBuilt`} description={trade.blurb}>
+  <Nav />
+
+  <section class="detail-hero">
+    <div class="inner">
+      <a class="back" href="/careers-v2">← All trades</a>
+      <div class="hero-row">
+        <div class="hero-icon" set:html={trade.icon}></div>
+        <div>
+          <div class="section-label">Explore the Trades</div>
+          <h1>{trade.name}</h1>
+          <p class="blurb">{trade.blurb}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {d ? (
+    <Fragment>
+      <section class="block">
+        <div class="inner">
+          <div class="section-label">A day in the life</div>
+          {d.dayInLife.map((p) => <p class="body" set:html={p}></p>)}
+        </div>
+      </section>
+
+      <section class="block alt">
+        <div class="inner">
+          <div class="section-label">Training required</div>
+          <p class="body">{d.training}</p>
+        </div>
+      </section>
+
+      <section class="block">
+        <div class="inner">
+          <div class="section-label">What you can earn</div>
+          {d.wages ? (
+            <Fragment>
+              <div class="wage-grid">
+                <div class="wage-stat">
+                  <span class="wage-num">{d.wages.gaMedianAnnual}</span>
+                  <span class="wage-lbl">Median in Georgia / year</span>
+                </div>
+                <div class="wage-stat">
+                  <span class="wage-num">{d.wages.gaMedianHourly}</span>
+                  <span class="wage-lbl">Median in Georgia / hour</span>
+                </div>
+                <div class="wage-stat">
+                  <span class="wage-num">{d.wages.nationalAnnual}</span>
+                  <span class="wage-lbl">National median / year</span>
+                </div>
+              </div>
+              <p class="wage-note">{d.wages.note}</p>
+              <p class="wage-src">Source: {d.wages.source}</p>
+            </Fragment>
+          ) : (
+            <p class="body">{d.wagesText}</p>
+          )}
+        </div>
+      </section>
+
+      <section class="block alt">
+        <div class="inner">
+          <div class="section-label">Training providers in Georgia</div>
+          {d.providers.length > 0 ? (
+            <ul class="providers">
+              {d.providers.map((p) => <li class="provider"><a class="pname" href={p.url} target="_blank" rel="noopener">{p.name}</a>{p.note ? <span class="ploc">{p.note}</span> : null}</li>)}
+            </ul>
+          ) : (
+            <p class="body muted">Georgia training providers for this trade are being added. Run a program and want to be listed? <a class="inline-link" href="mailto:liz@tradebuiltga.com">Get in touch.</a></p>
+          )}
+        </div>
+      </section>
+    </Fragment>
+  ) : (
+    <section class="block">
+      <div class="inner">
+        <div class="section-label">In progress</div>
+        <h2 class="soon">Full Guide <em>On the Way.</em></h2>
+        <p class="body muted">A detailed guide for {trade.name} — day in the life, training required, what you can earn, and Georgia training providers — is being built.</p>
+        <a class="btn-outline" href="/careers-v2">← Back to all trades</a>
+      </div>
+    </section>
+  )}
+
+  <footer class="site-footer">
+    <div class="footer-logo">TradeBuilt <span>·</span> Est. 2026</div>
+    <div class="footer-copy">Georgia Construction Talent Pipeline Initiative · © 2026</div>
+  </footer>
+</Layout>
+
+<style>
+  .inner { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
+  h1, h2 { font-family: 'Barlow Condensed', sans-serif; text-transform: uppercase; color: var(--tb-text-cream); letter-spacing: -0.01em; line-height: 0.98; }
+  h1 em, h2 em { font-style: normal; color: transparent; -webkit-text-stroke: 1.2px var(--tb-text-cream); }
+
+  .detail-hero { background: var(--tb-bg-deep); padding: 40px 0 64px; border-bottom: 0.5px solid var(--tb-border); }
+  .back { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--tb-text-dim); text-decoration: none; display: inline-block; margin-bottom: 40px; transition: color 0.2s; }
+  .back:hover { color: var(--tb-text-cream); }
+  .hero-row { display: flex; align-items: center; gap: 32px; }
+  .hero-icon { width: 76px; height: 76px; color: var(--tb-text-cream); flex-shrink: 0; }
+  .hero-icon :global(svg) { width: 100%; height: 100%; display: block; }
+  .detail-hero h1 { font-weight: 900; font-size: 64px; margin-bottom: 14px; }
+  .blurb { font-size: 17px; line-height: 1.65; color: var(--tb-text-muted); max-width: 620px; }
+
+  .block { padding: 68px 0; background: var(--tb-bg-base); }
+  .block.alt { background: var(--tb-bg-deep); border-top: 0.5px solid var(--tb-border); border-bottom: 0.5px solid var(--tb-border); }
+  .body { font-size: 16px; line-height: 1.78; color: var(--tb-text-muted); max-width: 720px; margin-bottom: 18px; }
+  .body:last-child { margin-bottom: 0; }
+  .muted { color: var(--tb-text-dim); }
+  .inline-link { color: var(--tb-text-cream); text-decoration: underline; }
+  .inline-link:hover { color: #c17830; }
+
+  .wage-grid { display: flex; gap: 56px; flex-wrap: wrap; margin-bottom: 28px; }
+  .wage-stat { display: flex; flex-direction: column; }
+  .wage-num { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 56px; line-height: 1; color: var(--tb-text-cream); }
+  .wage-stat:first-child .wage-num { color: #c17830; }
+  .wage-lbl { font-size: 10px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--tb-text-faint); margin-top: 10px; }
+  .wage-note { font-size: 15px; line-height: 1.7; color: var(--tb-text-muted); max-width: 720px; }
+  .wage-src { font-size: 12px; letter-spacing: 0.04em; color: var(--tb-text-dark); margin-top: 14px; }
+
+  .providers { list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; max-width: 760px; }
+  .provider { border: 0.5px solid var(--tb-border); padding: 18px 20px; display: flex; flex-direction: column; gap: 4px; }
+  .pname { font-weight: 600; color: var(--tb-text-cream); text-decoration: none; }
+  .pname:hover { color: #c17830; text-decoration: underline; }
+  .ploc { font-size: 13px; color: var(--tb-text-dim); }
+
+  .soon { font-weight: 900; font-size: 44px; margin-bottom: 18px; }
+  .btn-outline { margin-top: 8px; }
+
+  .site-footer { padding: 18px 40px; border-top: 0.5px solid var(--tb-border); display: flex; justify-content: space-between; align-items: center; background: var(--tb-bg-deep); }
+  .footer-logo { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 15px; color: var(--tb-text-ghost); letter-spacing: 0.1em; text-transform: uppercase; }
+  .footer-logo span { color: var(--tb-text-dark); }
+  .footer-copy { font-size: 14px; color: var(--tb-text-dark); letter-spacing: 0.06em; }
+
+  @media (max-width: 760px) {
+    .hero-row { flex-direction: column; align-items: flex-start; gap: 20px; }
+    .detail-hero h1 { font-size: 46px; }
+    .wage-grid { gap: 32px; }
+    .providers { grid-template-columns: 1fr; }
+    .inner { padding: 0 24px; }
+    .site-footer { flex-direction: column; gap: 8px; text-align: center; }
+  }
+</style>
