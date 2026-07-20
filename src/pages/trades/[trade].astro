@@ -1,0 +1,171 @@
+---
+import Layout from '../../components/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import { trades } from '../../data/trades.js';
+
+export function getStaticPaths() {
+  return trades.map((t) => ({ params: { trade: t.slug }, props: { trade: t } }));
+}
+
+const { trade } = Astro.props;
+const d = trade.detail;
+const w = d.wages;
+const approxPre = w.approx ? '~' : '';
+
+const SCHOOLS = new Set([
+  'Georgia Trade School',
+  'Heavy Equipment Colleges of America - GA Campus',
+  'Elite Lineman Training Institute',
+  'Georgia Highlands College',
+]);
+const TCSG = { name: 'Technical College System of Georgia (TCSG)', url: 'https://www.tcsg.edu/', note: 'Statewide' };
+const PTP = { name: 'Home Depot Path to Pro', url: 'https://www.pathtopro.com/', note: 'Online' };
+const XCEL = { name: 'Xcel', url: 'https://xceltoday.com/', note: 'Youth Mentoring' };
+const GW = { name: 'Goodwill Career Resources Library', url: 'https://www.goodwill.org/career-resources/', note: 'Free · online' };
+const PTP_TRADES = new Set(['carpentry','electrical','hvac','masonry','plumbing','pipefitting','sheet-metal','welding','heavy-equipment','outside-lineman']);
+const XCEL_TRADES = new Set(['electrical','hvac','plumbing','welding','sheet-metal']);
+
+function tiersFor(slug, provs) {
+  if (slug === 'safety-inspection') {
+    const gt = provs.filter((p) => p.name.includes('Georgia Tech'));
+    const bc = provs.filter((p) => p.name.includes('BCSP'));
+    return [
+      { name: 'OSHA Training & Certifications', desc: 'OSHA 30, then OSHA 500 & 510 — the standard construction-safety credentials', feat: false, provs: [...gt, TCSG] },
+      { name: 'Professional Certification', desc: 'The credentialing body for safety professionals', feat: false, provs: bc },
+      { name: 'Statewide & Online', desc: 'Explore the field and career resources', feat: true, provs: [GW] },
+    ];
+  }
+  const appr = provs.filter((p) => !SCHOOLS.has(p.name));
+  const school = [...provs.filter((p) => SCHOOLS.has(p.name)), TCSG];
+  const early = [];
+  if (PTP_TRADES.has(slug)) early.push(PTP);
+  if (XCEL_TRADES.has(slug)) early.push(XCEL);
+  early.push(GW);
+  const out = [];
+  if (appr.length) out.push({ name: 'Registered Apprenticeships', desc: '4–5 years · earn while you learn, finish as a journeyman', feat: false, provs: appr });
+  out.push({ name: 'Trade Schools & Technical Colleges', desc: 'Weeks to 2 years · earn a credential or diploma', feat: false, provs: school });
+  out.push({ name: 'Early-Entry & Online', desc: 'Days to weeks · explore and build basic skills', feat: true, provs: early });
+  return out;
+}
+const tiers = tiersFor(trade.slug, d.providers);
+const intro = d.providersNote
+  ? d.providersNote
+  : `From a full apprenticeship to a few weeks online, here's every way into ${trade.name.toLowerCase()} in Georgia — ordered from the deepest path to the quickest.`;
+---
+
+<Layout title={`${trade.name} — Explore the Trades — TradeBuilt`} description={trade.blurb}>
+  <Nav />
+
+  <section class="detail-hero">
+    <div class="wrap">
+      <a class="back" href="/careers">&larr; All trades</a>
+      <div class="hero-row">
+        <div class="hero-icon" set:html={trade.icon}></div>
+        <div>
+          <div class="eyebrow">Explore the Trades</div>
+          <h1>{trade.name}</h1>
+          <p class="blurb">{trade.blurb}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="seclabel">A day in the life</div>
+      {d.dayInLife.map((p) => <p class="body">{p}</p>)}
+    </div>
+  </section>
+
+  <section class="block alt">
+    <div class="wrap">
+      <div class="seclabel">Training required</div>
+      <p class="body">{d.training}</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="seclabel">What you can earn</div>
+      <div class="wage-range">
+        <div class="wr-col"><span class="wr-lbl">Entry-level</span><span class="wr-num">{approxPre}{w.gaEntryAnnual}</span><span class="wr-per">/ year in Georgia</span></div>
+        <span class="wr-arrow">&rarr;</span>
+        <div class="wr-col"><span class="wr-lbl">Top earners</span><span class="wr-num top">{approxPre}{w.gaTopAnnual}</span><span class="wr-per">/ year in Georgia</span></div>
+      </div>
+      <p class="wage-note">{w.note}</p>
+      <p class="wage-src">Source: {w.source}</p>
+    </div>
+  </section>
+
+  <section class="block alt">
+    <div class="wrap">
+      <div class="seclabel">Ways in — training &amp; pathways in Georgia</div>
+      <p class="sec-intro">{intro}</p>
+      {tiers.map((tier) => (
+        <div class={tier.feat ? 'tier featured' : 'tier'}>
+          {tier.feat && <div class="tier-eyebrow">Want to start sooner?</div>}
+          <div class="tier-head"><span class="tier-name">{tier.name}</span></div>
+          <div class="tier-desc" set:html={tier.desc}></div>
+          <ul class="providers">
+            {tier.provs.map((p) => (
+              <li class="provider">
+                {p.url ? <a class="pname" href={p.url} target="_blank" rel="noopener">{p.name}</a> : <span class="pname">{p.name}</span>}
+                {p.note ? <span class="pnote">{p.note}</span> : null}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
+  h1 { font-family: 'Barlow Condensed', sans-serif; text-transform: uppercase; color: var(--tb-text-cream); letter-spacing: -0.01em; line-height: 0.98; }
+  .detail-hero { background: var(--tb-bg-deep); padding: 40px 0 64px; border-bottom: 0.5px solid var(--tb-border); }
+  .back { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--tb-text-dim); text-decoration: none; display: inline-block; margin-bottom: 40px; }
+  .back:hover { color: var(--tb-text-cream); }
+  .hero-row { display: flex; align-items: center; gap: 32px; }
+  .hero-icon { width: 100px; height: 100px; color: var(--tb-text-cream); flex-shrink: 0; }
+  .hero-icon :global(svg) { width: 100%; height: 100%; display: block; }
+  .eyebrow { font-size: 10px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: #c17830; margin-bottom: 12px; }
+  .detail-hero h1 { font-weight: 900; font-size: 60px; margin-bottom: 14px; }
+  .blurb { font-size: 17px; line-height: 1.65; color: var(--tb-text-muted); max-width: 620px; }
+  .block { padding: 64px 0; background: var(--tb-bg-base); }
+  .block.alt { background: var(--tb-bg-deep); border-top: 0.5px solid var(--tb-border); border-bottom: 0.5px solid var(--tb-border); }
+  .seclabel { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--tb-text-faint); margin-bottom: 14px; display: flex; align-items: center; gap: 14px; }
+  .seclabel::after { content: ''; flex: 1; height: 0.5px; background: var(--tb-border); }
+  .sec-intro { font-size: 15px; color: var(--tb-text-muted); max-width: 700px; margin-bottom: 36px; line-height: 1.6; }
+  .body { font-size: 16px; line-height: 1.78; color: var(--tb-text-muted); max-width: 720px; margin-bottom: 18px; }
+  .body:last-child { margin-bottom: 0; }
+  .wage-range { display: flex; align-items: center; gap: 34px; margin-bottom: 24px; flex-wrap: wrap; }
+  .wr-col { display: flex; flex-direction: column; }
+  .wr-lbl { font-size: 10px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--tb-text-faint); margin-bottom: 8px; }
+  .wr-num { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 52px; line-height: 1; color: var(--tb-text-cream); }
+  .wr-num.top { color: #c17830; }
+  .wr-per { font-size: 12px; color: var(--tb-text-dim); margin-top: 5px; }
+  .wr-arrow { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 30px; color: var(--tb-text-faint); }
+  .wage-note { font-size: 15px; line-height: 1.7; color: var(--tb-text-muted); max-width: 720px; }
+  .wage-src { font-size: 12px; letter-spacing: 0.04em; color: var(--tb-text-dark); margin-top: 14px; }
+  .tier { margin-bottom: 38px; }
+  .tier:last-child { margin-bottom: 0; }
+  .tier-head { display: flex; align-items: baseline; gap: 12px; }
+  .tier-name { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; text-transform: uppercase; font-size: 23px; color: var(--tb-text-cream); letter-spacing: 0.01em; }
+  .tier-desc { font-size: 13px; color: var(--tb-text-dim); margin: 4px 0 16px; }
+  .tier.featured { border: 0.5px solid rgba(193,120,48,0.4); border-left: 3px solid #c17830; background: rgba(193,120,48,0.06); padding: 26px 28px; }
+  .tier-eyebrow { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #c17830; margin-bottom: 8px; }
+  .providers { list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; max-width: 820px; }
+  .provider { border: 0.5px solid var(--tb-border); padding: 16px 18px; }
+  .tier.featured .provider { border-color: rgba(193,120,48,0.3); background: rgba(14,21,32,0.4); }
+  .pname { font-weight: 600; color: var(--tb-text-cream); text-decoration: none; }
+  a.pname:hover { color: #c17830; text-decoration: underline; }
+  .pnote { display: inline-block; margin-left: 8px; font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #c17830; border: 0.5px solid var(--tb-border-mid); padding: 1px 7px; border-radius: 999px; vertical-align: middle; }
+  .tier.featured .pnote { background: #c17830; color: #1a1206; border-color: #c17830; }
+  @media (max-width: 760px) {
+    .hero-row { flex-direction: column; align-items: flex-start; gap: 20px; }
+    .detail-hero h1 { font-size: 42px; }
+    .wage-range { gap: 24px; }
+    .providers { grid-template-columns: 1fr; }
+  }
+</style>

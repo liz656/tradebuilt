@@ -1,0 +1,89 @@
+---
+import Layout from '../components/Layout.astro';
+import Nav from '../components/Nav.astro';
+import { trades } from '../data/trades.js';
+
+const sorted = [...trades].sort((a, b) => a.name.localeCompare(b.name));
+---
+
+<Layout title="Find Training — TradeBuilt" description="Apprenticeships, training alliances, trade schools, and college programs across Georgia, organized by trade.">
+  <Nav />
+
+  <header class="ft-hero">
+    <div class="ft-wrap">
+      <a class="back" href="/careers">&larr; Find Your Trade</a>
+      <div class="eyebrow">Find Training</div>
+      <h1>Training Providers <em>in Georgia.</em></h1>
+      <p>Apprenticeships, training alliances, trade schools, and college programs across the state, organized by trade. Reach out to any program directly to get started.</p>
+    </div>
+  </header>
+
+  <section class="ft-body">
+    <div class="ft-wrap">
+      {sorted.map((t) => (
+        <section class="tsec">
+          <div class="tsec-head">
+            <div class="tsec-icon" set:html={t.icon}></div>
+            <h2>{t.name}</h2>
+          </div>
+          {t.detail.providersNote && <p class="tnote">{t.detail.providersNote}</p>}
+          <ul class="providers">
+            {t.detail.providers.map((p) => (
+              <li class="provider">
+                {p.url
+                  ? <a class="pname" href={p.url} target="_blank" rel="noopener">{p.name}</a>
+                  : <span class="pname nolink">{p.name}</span>}
+                {p.note ? <span class="pnote">{p.note}</span> : null}
+                {!p.url ? <span class="pending">link coming</span> : null}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
+    </div>
+  </section>
+
+  <section class="ft-cta">
+    <div class="ft-wrap">
+      <div class="eyebrow" style="text-align:center;">For training providers</div>
+      <h2 class="cta-h">Are You Training the <em>Next Generation?</em></h2>
+      <p>If you run an apprenticeship or training program in Georgia and don't see it listed here, let's fix that. Reach out and I'll get you on the map.</p>
+      <a href="mailto:liz@tradebuiltga.com" class="btn-cream">Contact Liz</a>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .ft-wrap { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
+  h1, h2 { font-family: 'Barlow Condensed', sans-serif; text-transform: uppercase; letter-spacing: -0.01em; line-height: 1; }
+  h1 em, .cta-h em { font-style: normal; color: transparent; -webkit-text-stroke: 1.2px var(--tb-text-cream); }
+  .eyebrow { font-size: 10px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--tb-text-faint); margin-bottom: 18px; }
+  .btn-cream { font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 14px 28px; text-decoration: none; display: inline-block; background: var(--tb-text-cream); color: var(--tb-bg-base); }
+  .ft-hero { background: var(--tb-bg-deep); border-bottom: 0.5px solid var(--tb-border); padding: 40px 0 54px; }
+  .ft-hero h1 { font-weight: 900; font-size: 58px; color: var(--tb-text-cream); margin-bottom: 16px; }
+  .ft-hero p { font-size: 18px; color: var(--tb-text-muted); max-width: 640px; }
+  .back { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--tb-text-dim); text-decoration: none; display: inline-block; margin-bottom: 28px; }
+  .back:hover { color: var(--tb-text-cream); }
+  .ft-body { padding: 64px 0 30px; background: var(--tb-bg-base); }
+  .tsec { margin-bottom: 44px; }
+  .tsec-head { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; padding-bottom: 14px; border-bottom: 0.5px solid var(--tb-border); }
+  .tsec-icon { width: 44px; height: 44px; color: var(--tb-text-cream); flex-shrink: 0; }
+  .tsec-icon :global(svg) { width: 100%; height: 100%; display: block; }
+  .tsec h2 { font-weight: 700; font-size: 26px; color: var(--tb-text-cream); }
+  .tnote { font-size: 14px; line-height: 1.65; color: var(--tb-text-muted); max-width: 760px; margin-bottom: 18px; }
+  .providers { list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .provider { border: 0.5px solid var(--tb-border); padding: 14px 18px; display: flex; align-items: center; flex-wrap: wrap; gap: 8px; transition: border-color 0.2s; }
+  .provider:hover { border-color: var(--tb-border-mid); }
+  .pname { font-weight: 600; font-size: 15.5px; color: var(--tb-text-cream); text-decoration: none; }
+  a.pname:hover { color: #c17830; text-decoration: underline; }
+  .pname.nolink { color: var(--tb-text-muted); }
+  .pnote { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #c17830; border: 0.5px solid var(--tb-border-mid); padding: 1px 8px; border-radius: 999px; }
+  .pending { font-size: 11px; color: var(--tb-text-faint); font-style: italic; }
+  .ft-cta { background: var(--tb-bg-deep); border-top: 0.5px solid var(--tb-border); text-align: center; padding: 90px 0; }
+  .ft-cta .cta-h { font-weight: 900; font-size: 46px; color: var(--tb-text-cream); max-width: 18ch; margin: 0 auto 16px; }
+  .ft-cta p { font-size: 17px; color: var(--tb-text-muted); max-width: 560px; margin: 0 auto 30px; line-height: 1.7; }
+  @media (max-width: 760px) {
+    .providers { grid-template-columns: 1fr; }
+    .ft-hero h1 { font-size: 42px; }
+  }
+</style>

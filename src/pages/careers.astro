@@ -1,419 +1,270 @@
 ---
 import Layout from '../components/Layout.astro';
 import Nav from '../components/Nav.astro';
+import { trades } from '../data/trades.js';
+
+const money = (s) => parseInt(String(s).replace(/[$,]/g, ''), 10);
+const wk = (s) => '$' + Math.round(money(s) / 1000) + 'K';
+
+const cards = trades.map((t) => {
+  const w = t.detail.wages;
+  const pre = w.approx ? '~' : '';
+  return {
+    slug: t.slug,
+    name: t.name,
+    icon: t.icon,
+    tags: t.tags,
+    range: pre + wk(w.gaEntryAnnual) + '–' + pre + wk(w.gaTopAnnual),
+    top: money(w.gaTopAnnual),
+  };
+});
+
+const groups = [
+  { label: 'What draws you', chips: [
+    ['build', 'Build new things'], ['fix', "Fix what's broken"], ['operate', 'Operate machines'],
+    ['design', 'Design systems'], ['solo', 'Work solo'] ] },
+  { label: 'Where & how', chips: [
+    ['outdoors', 'Work outside'], ['handson', 'Hands-on'], ['heights', 'Heights'],
+    ['tech', 'Tech-forward'], ['office', 'Office option'], ['fast', 'Fast to start'] ] },
+];
+const labelFor = (tg) => groups.flatMap((g) => g.chips).find((ch) => ch[0] === tg)[1];
 ---
 
-<Layout title="Explore the Trades — TradeBuilt" description="Construction careers in Georgia — coming soon.">
+<Layout title="Find Your Trade — TradeBuilt" description="Explore construction careers in Georgia. Twelve skilled trades with real wages, real training, and a real future.">
   <Nav />
-  <div class="coming-soon">
-    <canvas id="site"></canvas>
-    <div class="overlay">
-      <div class="eyebrow">Explore the Trades</div>
-      <h1>Something Big<br>Is Being <em>Built.</em></h1>
-      <p>Georgia's construction careers platform is under construction. Check back soon.</p>
-      <a href="/" class="btn-back">← Back to Home</a>
+
+  <header class="fyt-hero">
+    <div class="fyt-wrap">
+      <div class="fyt-eyebrow">Explore Construction Careers</div>
+      <h1>Real Careers.<br>Built to <em>Last.</em></h1>
+      <p class="fyt-lede">Georgia construction is hiring. The trades pay real wages, teach real skills, and build careers you can stand on. Find where you fit and who can train you.</p>
+      <div class="fyt-cta">
+        <a href="#trades" class="btn-cream">Find Your Trade</a>
+        <a href="/find-training" class="btn-outline">Find Training</a>
+      </div>
     </div>
-  </div>
-  <footer class="site-footer">
-    <div class="footer-logo">TradeBuilt <span>·</span> Est. 2026</div>
-    <div class="footer-copy">Georgia Construction Talent Pipeline Initiative · © 2026</div>
-  </footer>
+  </header>
+
+  <section class="fyt-triage">
+    <div class="fyt-wrap">
+      <div class="fyt-lbl">Where you are</div>
+      <h2>Everybody Starts <em>Somewhere.</em></h2>
+      <div class="tri-grid">
+        <button class="tri" data-path="school" data-chip="handson"><span class="tn">01 / In school</span><h3>Still in School</h3><p>See what the trades actually look like and get a head start before you graduate.</p><span class="go">Start exploring &rarr;</span></button>
+        <button class="tri" data-path="grad" data-chip="fast"><span class="tn">02 / Recent grad</span><h3>Recent Grad</h3><p>Turn your diploma into a paid apprenticeship and a career that keeps climbing.</p><span class="go">Find your first step &rarr;</span></button>
+        <button class="tri" data-path="change"><span class="tn">03 / Career change</span><h3>Career Change</h3><p>Bring your work ethic to a field that values it and pays you to learn a real skill.</p><span class="go">Explore the trades &rarr;</span></button>
+      </div>
+    </div>
+  </section>
+
+  <section class="fyt-filterband" id="trades">
+    <div class="fyt-wrap">
+      <div class="fyt-lead">
+        <div class="fyt-lbl accent">Find your trade</div>
+        <h2 id="filterHeadline">What do you want <em>out of work?</em></h2>
+        <p id="filterSub">Tap what matters to you. We'll show the Georgia trades that fit, and what they pay.</p>
+      </div>
+    </div>
+    <div class="fyt-controls">
+      <div class="fyt-wrap">
+        {groups.map((g) => (
+          <div class="chipgroup">
+            <span class="cglabel">{g.label}</span>
+            <div class="chiprow">
+              {g.chips.map(([k, l]) => <button class="chip" data-tag={k}>{l}</button>)}
+            </div>
+          </div>
+        ))}
+        <div class="meta">
+          <span class="count"><b id="cnum">12</b> trades match</span>
+          <div class="sortwrap"><span class="sortlbl">Sort</span><button class="sortbtn on" data-sort="az">A&ndash;Z</button><button class="sortbtn" data-sort="pay">Top pay</button></div>
+          <button class="reset" id="reset">Reset</button>
+        </div>
+      </div>
+    </div>
+    <div class="fyt-gridwrap">
+      <div class="fyt-wrap">
+        <div class="grid" id="grid">
+          {cards.map((c) => (
+            <a class="tcard" href={`/trades/${c.slug}`} data-top={c.top} data-tags={c.tags.join(' ')}>
+              <div class="seal" set:html={c.icon}></div>
+              <h3>{c.name}</h3>
+              <div class="twage">{c.range}<span class="tper">/yr in GA &middot; entry to top</span></div>
+              <div class="pills">{c.tags.map((tg) => <span class="pill">{labelFor(tg)}</span>)}</div>
+              <span class="tgo">Explore this trade &rarr;</span>
+            </a>
+          ))}
+        </div>
+        <div class="empty" id="empty">No trade matches all of that. Try loosening a filter.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="fyt-partner" id="partner">
+    <div class="fyt-wrap">
+      <div class="fyt-lbl accent" style="justify-content:center;">For training providers</div>
+      <h2>Are You Training the <em>Next Generation?</em></h2>
+      <p>If you run an apprenticeship or training program in Georgia and don't see it listed, let's fix that. Reach out and I'll get you on the map.</p>
+      <a href="mailto:liz@tradebuiltga.com" class="btn-cream">Contact Liz</a>
+    </div>
+  </section>
 </Layout>
 
 <style>
-  .coming-soon {
-    position: relative;
-    width: 100%;
-    height: 70vh;
-    min-height: 500px;
-    background: #0e1520;
-    overflow: hidden;
+  .fyt-wrap { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+  h1, h2, h3 { font-family: 'Barlow Condensed', sans-serif; text-transform: uppercase; letter-spacing: -0.01em; line-height: 0.98; }
+  h1 em, h2 em { font-style: normal; color: transparent; -webkit-text-stroke: 1.2px var(--tb-text-cream); }
+  .fyt-eyebrow, .fyt-lbl { font-size: 10px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--tb-text-faint); margin-bottom: 20px; }
+  .fyt-eyebrow, .fyt-lbl.accent { color: #c17830; }
+  .btn-cream { font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 14px 28px; text-decoration: none; display: inline-block; background: var(--tb-text-cream); color: var(--tb-bg-base); }
+  .btn-outline { font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 14px 28px; text-decoration: none; display: inline-block; background: transparent; color: var(--tb-text-cream); border: 1px solid var(--tb-border-mid); }
+
+  .fyt-hero { position: relative; min-height: 520px; display: flex; align-items: center; border-bottom: 0.5px solid var(--tb-border);
+    background: linear-gradient(90deg, rgba(10,14,20,0.9) 0%, rgba(10,14,20,0.6) 50%, rgba(10,14,20,0.32) 100%), url('/photo-apprenticeship.jpg') center / cover no-repeat; }
+  .fyt-hero h1 { font-weight: 900; font-size: 74px; color: var(--tb-text-cream); margin-bottom: 22px; }
+  .fyt-lede { font-size: 19px; color: #d8d3c6; max-width: 540px; margin-bottom: 34px; }
+  .fyt-cta { display: flex; gap: 14px; flex-wrap: wrap; }
+
+  .fyt-triage { padding: 88px 0; background: var(--tb-bg-base); }
+  .fyt-triage h2, .fyt-filterband h2, .fyt-partner h2 { font-weight: 900; font-size: 44px; color: var(--tb-text-cream); margin-bottom: 44px; }
+  .tri-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .tri { text-align: left; border: 0.5px solid var(--tb-border); background: var(--tb-bg-deep); padding: 34px 30px; cursor: pointer; transition: border-color 0.2s, transform 0.2s; font-family: inherit; color: inherit; }
+  .tri:hover { border-color: var(--tb-border-mid); transform: translateY(-4px); }
+  .tri .tn { font-size: 10px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--tb-text-faint); }
+  .tri h3 { font-weight: 700; font-size: 26px; color: var(--tb-text-cream); margin: 12px 0 10px; }
+  .tri p { font-size: 15px; color: var(--tb-text-muted); margin-bottom: 16px; line-height: 1.6; }
+  .tri .go { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #c17830; }
+
+  .fyt-filterband { background: var(--tb-bg-deep); border-top: 0.5px solid var(--tb-border); padding-top: 80px; }
+  .fyt-lead { max-width: 560px; margin-bottom: 32px; }
+  .fyt-lead h2 { font-weight: 900; font-size: 44px; color: var(--tb-text-cream); }
+  #filterHeadline { transition: opacity 0.22s ease; }
+  .fyt-lead p { font-size: 17px; color: var(--tb-text-muted); margin-top: 12px; }
+  .fyt-controls { position: sticky; top: 0; z-index: 20; background: var(--tb-bg-deep); padding: 14px 0 30px; }
+  .chipgroup { margin-bottom: 16px; }
+  .cglabel { display: block; font-size: 10px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--tb-text-faint); margin-bottom: 9px; }
+  .chiprow { display: flex; flex-wrap: wrap; gap: 10px; }
+  .chip { font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--tb-text-dim); background: transparent; border: 1px solid var(--tb-border-mid); padding: 9px 17px; border-radius: 999px; cursor: pointer; transition: 0.15s; }
+  .chip:hover { color: var(--tb-text-cream); border-color: var(--tb-text-cream); }
+  .chip.on { background: #c17830; border-color: #c17830; color: #1a1206; }
+  @keyframes chipPulse { 0% { box-shadow: 0 0 0 0 rgba(193,120,48,0.55); } 70% { box-shadow: 0 0 0 14px rgba(193,120,48,0); } 100% { box-shadow: 0 0 0 0 rgba(193,120,48,0); } }
+  .chip.pulse { animation: chipPulse 0.7s ease-out 2; }
+  .meta { display: flex; align-items: center; flex-wrap: wrap; gap: 14px 20px; margin-top: 16px; }
+  .count { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 15px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--tb-text-cream); }
+  .count b { color: #c17830; }
+  .sortwrap { display: inline-flex; align-items: center; gap: 8px; }
+  .sortlbl { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--tb-text-faint); }
+  .sortbtn { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--tb-text-dim); background: transparent; border: 1px solid var(--tb-border-mid); padding: 5px 13px; border-radius: 999px; cursor: pointer; transition: 0.15s; }
+  .sortbtn:hover { color: var(--tb-text-cream); border-color: var(--tb-text-cream); }
+  .sortbtn.on { background: var(--tb-text-cream); color: var(--tb-bg-base); border-color: var(--tb-text-cream); }
+  .reset { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--tb-text-dim); background: none; border: none; cursor: pointer; font-family: 'Barlow Condensed', sans-serif; }
+  .reset:hover { color: var(--tb-text-cream); }
+
+  .fyt-gridwrap { background: var(--tb-bg-deep); padding: 20px 0 96px; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .tcard { position: relative; overflow: hidden; text-align: center; text-decoration: none; background: #eae4d5; color: var(--tb-bg-deep); border: 0.5px solid rgba(14,21,32,0.12); padding: 30px 26px; transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; align-items: center; }
+  .tcard::before { content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none; background: url('/grain.png'); background-size: 200px 200px; }
+  .tcard > * { position: relative; z-index: 1; }
+  .tcard:hover { transform: translateY(-5px); box-shadow: 0 18px 40px rgba(0,0,0,0.4); }
+  .tcard.hide { display: none; }
+  @keyframes cardIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  .tcard.reveal { animation: cardIn 0.5s ease both; }
+  .seal { width: 112px; height: 112px; color: #1c2b3a; margin-bottom: 12px; transition: color 0.25s; }
+  .seal :global(svg) { width: 100%; height: 100%; display: block; }
+  .tcard:hover .seal { color: #c17830; }
+  .tcard h3 { font-weight: 700; font-size: 21px; letter-spacing: 0.02em; color: var(--tb-bg-deep); margin-bottom: 8px; }
+  .twage { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 31px; line-height: 1; color: var(--tb-bg-deep); }
+  .tper { display: block; font-family: 'Barlow', sans-serif; font-weight: 600; font-size: 10.5px; letter-spacing: 0.03em; text-transform: uppercase; color: rgba(14,21,32,0.55); margin-top: 6px; }
+  .pills { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin: 14px 0 16px; }
+  .pill { font-size: 10px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: #5a6880; border: 0.5px solid rgba(14,21,32,0.2); padding: 3px 9px; border-radius: 999px; }
+  .tgo { margin-top: auto; font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #c17830; }
+  .empty { display: none; text-align: center; padding: 50px 0; color: var(--tb-text-muted); font-size: 16px; }
+  .empty.show { display: block; }
+
+  .fyt-partner { background: var(--tb-bg-base); border-top: 0.5px solid var(--tb-border); text-align: center; padding: 96px 0; }
+  .fyt-partner h2 { font-weight: 900; font-size: 50px; color: var(--tb-text-cream); max-width: 16ch; margin: 0 auto 18px; }
+  .fyt-partner p { font-size: 17px; color: var(--tb-text-muted); max-width: 560px; margin: 0 auto 30px; line-height: 1.7; }
+
+  @media (max-width: 820px) {
+    .grid, .tri-grid { grid-template-columns: 1fr 1fr; }
+    .fyt-hero h1 { font-size: 46px; }
+    .fyt-controls { position: static; padding: 10px 0 20px; }
+    .chiprow { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-bottom: 2px; }
+    .chiprow::-webkit-scrollbar { display: none; }
+    .chip { flex: 0 0 auto; font-size: 12.5px; padding: 8px 14px; }
+    .cglabel { margin-bottom: 6px; }
+    .chipgroup { margin-bottom: 12px; }
   }
-
-  #site {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-  }
-
-  .overlay {
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 40px;
-    z-index: 10;
-    background: rgba(14,21,32,0.72);
-  }
-
-  .eyebrow {
-    font-size: 18px;
-    font-weight: 600;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: #7a8a9e;
-    margin-bottom: 24px;
-    border: 0.5px solid #1e2a3e;
-    padding: 6px 14px;
-    display: inline-block;
-  }
-
-  .overlay h1 {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 900;
-    font-size: 90px;
-    line-height: 0.95;
-    letter-spacing: -0.01em;
-    text-transform: uppercase;
-    color: #e8e3d5;
-    margin-bottom: 20px;
-  }
-
-  .overlay h1 em {
-    font-style: normal;
-    color: transparent;
-    -webkit-text-stroke: 1.5px #e8e3d5;
-  }
-
-  .overlay p {
-    font-size: 16px;
-    line-height: 1.7;
-    color: #7a8a9e;
-    max-width: 400px;
-    margin-bottom: 32px;
-  }
-
-  .btn-back {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 16px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    background: #e8e3d5;
-    color: #141b28;
-    border: none;
-    padding: 12px 28px;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-    transition: background 0.2s;
-  }
-
-  .btn-back:hover { background: #c8c4b8; }
-
-  .site-footer {
-    padding: 18px 40px;
-    border-top: 0.5px solid #1e2a3e;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #0e1520;
-  }
-
-  .footer-logo {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 900;
-    font-size: 15px;
-    color: #3a4d66;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-
-  .footer-logo span { color: #2d3f5f; }
-  .footer-copy { font-size: 14px; color: #2d3f5f; letter-spacing: 0.06em; }
-
-  @media (max-width: 768px) {
-    .overlay h1 { font-size: 42px; }
-    .coming-soon { height: 80vh; }
+  @media (max-width: 480px) {
+    .grid, .tri-grid { grid-template-columns: 1fr; }
+    .fyt-wrap { padding: 0 22px; }
   }
 </style>
 
 <script>
-  const canvas = document.getElementById('site') as HTMLCanvasElement;
-  const ctx = canvas.getContext('2d')!;
-
-  function resize() {
-    canvas.width = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
-  }
-  resize();
-  window.addEventListener('resize', resize);
-
-  const W = () => canvas.width;
-  const H = () => canvas.height;
-
-  const NAVY = '#0e1520';
-  const CREAM = '#e8e3d5';
-  const STEEL = '#2d3f5f';
-  const DIM = '#1e2a3e';
-  const ORANGE = '#c17830';
-
-  // Ground
-  const groundY = () => H() * 0.72;
-
-  // Stars/grid dots
-  const stars: {x:number,y:number,r:number,a:number}[] = [];
-  for(let i=0;i<60;i++){
-    stars.push({x:Math.random(),y:Math.random()*0.65,r:Math.random()*1.2+0.3,a:Math.random()});
-  }
-
-  // Crane
-  let craneAngle = 0;
-  let hookY = 0;
-  let hookDir = 1;
-
-  // Building blocks being stacked
-  const buildingX = () => W() * 0.55;
-  const buildingBaseY = () => groundY();
-  let blocksBuilt = 3;
-  const maxBlocks = 8;
-  let blockProgress = 0; // 0-1 for current block being placed
-
-  // Workers
-  const workers: {x:number, dir:number, step:number, stepT:number}[] = [
-    {x:0.3, dir:1, step:0, stepT:0},
-    {x:0.7, dir:-1, step:0, stepT:0},
-    {x:0.45, dir:1, step:0, stepT:0},
-  ];
-
-  // Scaffolding dots
-  function drawScaffolding(bx:number, by:number, bw:number, bh:number, floors:number) {
-    ctx.strokeStyle = STEEL;
-    ctx.lineWidth = 0.5;
-    // vertical poles
-    for(let i=0;i<=3;i++){
-      const x = bx + (bw/3)*i;
-      ctx.beginPath();
-      ctx.moveTo(x, by);
-      ctx.lineTo(x, by + bh);
-      ctx.stroke();
-    }
-    // horizontal planks
-    for(let f=0;f<=floors;f++){
-      const y = by + (bh/floors)*f;
-      ctx.beginPath();
-      ctx.moveTo(bx, y);
-      ctx.lineTo(bx+bw, y);
-      ctx.stroke();
-    }
-  }
-
-  function drawWorker(wx:number, wy:number, step:number) {
-    const s = 10;
-    ctx.fillStyle = CREAM;
-    // hard hat
-    ctx.beginPath();
-    ctx.ellipse(wx, wy-s*2.2, s*0.6, s*0.35, 0, Math.PI, 0);
-    ctx.fill();
-    // head
-    ctx.beginPath();
-    ctx.arc(wx, wy-s*1.7, s*0.4, 0, Math.PI*2);
-    ctx.fill();
-    // body
-    ctx.fillStyle = STEEL;
-    ctx.fillRect(wx-s*0.35, wy-s*1.3, s*0.7, s);
-    // legs
-    const legSwing = Math.sin(step)*4;
-    ctx.fillStyle = CREAM;
-    ctx.fillRect(wx-s*0.35, wy-s*0.3, s*0.28, s*0.9 + legSwing);
-    ctx.fillRect(wx+s*0.07, wy-s*0.3, s*0.28, s*0.9 - legSwing);
-  }
-
-  function drawCrane(t:number) {
-    const cx = W() * 0.28;
-    const cy = groundY();
-    const towerH = H() * 0.52;
-    const armL = W() * 0.22;
-
-    ctx.strokeStyle = CREAM;
-    ctx.lineWidth = 3;
-
-    // Tower
-    ctx.beginPath();
-    ctx.moveTo(cx, cy);
-    ctx.lineTo(cx, cy - towerH);
-    ctx.stroke();
-
-    // Tower bracing
-    ctx.lineWidth = 0.8;
-    ctx.strokeStyle = STEEL;
-    const braces = 6;
-    for(let i=0;i<braces;i++){
-      const y1 = cy - (towerH/braces)*i;
-      const y2 = cy - (towerH/braces)*(i+1);
-      ctx.beginPath();
-      ctx.moveTo(cx-10, y1);
-      ctx.lineTo(cx+10, y2);
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.moveTo(cx+10, y1);
-      ctx.lineTo(cx-10, y2);
-      ctx.stroke();
-    }
-
-    // Horizontal arm
-    ctx.strokeStyle = CREAM;
-    ctx.lineWidth = 3;
-    ctx.beginPath();
-    ctx.moveTo(cx - armL*0.3, cy - towerH);
-    ctx.lineTo(cx + armL, cy - towerH);
-    ctx.stroke();
-
-    // Counterweight
-    ctx.fillStyle = STEEL;
-    ctx.fillRect(cx - armL*0.3 - 18, cy - towerH - 8, 18, 16);
-
-    // Cable from arm tip to hook
-    const hookX = cx + armL * 0.85;
-    const hY = cy - towerH + 20 + hookY;
-    ctx.strokeStyle = CREAM;
-    ctx.lineWidth = 1;
-    ctx.beginPath();
-    ctx.moveTo(hookX, cy - towerH);
-    ctx.lineTo(hookX, hY);
-    ctx.stroke();
-
-    // Hook + load
-    ctx.fillStyle = ORANGE;
-    ctx.fillRect(hookX - 12, hY, 24, 14);
-    ctx.fillStyle = CREAM;
-    ctx.beginPath();
-    ctx.moveTo(hookX, hY);
-    ctx.lineTo(hookX-4, hY+6);
-    ctx.lineTo(hookX+4, hY+6);
-    ctx.closePath();
-    ctx.fill();
-
-    // Cab at top
-    ctx.fillStyle = ORANGE;
-    ctx.fillRect(cx - 14, cy - towerH - 18, 28, 18);
-  }
-
-  function drawBuilding(t:number) {
-    const bw = W() * 0.18;
-    const bx = buildingX() - bw/2;
-    const blockH = 26;
-    const totalBuilt = blocksBuilt + blockProgress;
-
-    // Draw completed floors
-    for(let i=0;i<blocksBuilt;i++){
-      const by = buildingBaseY() - blockH*(i+1);
-      // Floor slab
-      ctx.fillStyle = STEEL;
-      ctx.fillRect(bx, by, bw, blockH-2);
-      // Windows
-      ctx.fillStyle = NAVY;
-      const wins = 3;
-      for(let w=0;w<wins;w++){
-        const wx = bx + (bw/(wins+1))*(w+1) - 6;
-        ctx.fillRect(wx, by+4, 12, 10);
-        // Light in some windows
-        if((i+w)%3===0){
-          ctx.fillStyle = ORANGE;
-          ctx.globalAlpha = 0.6;
-          ctx.fillRect(wx+1, by+5, 10, 8);
-          ctx.globalAlpha = 1;
-          ctx.fillStyle = NAVY;
-        }
-      }
-      ctx.fillStyle = STEEL;
-    }
-
-    // Current block being placed (animated)
-    if(blocksBuilt < maxBlocks && blockProgress > 0) {
-      const by = buildingBaseY() - blockH*(blocksBuilt+1);
-      ctx.fillStyle = STEEL;
-      ctx.globalAlpha = blockProgress;
-      ctx.fillRect(bx, by, bw * blockProgress, blockH-2);
-      ctx.globalAlpha = 1;
-    }
-
-    // Scaffolding on right side
-    drawScaffolding(bx + bw + 2, buildingBaseY() - blockH*blocksBuilt, 18, blockH*blocksBuilt, blocksBuilt);
-  }
-
-  function drawGround() {
-    const gy = groundY();
-    // Ground line
-    ctx.strokeStyle = DIM;
-    ctx.lineWidth = 1;
-    ctx.beginPath();
-    ctx.moveTo(0, gy);
-    ctx.lineTo(W(), gy);
-    ctx.stroke();
-
-    // Ground fill
-    ctx.fillStyle = '#0a1018';
-    ctx.fillRect(0, gy, W(), H()-gy);
-
-    // Rubble/materials on ground
-    ctx.fillStyle = STEEL;
-    for(let i=0;i<8;i++){
-      const rx = W()*0.1 + i*(W()*0.1);
-      ctx.fillRect(rx, gy+2, 14+i%3*4, 7+i%2*3);
-    }
-  }
-
-  function drawStars() {
-    stars.forEach(s => {
-      ctx.fillStyle = CREAM;
-      ctx.globalAlpha = s.a * 0.4;
-      ctx.beginPath();
-      ctx.arc(s.x*W(), s.y*H(), s.r, 0, Math.PI*2);
-      ctx.fill();
+  const active = new Set();
+  const cards = [...document.querySelectorAll('.tcard')];
+  const chips = [...document.querySelectorAll('.chip')];
+  const cnum = document.getElementById('cnum');
+  const empty = document.getElementById('empty');
+  const HEAD = document.getElementById('filterHeadline');
+  const SUB = document.getElementById('filterSub');
+  const grid = document.getElementById('grid');
+  const DEF_H = HEAD.innerHTML, DEF_S = SUB.textContent;
+  const origOrder = [...cards];
+  let sortMode = 'az';
+  const PATHS = {
+    school: { h: "You're Just Getting <em>Started.</em>", s: 'See where hands-on trades begin. Tap anything to keep exploring.' },
+    grad: { h: 'Fresh Out of <em>School?</em>', s: 'Here are the trades you can start fast and get paid to learn.' },
+    change: { h: 'Ready for a <em>Change?</em>', s: "Bring your work ethic to a trade that pays and values it — here's the full range." },
+  };
+  function apply() {
+    let n = 0;
+    cards.forEach((c) => {
+      const t = c.dataset.tags.split(' ');
+      const ok = [...active].every((x) => t.includes(x));
+      c.classList.toggle('hide', !ok);
+      if (ok) n++;
     });
-    ctx.globalAlpha = 1;
+    cnum.textContent = n;
+    empty.classList.toggle('show', n === 0);
   }
-
-  // Moon / site light
-  function drawSiteLight() {
-    ctx.fillStyle = ORANGE;
-    ctx.globalAlpha = 0.12;
-    ctx.beginPath();
-    ctx.arc(W()*0.28, groundY() - H()*0.52, 80, 0, Math.PI*2);
-    ctx.fill();
-    ctx.globalAlpha = 1;
+  function setChip(tag, on) {
+    const el = chips.find((c) => c.dataset.tag === tag);
+    if (!el) return;
+    if (on) { active.add(tag); el.classList.add('on'); }
+    else { active.delete(tag); el.classList.remove('on'); }
   }
-
-  let t = 0;
-  function animate() {
-    requestAnimationFrame(animate);
-    t += 0.016;
-
-    ctx.clearRect(0, 0, W(), H());
-    ctx.fillStyle = NAVY;
-    ctx.fillRect(0, 0, W(), H());
-
-    drawStars();
-    drawSiteLight();
-    drawGround();
-    drawCrane(t);
-    drawBuilding(t);
-
-    // Animate hook
-    hookY += hookDir * 0.4;
-    if(hookY > H()*0.25 || hookY < 0) hookDir *= -1;
-
-    // Animate block progress
-    blockProgress += 0.002;
-    if(blockProgress >= 1) {
-      blockProgress = 0;
-      if(blocksBuilt < maxBlocks) blocksBuilt++;
-      else blocksBuilt = 1;
-    }
-
-    // Draw workers
-    workers.forEach((w, i) => {
-      w.stepT += 0.08;
-      w.step = w.stepT;
-      w.x += w.dir * 0.0008;
-      if(w.x > 0.85 || w.x < 0.15) w.dir *= -1;
-      drawWorker(w.x * W(), groundY(), w.step);
-    });
+  function countMatches() { return cards.filter((c) => !c.classList.contains('hide')).length; }
+  function animateCount(to) {
+    const from = +cnum.textContent || 0;
+    if (from === to) { cnum.textContent = to; return; }
+    const st = performance.now(), dur = 700;
+    (function step(t) { const p = Math.min((t - st) / dur, 1); cnum.textContent = Math.round(from + (to - from) * p); if (p < 1) requestAnimationFrame(step); })(performance.now());
   }
-
-  animate();
+  function staggerReveal() {
+    let i = 0;
+    cards.forEach((c) => { if (!c.classList.contains('hide')) { c.classList.remove('reveal'); void c.offsetWidth; c.style.animationDelay = (i * 45) + 'ms'; c.classList.add('reveal'); i++; } });
+  }
+  function sortCards() {
+    const arr = sortMode === 'pay' ? [...cards].sort((a, b) => (+b.dataset.top) - (+a.dataset.top)) : origOrder.slice();
+    arr.forEach((c) => grid.appendChild(c));
+  }
+  chips.forEach((ch) => ch.addEventListener('click', () => { const t = ch.dataset.tag; active.has(t) ? setChip(t, false) : setChip(t, true); apply(); }));
+  document.querySelectorAll('.sortbtn').forEach((btn) => btn.addEventListener('click', () => { document.querySelectorAll('.sortbtn').forEach((b) => b.classList.remove('on')); btn.classList.add('on'); sortMode = btn.dataset.sort; sortCards(); }));
+  document.getElementById('reset').addEventListener('click', () => { active.clear(); chips.forEach((c) => c.classList.remove('on')); apply(); HEAD.innerHTML = DEF_H; SUB.textContent = DEF_S; });
+  document.querySelectorAll('.tri').forEach((t) => t.addEventListener('click', () => {
+    active.clear(); chips.forEach((c) => c.classList.remove('on'));
+    if (t.dataset.chip) setChip(t.dataset.chip, true);
+    apply();
+    const finalN = countMatches();
+    cnum.textContent = 12;
+    const p = PATHS[t.dataset.path];
+    document.getElementById('trades').scrollIntoView({ behavior: 'smooth' });
+    setTimeout(() => {
+      if (p) { HEAD.style.opacity = 0; setTimeout(() => { HEAD.innerHTML = p.h; SUB.textContent = p.s; HEAD.style.opacity = 1; }, 210); }
+      if (t.dataset.chip) { const ch = chips.find((c) => c.dataset.tag === t.dataset.chip); if (ch) { ch.classList.remove('pulse'); void ch.offsetWidth; ch.classList.add('pulse'); } }
+      animateCount(finalN); staggerReveal();
+    }, 430);
+  }));
 </script>
