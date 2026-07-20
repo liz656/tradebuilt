@@ -1,6 +1,7 @@
 ---
 import Layout from '../components/Layout.astro';
 import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
 import { trades } from '../data/trades.js';
 
 const money = (s) => parseInt(String(s).replace(/[$,]/g, ''), 10);
@@ -30,7 +31,7 @@ const groups = [
 const labelFor = (tg) => groups.flatMap((g) => g.chips).find((ch) => ch[0] === tg)[1];
 ---
 
-<Layout title="Find Your Trade — TradeBuilt" description="Explore construction careers in Georgia. Twelve skilled trades with real wages, real training, and a real future.">
+<Layout title="Find Your Trade — Construction Careers in Georgia | TradeBuilt" description="Explore construction careers in Georgia. Twelve skilled trades with real wages, real training, and a real future.">
   <Nav />
 
   <header class="fyt-hero">
@@ -108,6 +109,8 @@ const labelFor = (tg) => groups.flatMap((g) => g.chips).find((ch) => ch[0] === t
       <a href="mailto:liz@tradebuiltga.com" class="btn-cream">Contact Liz</a>
     </div>
   </section>
+
+  <Footer />
 </Layout>
 
 <style>

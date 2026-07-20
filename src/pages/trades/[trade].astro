@@ -1,6 +1,7 @@
 ---
 import Layout from '../../components/Layout.astro';
 import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
 import { trades } from '../../data/trades.js';
 
 export function getStaticPaths() {
@@ -53,7 +54,7 @@ const intro = d.providersNote
   : `From a full apprenticeship to a few weeks online, here's every way into ${trade.name.toLowerCase()} in Georgia — ordered from the deepest path to the quickest.`;
 ---
 
-<Layout title={`${trade.name} — Explore the Trades — TradeBuilt`} description={trade.blurb}>
+<Layout title={`${trade.name} Careers in Georgia — TradeBuilt`} description={trade.blurb}>
   <Nav />
 
   <section class="detail-hero">
@@ -118,6 +119,8 @@ const intro = d.providersNote
       ))}
     </div>
   </section>
+
+  <Footer />
 </Layout>
 
 <style>

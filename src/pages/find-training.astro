@@ -1,12 +1,13 @@
 ---
 import Layout from '../components/Layout.astro';
 import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
 import { trades } from '../data/trades.js';
 
 const sorted = [...trades].sort((a, b) => a.name.localeCompare(b.name));
 ---
 
-<Layout title="Find Training — TradeBuilt" description="Apprenticeships, training alliances, trade schools, and college programs across Georgia, organized by trade.">
+<Layout title="Find Trade Training in Georgia — TradeBuilt" description="Apprenticeships, training alliances, trade schools, and college programs across Georgia, organized by trade.">
   <Nav />
 
   <header class="ft-hero">
@@ -51,6 +52,8 @@ const sorted = [...trades].sort((a, b) => a.name.localeCompare(b.name));
       <a href="mailto:liz@tradebuiltga.com" class="btn-cream">Contact Liz</a>
     </div>
   </section>
+
+  <Footer />
 </Layout>
 
 <style>
