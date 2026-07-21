@@ -1,0 +1,76 @@
+---
+export interface Props {
+  label?: string;
+}
+const { label = 'In Partnership With' } = Astro.props;
+
+const partners = [
+  { name: 'Mechanical Contractors Association of Georgia', src: '/MCAG.svg', url: 'https://www.mcageorgia.org' },
+  { name: 'Georgia Sheet Metal & Air Conditioning Contractors National Association', src: '/Georgia%20SMACNA.svg', url: 'https://www.georgiasmacna.com' },
+];
+---
+
+<section class="tb-partners">
+  <div class="tb-partners-inner">
+    <div class="tb-partners-label">{label}</div>
+    <div class="tb-partners-logos">
+      {partners.map((p) => (
+        <a class="tb-partner-tile" href={p.url} target="_blank" rel="noopener noreferrer" aria-label={p.name}>
+          <img src={p.src} alt={p.name} loading="lazy" />
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .tb-partners {
+    background: var(--tb-bg-deep);
+    border-top: 0.5px solid var(--tb-border);
+    border-bottom: 0.5px solid var(--tb-border);
+    padding: 52px 40px;
+  }
+  .tb-partners-inner { max-width: 1100px; margin: 0 auto; text-align: center; }
+  .tb-partners-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--tb-text-faint);
+    margin-bottom: 30px;
+  }
+  .tb-partners-logos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 28px;
+    flex-wrap: wrap;
+  }
+  .tb-partner-tile {
+    background: #eae4d5;
+    border-radius: 10px;
+    padding: 22px 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 190px;
+    min-height: 104px;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .tb-partner-tile:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.28);
+  }
+  .tb-partner-tile img {
+    max-height: 70px;
+    max-width: 210px;
+    width: auto;
+    height: auto;
+    display: block;
+  }
+  @media (max-width: 640px) {
+    .tb-partners { padding: 40px 24px; }
+    .tb-partner-tile { min-width: 150px; padding: 18px 24px; }
+  }
+</style>

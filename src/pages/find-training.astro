@@ -2,6 +2,7 @@
 import Layout from '../components/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import Partners from '../components/Partners.astro';
 import { trades } from '../data/trades.js';
 
 const sorted = [...trades].sort((a, b) => a.name.localeCompare(b.name));
@@ -43,6 +44,8 @@ const sorted = [...trades].sort((a, b) => a.name.localeCompare(b.name));
       ))}
     </div>
   </section>
+
+  <Partners />
 
   <section class="ft-cta">
     <div class="ft-wrap">
