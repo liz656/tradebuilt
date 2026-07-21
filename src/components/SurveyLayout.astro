@@ -1,0 +1,113 @@
+---
+export interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Survey — Georgia Construction Talent Pipeline Study',
+  description = 'A TradeBuilt research instrument.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+
+    <!-- Hidden page: keep out of search and off link-crawlers -->
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="googlebot" content="noindex, nofollow" />
+
+    <link rel="icon" type="image/png" href="/TradeBuilt Logo_BuilderMark_NavyBckgdCreamLogo.png" />
+
+    <!-- Google Analytics (GA4) — lets you see how many open the link -->
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-2CF6NW2DX4"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-2CF6NW2DX4');
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style is:global>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: #141b28;
+    color: #e8e3d5;
+    -webkit-font-smoothing: antialiased;
+  }
+  :root {
+    --tb-bg-deep: #0e1520;
+    --tb-bg-base: #141b28;
+    --tb-border: #1e2a3e;
+    --tb-border-mid: #2d3f5f;
+    --tb-border-dim: #1a2235;
+    --tb-text-cream: #e8e3d5;
+    --tb-text-muted: #b8c2d0;
+    --tb-text-dim: #9eabbe;
+    --tb-text-faint: #7a8fa6;
+    --tb-text-ghost: #5a7290;
+    --tb-text-dark: #4a6080;
+  }
+  .section-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--tb-text-ghost);
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 0.5px;
+    background: var(--tb-border);
+  }
+  .btn-cream {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: #e8e3d5;
+    color: #141b28;
+    border: none;
+    padding: 14px 32px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-cream:hover { background: #9aa4b4; color: #0e1520; }
+  .btn-outline {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: transparent;
+    color: #e8e3d5;
+    border: 1px solid #2d3f5f;
+    padding: 14px 28px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+  }
+</style>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
