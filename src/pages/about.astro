@@ -25,7 +25,7 @@ import Partners from '../components/Partners.astro';
     </div>
     <div class="bio-opening-text">
       <h2 class="bio-pull">I'm Liz Manning (Campbell), a workforce strategist working where construction, talent, and the future of the skilled trades collide.</h2>
-      <p>I did not come from a trades background, and I didn't take a traditional path into this industry. My career was built through relationships, work ethic, and learning the business from different perspectives. 
+      <p>I did not come from a trades background, and I didn't take a traditional path into this industry. My career was built through relationships, work ethic, and learning the business from different perspectives.</p>
       <p>That experience is a big part of why I care so deeply about helping young people understand the opportunities that exist in the skilled trades.</p>
     </div>
   </section>
@@ -34,7 +34,7 @@ import Partners from '../components/Partners.astro';
   <section class="bio-continued">
     <div class="bio-text">
       <p>For the past decade, I've worked alongside general contractors, subcontractors, trade associations, and statewide workforce initiatives to build apprenticeship programs, strengthen contractor engagement, and fix broken recruiting pipelines from the inside out. Today, I serve as the <strong>Director of Growth and Field Operations at Accuwright Mechanical</strong>, where I support an incredible team committed to growing people, strengthening the field, and building what comes next.</p>
-      <p>My work has included building and operationalizing apprenticeship structures at the office, local, and federal level; leading cross-functional teams of superintendents and field leaders; designing superintendent playbooks and field integration systems; raising money for high school construction programs; launching workforce alliances that connect contractors directly to classrooms; and developing branding and communication platforms that actually reflect the field.</p>
+      <p>That work has taken many forms. Building and operationalizing apprenticeship structures at the office, local, and federal level. Leading superintendents and field teams, and designing the playbooks and integration systems that hold field culture together. Raising money for high school construction programs, launching workforce alliances that connect contractors directly to classrooms, and building communication platforms that actually reflect the field.</p>
     </div>
   </section>
 
@@ -56,7 +56,6 @@ import Partners from '../components/Partners.astro';
     <div class="bio-text">
       <p>Students are not always shown the full picture. Parents are not always given the right information. Schools are not always connected to jobsite reality. And the construction industry has not always told its own story well.</p>
       <p class="bio-emphasis">That is the gap I am here to fix.</p>
-      <p>Through TradeBuilt, I help construction companies, industry organizations, schools, and workforce partners align culture, communication, and career pathways with the real opportunities waiting in the field.</p>
       <p>Because the future of construction belongs to the organizations willing to build differently.</p>
     </div>
   </section>
@@ -134,14 +133,38 @@ import Partners from '../components/Partners.astro';
 
   </section>
 
+  <!-- ── HOW I HELP ── -->
+  <section class="how-help">
+    <div class="hh-inner">
+      <div class="section-label">How I help</div>
+      <h2>Build <em>Differently.</em></h2>
+      <p class="hh-lede">I work with the organizations willing to do the harder, better version of workforce development. What that looks like is different for everyone — but it usually starts in one of these places:</p>
+      <div class="hh-grid">
+        <div class="hh-item">
+          <h3>Keeping the People You Hire</h3>
+          <p>The systems that hold a craft worker past year one — onboarding, mentorship, a clear path forward, apprenticeship that actually works. Recruiting is the easy part; retention is where the money leaks.</p>
+        </div>
+        <div class="hh-item">
+          <h3>Building a Real Pipeline</h3>
+          <p>Recruiting strategy that produces hires instead of noise, and school partnerships that connect your jobsites to the classroom before graduation — not after.</p>
+        </div>
+        <div class="hh-item">
+          <h3>Telling the Story Straight</h3>
+          <p>Employer branding and communication that sound like the field, not a brochure. The trades don't need spin. They need the truth told well.</p>
+        </div>
+      </div>
+      <p class="hh-close">Every company is in a different spot, so I don't start with a package — I start with a conversation.</p>
+    </div>
+  </section>
+
   <!-- ── CTA ── -->
   <section class="about-cta">
     <div class="fc-grid"></div>
     <p class="cta-pre">The future of the workforce is built by the people in this industry.</p>
     <h2>Let's Make Sure<br>Their Story Gets <em>Told.</em></h2>
     <div class="cta-btns">
-    <a href="mailto:liz@tradebuiltga.com" class="btn-cream">Partner with TradeBuilt</a>
-      <a href="/study" class="btn-cream">Participate in the Study</a>
+      <a href="mailto:liz@tradebuiltga.com" class="btn-cream">Let's Talk</a>
+      <a href="/study" class="btn-outline">Participate in the Study</a>
     </div>
   </section>
 
@@ -152,6 +175,49 @@ import Partners from '../components/Partners.astro';
 </Layout>
 
 <style>
+  /* ── HOW I HELP ── */
+  .how-help {
+    background: var(--tb-bg-base);
+    border-top: 0.5px solid var(--tb-border);
+    padding: 88px 40px;
+  }
+  .hh-inner { max-width: 1000px; margin: 0 auto; }
+  .how-help h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: 46px; line-height: 1;
+    text-transform: uppercase; letter-spacing: -0.01em;
+    color: var(--tb-text-cream); margin-bottom: 20px;
+  }
+  .how-help h2 em {
+    font-style: normal; color: transparent;
+    -webkit-text-stroke: 1.2px var(--tb-text-cream);
+  }
+  .hh-lede {
+    font-size: 17px; line-height: 1.7; color: var(--tb-text-muted);
+    max-width: 720px; margin-bottom: 48px;
+  }
+  .hh-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;
+    margin-bottom: 44px;
+  }
+  .hh-item { border-top: 2px solid #c17830; padding-top: 20px; }
+  .hh-item h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 21px; text-transform: uppercase;
+    letter-spacing: 0.01em; color: var(--tb-text-cream); margin-bottom: 12px;
+  }
+  .hh-item p { font-size: 14.5px; line-height: 1.7; color: var(--tb-text-dim); }
+  .hh-close {
+    font-size: 18px; font-style: italic; line-height: 1.6;
+    color: var(--tb-text-cream); max-width: 720px;
+    border-left: 3px solid #c17830; padding-left: 20px;
+  }
+  @media (max-width: 760px) {
+    .how-help { padding: 56px 24px; }
+    .hh-grid { grid-template-columns: 1fr; gap: 28px; }
+    .how-help h2 { font-size: 36px; }
+  }
+
   /* ── HERO ── */
   .about-hero {
     padding: 80px 40px 64px;
