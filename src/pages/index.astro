@@ -1,7 +1,10 @@
 ---
+import { Image } from 'astro:assets';
 import Layout from '../components/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Partners from '../components/Partners.astro';
+import heroImage from '../assets/Main_SC2023.jpg';
+import headshot from '../assets/Headshot_Final.jpg';
 ---
 
 <Layout>
@@ -25,7 +28,14 @@ import Partners from '../components/Partners.astro';
   </div>
   <div class="hero-right">
     <div class="hero-fade"></div>
-    <img src="/Main_SC2023.jpg" alt="Skills Challenge 2023" />
+    <Image
+      src={heroImage}
+      alt="Skills Challenge 2023"
+      widths={[640, 1024, 1600, 2400]}
+      sizes="(max-width: 900px) 100vw, 55vw"
+      loading="eager"
+      fetchpriority="high"
+    />
   </div>
 </section>
 
@@ -110,7 +120,12 @@ import Partners from '../components/Partners.astro';
   <section class="quote-section">
     <div class="quote-inner">
       <div class="quote-headshot">
-        <img src="/Headshot_Final.png" alt="Liz Campbell" />
+        <Image
+          src={headshot}
+          alt="Liz Campbell"
+          widths={[300, 600, 944]}
+          sizes="(max-width: 700px) 60vw, 300px"
+        />
       </div>
       <div class="quote-content">
         <div class="quote-marks">"</div>
@@ -443,7 +458,7 @@ import Partners from '../components/Partners.astro';
   .audiences {
     padding: 64px 40px;
     border-bottom: 0.5px solid var(--tb-border);
-    background: linear-gradient(180deg, rgba(14,21,32,0.9), rgba(14,21,32,0.82)), url('/photo-aerial-atlanta.jpg') center / cover no-repeat;
+    background: linear-gradient(180deg, rgba(14,21,32,0.9), rgba(14,21,32,0.82)), url('/photo-aerial-atlanta.webp') center / cover no-repeat;
   }
 
   .audiences h2 {

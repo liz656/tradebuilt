@@ -10,7 +10,7 @@ const {
 } = Astro.props;
 
 const siteBase = Astro.site ?? new URL('https://tradebuiltga.com');
-const ogImage = new URL('/Main_SC2023.jpg', siteBase).href;
+const ogImage = new URL('/og-image.jpg', siteBase).href;
 const canonical = new URL(Astro.url.pathname, siteBase).href;
 ---
 
