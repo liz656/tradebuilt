@@ -1,0 +1,623 @@
+---
+import Layout from '../../components/SurveyLayout.astro';
+import Nav from '../../components/Nav.astro';
+
+const REGIONS = ["Metro Atlanta","North Georgia","West Georgia","East Georgia","Middle Georgia","South Georgia","Coastal Georgia"];
+const ROLES = ["Work-based learning coordinator","School counselor","CTAE director or administrator","College and career coach or academy coordinator","More than one of these","Other"];
+const ROLE_PRIMARY = ["Placing students with employers","Advising students on what to do next","Running or overseeing the programs"];
+const TENURE = ["1-3","4-7","8-15","15+"];
+const CASELOAD = ["Under 100","100-500","501-1,500","1,500+"];
+const PARTNER_COUNT = ["None yet","1-2","3-5","6-10","More than 10"];
+const PROVIDED = ["Guest speakers","Jobsite tours","Work-based learning placements","Internships or co-ops","Apprenticeship slots","Donated materials or equipment","Advisory committee participation","Teacher externships","Funding or sponsorship","Hired your students"];
+const PARTNER_ORIGIN = ["I cold-called or cold-emailed them","They reached out to us","Through a trade association or chamber","A parent, alum, or student connection","Advisory committee","SkillsUSA or a competition","Long-standing - it predates me","Other"];
+const SHARE = ["Under 10%","10-25%","26-50%","Over 50%"];
+const SUCCESS_MECHANISM = ["The employer assigns someone to the student","I prep the student before day one","The school schedule accommodates it","The family is bought in","I know the employer personally","The student picked the trade themselves","Other"];
+const CONVERSION = ["None yet","1-2","3-5","More than 5","Don't know"];
+const WHAT_LANDS = ["Real wage numbers","Meeting someone doing the job","A jobsite visit","The no-debt math","A specific local employer by name","Seeing a peer do it","Other"];
+const STRONGEST = ["The teacher","Industry partners","Facility and equipment","Student demand","Work-based learning pipeline","Leadership or board support","Other"];
+const EXPAND = ["Another construction pathway","More work-based learning capacity","A dedicated industry liaison","Equipment or facility","Teacher recruitment","Other"];
+const OBSTACLES = ["Student age or under-18 jobsite restrictions","Transportation","Insurance or liability","The employer can't commit the supervision","Master schedule conflict","Timing - we couldn't line it up","Other","We don't place students"];
+---
+
+<Layout
+  title="Pathways Survey — Georgia Construction Talent Study"
+  description="For Georgia work-based learning coordinators, school counselors, and CTAE directors. About 6 minutes."
+>
+  <Nav />
+
+  <!-- ── HERO / WELCOME ── -->
+  <section class="s-hero">
+    <div class="blueprint"></div>
+    <div class="hero-inner">
+      <div class="eyebrow">Georgia Construction Talent Study</div>
+      <h1>Work-Based Learning<br>Counselor<br>CTAE Director Survey.</h1>
+      <p class="lede">Your best work isn't in any report.</p>
+      <p class="sub">One of you called the contractor. One of you sat with the parents. One of you decided the pathway was worth the master schedule. Whatever is working in your building is working because a person made it work. This is where that gets written down.</p>
+      <p class="sub">Your answers are read by me and nobody else, and they are published only as aggregate numbers and unattributed quotes - no name, no school, no district unless you tell me otherwise.</p>
+      <div class="promise">
+        <div class="p-item"><span class="dot"></span>About 6 minutes</div>
+        <div class="p-item"><span class="dot"></span>Confidential and reported in aggregate</div>
+        <div class="p-item"><span class="dot"></span>Quotes carry no name, school, or district unless you say so</div>
+      </div>
+      <div class="sig">
+        <strong>Liz Manning (Campbell)</strong>
+        <span>Owner, TradeBuilt</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PROGRESS ── -->
+  <div class="progress-bar" id="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+
+  <!-- ── FORM ── -->
+  <section class="form-section">
+    <form
+      name="pathways-survey"
+      method="POST"
+      data-netlify="true"
+      netlify-honeypot="bot-field"
+      action="/study/thanks-pathways"
+      class="tb-form"
+      id="tb-form"
+    >
+      <input type="hidden" name="form-name" value="pathways-survey" />
+      <p class="hidden"><label>Don't fill this out: <input name="bot-field" /></label></p>
+
+      <!-- SECTION 1 -->
+      <div class="fs-head"><span class="fs-num">01</span><h2>About you</h2></div>
+
+      <div class="q">
+        <label class="q-label" for="q01">Name <span class="req">*</span></label>
+        <input type="text" id="q01" name="q01_name" required />
+      </div>
+
+      <div class="q">
+        <label class="q-label" for="q02">Email <span class="req">*</span></label>
+        <input type="email" id="q02" name="q02_email" required />
+      </div>
+
+      <div class="q">
+        <label class="q-label" for="q03">School, college, or district <span class="req">*</span></label>
+        <input type="text" id="q03" name="q03_organization" required />
+      </div>
+
+      <div class="q">
+        <label class="q-label" for="q04">District or system <span class="req">*</span></label>
+        <input type="text" id="q04" name="q04_district" required />
+      </div>
+
+      <div class="q">
+        <span class="q-label">Which best describes your role? <span class="req">*</span></span>
+        <div class="opts">
+          {ROLES.map((o) => (
+            <label class="opt"><input type="radio" name="q05_role" value={o} required /><span>{o}</span></label>
+          ))}
+        </div>
+      </div>
+
+      <div class="q cond" id="q06-wrap" hidden>
+        <span class="q-label">Which one takes most of your time?</span>
+        <div class="opts">
+          {ROLE_PRIMARY.map((o) => (
+            <label class="opt"><input type="radio" name="q06_role_primary" value={o} /><span>{o}</span></label>
+          ))}
+        </div>
+      </div>
+
+      <div class="q">
+        <span class="q-label">Which area of Georgia do you work in? <span class="req">*</span></span>
+        <div class="opts">
+          {REGIONS.map((o) => (
+            <label class="opt"><input type="radio" name="q07_region" value={o} required /><span>{o}</span></label>
+          ))}
+        </div>
+      </div>
+
+      <div class="q">
+        <span class="q-label">Years in this role or one like it</span>
+        <div class="opts opts-row">
+          {TENURE.map((o) => (
+            <label class="opt"><input type="radio" name="q08_tenure" value={o} /><span>{o}</span></label>
+          ))}
+        </div>
+      </div>
+
+      <div class="q">
+        <span class="q-label">Students you are responsible for in a year</span>
+        <div class="opts opts-row">
+          {CASELOAD.map((o) => (
+            <label class="opt"><input type="radio" name="q09_students_served" value={o} /><span>{o}</span></label>
+          ))}
+        </div>
+      </div>
+
+      <!-- SECTION 2 -->
+      <div class="fs-head"><span class="fs-num">02</span><h2>What is working with employers</h2></div>
+
+      <div class="q">
+        <span class="q-label">How many construction employers do you have a working relationship with right now?</span>
+        <div class="opts opts-row">
+          {PARTNER_COUNT.map((o) => (
+            <label class="opt"><input type="radio" name="q10_partners_active" value={o} /><span>{o}</span></label>
+          ))}
+        </div>
+      </div>
+
+      <div class="q">
+        <span class="q-label">What has industry actually provided in the past year? <span class="hint">Select all that apply</span></span>
+        <div class="opts">
+          {PROVIDED.map((o) => (
+            <label class="opt"><input type="checkbox" name="q11_industry_provided" value={o} /><span>{o}</span></label>
+          ))}
+          <label class="opt"><input type="checkbox" name="q11_industry_provided" value="Nothing yet" /><span>Nothing yet</span></label>
+        </div>
+      </div>
+
+      <div class="q">
+        <span class="q-label">Which ONE made the biggest difference for your students?</span>
+        <div class="opts">
+          {PROVIDED.map((o) => (
+            <label class="opt"><input type="radio" name="q12_industry_biggest" value={o} /><span>{o}</span></label>
+          ))}
+        </div>
+      </div>
+
+      <div class="q">
+        <label class="q-label" for="q13">Think of your most effective construction employer partnership. What makes it work?</label>
+        <textarea id="q13" name="q13_best_partner_what" rows="4"></textarea>
+      </div>
+
+      <div class="q">
+        <span class="q-label">How did that relationship start?</span>
+        <div class="opts">
+          {PARTNER_ORIGIN.map((o) => (
+            <label class="opt"><input type="radio" name="q14_partner_origin" value={o} /><span>{o}</span></label>
+          ))}
+        </div>
+      </div>
+
+      <!-- SECTION 3 -->
+      <div class="fs-head"><span class="fs-num">03</span><h2>What you have built</h2></div>
+
+      <div class="q">
+        <span class="q-label">Of the students who complete a construction pathway with you, roughly what share go directly into the trade?</span>
+        <div class="opts">
+          {SHARE.map((o) => (
+            <label class="opt"><input type="radio" name="q15_destination" value={o} data-gate="dest" /><span>{o}</span></label>
+          ))}
+          <label class="opt"><input type="radio" name="q15_destination" value="We don't track this after graduation" data-gate="dest" /><span>We don't track this after graduation</span></label>
+        </div>
+      </div>
+
+      <div class="q cond" id="q16-wrap" hidden>
+        <span class="q-label">From what you hear back informally, what is your sense?</span>
+        <div class="opts">
+          {SHARE.map((o) => (
+            <label class="opt"><input type="radio" name="q16_destination_estimate" value={o} /><span>{o}</span></label>
+          ))}
+          <label class="opt"><input type="radio" name="q16_destination_estimate" value="Genuinely no idea" /><span>Genuinely no idea</span></label>
+        </div>
+      </div>
+
+      <div class="q">
+        <label class="q-label" for="q17">Describe one placement that went all the way - student to a job or apprenticeship. What made that one different?</label>
+        <textarea id="q17" name="q17_best_placement" rows="4"></textarea>
+      </div>
+
+      <div class="q">
+        <label class="q-label" for="q18">If a coordinator in another district copied one thing you do, what should it be?</label>
+        <textarea id="q18" name="q18_copy_this" rows="4"></textarea>
+      </div>
+
+      <!-- SECTION 4 - BRANCH A -->
+      <div class="cond" id="branch-a" hidden>
+        <div class="fs-head"><span class="fs-num">04</span><h2>Your side of it - placements</h2></div>
+
+        <div class="q">
+          <span class="q-label">What is the single biggest reason your placements succeed when they do?</span>
+          <div class="opts">
+            {SUCCESS_MECHANISM.map((o) => (
+              <label class="opt"><input type="radio" name="q19a_success_mechanism" value={o} /><span>{o}</span></label>
+            ))}
+          </div>
+        </div>
+
+        <div class="q">
+          <span class="q-label">Of your construction placements last year, roughly how many turned into a job or apprenticeship after graduation?</span>
+          <div class="opts opts-row">
+            {CONVERSION.map((o) => (
+              <label class="opt"><input type="radio" name="q20a_conversion" value={o} /><span>{o}</span></label>
+            ))}
+          </div>
+        </div>
+
+        <div class="q">
+          <label class="q-label" for="q21a">What does the best contractor you work with do that the others don't?</label>
+          <textarea id="q21a" name="q21a_best_contractor" rows="4"></textarea>
+        </div>
+      </div>
+
+      <!-- SECTION 4 - BRANCH B -->
+      <div class="cond" id="branch-b" hidden>
+        <div class="fs-head"><span class="fs-num">04</span><h2>Your side of it - advising</h2></div>
+
+        <div class="q">
+          <span class="q-label">When you talk to a student about a construction career, what actually lands?</span>
+          <div class="opts">
+            {WHAT_LANDS.map((o) => (
+              <label class="opt"><input type="radio" name="q19b_what_lands" value={o} /><span>{o}</span></label>
+            ))}
+          </div>
+        </div>
+
+        <div class="q">
+          <label class="q-label" for="q20b">Tell me about a student you pointed toward a trade where it worked out. What made the difference?</label>
+          <textarea id="q20b" name="q20b_success_story" rows="4"></textarea>
+        </div>
+
+        <div class="q">
+          <label class="q-label" for="q21b">What does your district count as a successful outcome for a student - and where does a trade placement fit in that?</label>
+          <textarea id="q21b" name="q21b_district_win" rows="4"></textarea>
+        </div>
+      </div>
+
+      <!-- SECTION 4 - BRANCH C -->
+      <div class="cond" id="branch-c" hidden>
+        <div class="fs-head"><span class="fs-num">04</span><h2>Your side of it - running the programs</h2></div>
+
+        <div class="q">
+          <span class="q-label">What is the strongest thing about your construction pathway right now?</span>
+          <div class="opts">
+            {STRONGEST.map((o) => (
+              <label class="opt"><input type="radio" name="q19c_strongest" value={o} /><span>{o}</span></label>
+            ))}
+          </div>
+        </div>
+
+        <div class="q">
+          <label class="q-label" for="q20c">Which of your pathways places the most students into the trade - and what is different about it?</label>
+          <textarea id="q20c" name="q20c_best_pathway" rows="4"></textarea>
+        </div>
+
+        <div class="q">
+          <span class="q-label">If funding were not the issue, what would you add first?</span>
+          <div class="opts">
+            {EXPAND.map((o) => (
+              <label class="opt"><input type="radio" name="q21c_expand" value={o} /><span>{o}</span></label>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 5 -->
+      <div class="fs-head"><span class="fs-num">05</span><h2>Close</h2></div>
+
+      <div class="q">
+        <span class="q-label">How confident are you that Georgia will have the construction workforce it needs five years from now?</span>
+        <div class="scale">
+          <span class="scale-end">Not confident</span>
+          <div class="scale-opts">
+            {[1,2,3,4,5].map((n) => (
+              <label class="scale-opt"><input type="radio" name="q22_confidence" value={n} /><span>{n}</span></label>
+            ))}
+          </div>
+          <span class="scale-end scale-end-r">Very confident</span>
+        </div>
+      </div>
+
+      <div class="q">
+        <span class="q-label">When a promising placement doesn't happen, what is usually in the way?</span>
+        <div class="opts">
+          {OBSTACLES.map((o) => (
+            <label class="opt"><input type="radio" name="q23_obstacle" value={o} /><span>{o}</span></label>
+          ))}
+        </div>
+      </div>
+
+      <div class="q">
+        <label class="q-label" for="q24">When parents push back on the trades, what do they actually say?</label>
+        <textarea id="q24" name="q24_parent_pushback" rows="4"></textarea>
+      </div>
+
+      <div class="q q-chorus">
+        <label class="q-label" for="q25">What would you tell a parent who thinks the trades are a fallback? <span class="hint">Optional</span></label>
+        <textarea id="q25" name="q25_chorus" rows="4"></textarea>
+      </div>
+
+      <button type="submit" class="btn-submit">Submit</button>
+    </form>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-logo">TradeBuilt <span>·</span> Est. 2026</div>
+    <div class="footer-copy">© 2026 TradeBuilt, LLC. All rights reserved. This survey and its findings are proprietary to TradeBuilt, LLC.</div>
+  </footer>
+</Layout>
+
+<style>
+  /* ── HERO ── */
+  .s-hero {
+    padding: 72px 40px 56px;
+    border-bottom: 0.5px solid var(--tb-border);
+    position: relative;
+    overflow: hidden;
+    background: var(--tb-bg-deep);
+  }
+  .blueprint {
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background-image:
+      linear-gradient(rgba(232,227,213,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(232,227,213,0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+  }
+  .hero-inner { position: relative; z-index: 2; max-width: 720px; margin: 0 auto; }
+  .eyebrow {
+    display: inline-flex;
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--tb-text-dim);
+    margin-bottom: 24px;
+    border: 0.5px solid var(--tb-border);
+    padding: 6px 14px;
+  }
+  .s-hero h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: 58px; line-height: 0.98;
+    letter-spacing: -0.01em; text-transform: uppercase;
+    color: var(--tb-text-cream); margin-bottom: 20px;
+  }
+  .lede {
+    font-size: 19px; line-height: 1.6;
+    color: var(--tb-text-cream); margin-bottom: 16px;
+  }
+  .sub {
+    font-size: 15px; line-height: 1.85;
+    color: var(--tb-text-dim); margin-bottom: 28px;
+  }
+  .promise { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+  .p-item { display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--tb-text-muted); }
+  .dot { width: 6px; height: 6px; background: var(--tb-text-cream); flex-shrink: 0; }
+  .sig { border-top: 0.5px solid var(--tb-border); padding-top: 18px; display: flex; flex-direction: column; gap: 2px; }
+  .sig strong { font-size: 14px; color: var(--tb-text-cream); font-weight: 600; }
+  .sig span { font-size: 13px; color: var(--tb-text-ghost); }
+
+  /* ── PROGRESS ── */
+  .progress-bar {
+    position: sticky; top: 0; z-index: 90;
+    height: 3px; background: #d4cfc0;
+  }
+  .progress-fill {
+    height: 100%; width: 0%;
+    background: #141b28;
+    transition: width 0.2s ease-out;
+  }
+
+  /* ── FORM (cream) ── */
+  .form-section { padding: 56px 40px 72px; background: #e8e3d5; }
+  .tb-form { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; }
+  .hidden { display: none; }
+
+  .fs-head {
+    display: flex; align-items: baseline; gap: 14px;
+    margin: 48px 0 8px; padding-bottom: 14px;
+    border-bottom: 0.5px solid rgba(20,27,40,0.28);
+  }
+  .fs-head:first-of-type { margin-top: 0; }
+  .fs-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px; font-weight: 700; letter-spacing: 0.12em;
+    color: #8a8778;
+  }
+  .fs-head h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: 26px;
+    text-transform: uppercase; letter-spacing: 0.01em;
+    color: #141b28;
+  }
+
+  .q { padding: 24px 0; border-bottom: 0.5px solid rgba(20,27,40,0.1); }
+  .q:last-of-type { border-bottom: none; }
+  .q-chorus { border-top: 0.5px solid rgba(20,27,40,0.28); margin-top: 8px; }
+
+  .q-label {
+    display: block;
+    font-size: 15px; font-weight: 500; line-height: 1.5;
+    color: #141b28; margin-bottom: 14px;
+  }
+  .req { color: #8a8778; }
+  .hint {
+    font-size: 12px; font-weight: 400; font-style: italic;
+    color: #7a7768; letter-spacing: 0.02em;
+  }
+  .hint-block { display: block; margin: -8px 0 12px; }
+
+  .q input[type="text"],
+  .q input[type="email"],
+  .q input[type="number"],
+  .q textarea {
+    background: #f0ece1;
+    border: 0.5px solid rgba(20,27,40,0.2);
+    color: #141b28;
+    padding: 13px 16px;
+    font-family: 'Barlow', sans-serif;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+    border-radius: 0;
+    -webkit-appearance: none;
+  }
+  .q textarea { resize: vertical; line-height: 1.6; }
+  .q input:focus, .q textarea:focus { border-color: #141b28; }
+
+  /* ── OPTIONS ── */
+  .opts { display: flex; flex-direction: column; gap: 1px; background: rgba(20,27,40,0.12); border: 0.5px solid rgba(20,27,40,0.2); }
+  .opts-row { flex-direction: row; flex-wrap: wrap; }
+  .opts-row .opt { flex: 1 1 auto; min-width: 96px; }
+
+  .opt {
+    display: flex; align-items: center; gap: 12px;
+    padding: 13px 16px;
+    background: #f0ece1;
+    cursor: pointer;
+    font-size: 15px; line-height: 1.4;
+    color: #3d4757;
+    transition: background 0.15s, color 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .opt:hover { background: #e9e4d7; color: #141b28; }
+  .opt input { position: absolute; opacity: 0; pointer-events: none; }
+  .opt span { flex: 1; }
+  .opt::before {
+    content: '';
+    width: 16px; height: 16px;
+    border: 1px solid rgba(20,27,40,0.35);
+    flex-shrink: 0;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .opt:has(input[type="radio"])::before { border-radius: 50%; }
+  .opt:has(input:checked) { background: #dbd5c3; color: #141b28; }
+  .opt:has(input:checked)::before {
+    background: #141b28;
+    border-color: #141b28;
+    box-shadow: inset 0 0 0 3px #dbd5c3;
+  }
+  .opt:has(input:focus-visible) { outline: 1px solid #141b28; outline-offset: -1px; }
+
+  /* ── SCALE ── */
+  .scale { display: flex; align-items: center; gap: 14px; }
+  .scale-end { font-size: 12px; color: #7a7768; flex: 0 0 auto; max-width: 92px; line-height: 1.3; }
+  .scale-end-r { text-align: right; }
+  .scale-opts { display: flex; gap: 1px; background: rgba(20,27,40,0.12); border: 0.5px solid rgba(20,27,40,0.2); flex: 1; }
+  .scale-opt {
+    flex: 1; display: flex; align-items: center; justify-content: center;
+    padding: 14px 0;
+    background: #f0ece1;
+    cursor: pointer;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px; font-weight: 700;
+    color: #8a8778;
+    transition: background 0.15s, color 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .scale-opt:hover { background: #e9e4d7; color: #141b28; }
+  .scale-opt input { position: absolute; opacity: 0; pointer-events: none; }
+  .scale-opt:has(input:checked) { background: #141b28; color: #e8e3d5; }
+
+  /* ── CONDITIONAL ── */
+  .cond[hidden] { display: none; }
+
+  .btn-submit {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    background: #141b28;
+    color: #e8e3d5;
+    border: none; padding: 18px 32px;
+    cursor: pointer; transition: background 0.2s;
+    margin-top: 40px;
+  }
+  .btn-submit:hover { background: #0e1520; }
+
+  /* ── FOOTER ── */
+  .site-footer {
+    padding: 18px 40px;
+    border-top: 0.5px solid var(--tb-border);
+    display: flex; justify-content: space-between; align-items: center;
+    background: var(--tb-bg-deep);
+  }
+  .footer-logo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: 14px;
+    color: var(--tb-text-ghost);
+    letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .footer-logo span { color: var(--tb-text-dark); }
+  .footer-copy { font-size: 10px; color: var(--tb-text-dark); letter-spacing: 0.06em; }
+
+  /* ── MOBILE ── */
+  @media (max-width: 768px) {
+    .s-hero { padding: 48px 24px 40px; }
+    .s-hero h1 { font-size: 34px; }
+    .lede { font-size: 17px; }
+    .form-section { padding: 40px 20px 56px; }
+    .fs-head h2 { font-size: 22px; }
+    .scale { flex-direction: column; align-items: stretch; gap: 8px; }
+    .scale-end { max-width: none; font-size: 11px; }
+    .scale-end-r { text-align: left; }
+    .opts-row { flex-direction: column; }
+    .site-footer { flex-direction: column; gap: 8px; text-align: center; padding: 24px; }
+  }
+
+  /* Each branch wrapper makes its section header a :first-of-type, which the
+     shared .fs-head:first-of-type rule zeroes out. Restore normal spacing. */
+  .cond > .fs-head { margin-top: 48px; }
+</style>
+
+<script>
+  // Role branch: q05_role, or q06_role_primary when q05 is an umbrella answer.
+  const PLACING = ['Work-based learning coordinator', 'Placing students with employers'];
+  const ADVISING = ['School counselor', 'Advising students on what to do next'];
+  const RUNNING = ['CTAE director or administrator', 'Running or overseeing the programs'];
+  const NEEDS_PRIMARY = [
+    'College and career coach or academy coordinator',
+    'More than one of these',
+    'Other',
+  ];
+
+  const form = document.getElementById('tb-form');
+  const fill = document.getElementById('progress-fill');
+
+  function val(name) {
+    const el = form && form.querySelector('input[name="' + name + '"]:checked');
+    return el ? el.value : '';
+  }
+
+  function show(id, on) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.hidden = !on;
+    if (!on) {
+      el.querySelectorAll('input, textarea').forEach((f) => {
+        if (f.type === 'radio' || f.type === 'checkbox') f.checked = false;
+        else f.value = '';
+      });
+    }
+  }
+
+  function applyGates() {
+    const role = val('q05_role');
+    const primary = val('q06_role_primary');
+    const inBranch = (list) => list.indexOf(role) > -1 || list.indexOf(primary) > -1;
+
+    show('q06-wrap', NEEDS_PRIMARY.indexOf(role) > -1);
+    show('q16-wrap', val('q15_destination') === "We don't track this after graduation");
+    show('branch-a', inBranch(PLACING));
+    show('branch-b', inBranch(ADVISING));
+    show('branch-c', inBranch(RUNNING));
+    updateProgress();
+  }
+
+  // Progress bar
+  function updateProgress() {
+    if (!form || !fill) return;
+    const groups = new Map();
+    form.querySelectorAll('input, textarea, select').forEach((f) => {
+      if (!f.name || f.name === 'form-name' || f.name === 'bot-field') return;
+      const wrap = f.closest('.cond');
+      if (wrap && wrap.hidden) return;
+      if (!groups.has(f.name)) groups.set(f.name, false);
+      const done =
+        f.type === 'radio' || f.type === 'checkbox' ? f.checked : f.value.trim().length > 0;
+      if (done) groups.set(f.name, true);
+    });
+    const total = groups.size;
+    const answered = [...groups.values()].filter(Boolean).length;
+    fill.style.width = total ? Math.round((answered / total) * 100) + '%' : '0%';
+  }
+
+  form?.addEventListener('change', applyGates);
+  form?.addEventListener('input', updateProgress);
+  applyGates();
+</script>
