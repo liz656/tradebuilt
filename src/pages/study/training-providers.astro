@@ -1,0 +1,597 @@
+---
+import Layout from '../../components/SurveyLayout.astro';
+import Nav from '../../components/Nav.astro';
+
+const ORG_TYPES = ["Technical college (TCSG institution)","Independent trade school or vocational training center","Union apprenticeship program / JATC","Non-union or merit shop apprenticeship program","Pre-apprenticeship or workforce readiness program","Employer-operated in-house training program","Georgia Quick Start","Other"];
+const REGIONS = ["Metro Atlanta","North Georgia","West Georgia","East Georgia","Middle Georgia","South Georgia","Coastal Georgia","Statewide"];
+const TRADES = ["Carpentry","Electrical","HVAC","Plumbing","Welding","Masonry or concrete","Heavy equipment","Ironworking","Roofing","Interior systems or drywall","Painting or finishing","General or multi-trade","Other"];
+const ENROLLMENT = ["Fewer than 25","25-74","75-149","150-299","300 or more"];
+const DURATION = ["Less than 6 months","6-12 months","1-2 years","3-4 years (apprenticeship standard)","5 years or more","Varies by program"];
+const COMPLETION = ["Below 40%","40-54%","55-69%","70-84%","85% or higher","We don't formally track this"];
+const UNTRACKED = ["No system or staff capacity to track it","Not required by our funder or accreditor","We track it informally but not in a reportable way","Students are hard to reach once they leave","Never been asked for it","Other"];
+const FINISH_DRIVER = ["They can earn while they train","An instructor who stays on them","The cohort - they don't want to let each other down","A specific job waiting at the end they can name","The schedule is built around their life","An employer sponsor invested in them personally","They chose the trade themselves before they got here","Other"];
+const EARN = ["Yes - employer-paid apprenticeship","Yes - paid internship or co-op during the program","Yes - stipend, scholarship, or grant covers living costs","Partly - some students, not all","No"];
+const ENGAGEMENT = ["Sit on our advisory board","Host site visits or job shadows","Sponsor equipment or materials","Offer paid internships or co-ops during training","Recruit directly from our cohorts","Provide instructors or subject-matter experts","Help build or review curriculum","Sponsor apprentices"];
+const PARTNER_ORIGIN = ["I cold-called or cold-emailed them","They reached out to us","Through a trade association or chamber","A parent, alum, or student connection","Advisory committee","SkillsUSA or a competition","Long-standing - it predates me","Other"];
+const PLACEMENT = ["Under 40%","40-59%","60-74%","75-89%","90% or higher","We don't formally track this"];
+const PLACEMENT_EST = ["Under 40%","40-59%","60-74%","75-89%","90% or higher","Genuinely no idea"];
+const DEMAND = ["Increased significantly","Increased slightly","About the same","Decreased slightly","Decreased significantly"];
+const GROWTH_DRIVER = ["An employer sponsor who kept taking them","A trade association that recruited on our behalf","Funding we secured","A recruiting channel that finally worked","Instructor and training capacity we built","A partnership with a high school or technical college","We haven't been able to grow it"];
+const APPRENTICESHIP_TYPES = ["Union apprenticeship program / JATC","Non-union or merit shop apprenticeship program","Pre-apprenticeship or workforce readiness program"];
+---
+
+<Layout
+  title="Training Provider Survey — Georgia Construction Talent Study"
+  description="The best data on Georgia's construction workforce is already in your program. About 8 minutes."
+>
+  <Nav />
+
+  <!-- ── HERO / WELCOME ── -->
+  <section class="s-hero">
+    <div class="blueprint"></div>
+    <div class="hero-inner">
+      <div class="eyebrow">Georgia Construction Talent Study</div>
+      <h1>Training Provider<br>Survey.</h1>
+      <p class="lede">The best data on Georgia's construction workforce is already in your program.</p>
+      <p class="sub">You know which employer partnerships put people to work and which ones never get past a tour. You know what the ones who finish have in common. Put it in here and you get the whole statewide picture back, free, the day it publishes.</p>
+      <div class="promise">
+        <div class="p-item"><span class="dot"></span>About 8 minutes</div>
+        <div class="p-item"><span class="dot"></span>Confidential and reported in aggregate</div>
+        <div class="p-item"><span class="dot"></span>Quotes carry no name or organization unless you say so</div>
+      </div>
+      <div class="sig">
+        <strong>Liz Manning (Campbell)</strong>
+        <span>Owner, TradeBuilt</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PROGRESS ── -->
+  <div class="progress-bar" id="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+
+  <!-- ── FORM ── -->
+  <section class="form-section">
+    <form
+      name="training-providers"
+      method="POST"
+      data-netlify="true"
+      netlify-honeypot="bot-field"
+      action="/study/thanks-training-providers"
+      class="tb-form"
+      id="tb-form"
+    >
+      <input type="hidden" name="form-name" value="training-providers" />
+      <p class="hidden"><label>Don't fill this out: <input name="bot-field" /></label></p>
+
+      <!-- SECTION 1 -->
+      <div class="fs-head"><span class="fs-num">01</span><h2>About your program</h2></div>
+
+      <div class="q">
+        <label class="q-label" for="q01">Name <span class="req">*</span></label>
+        <input type="text" id="q01" name="q01_name" required />
+      </div>
+
+      <div class="q">
+        <label class="q-label" for="q02">Email <span class="req">*</span></label>
+        <input type="email" id="q02" name="q02_email" required />
+      </div>
+
+      <div class="q">
+        <label class="q-label" for="q03">Organization <span class="req">*</span></label>
+        <input type="text" id="q03" name="q03_organization" required />
+      </div>
+
+      <div class="q">
+        <span class="q-label">Which best describes your organization? <span class="req">*</span></span>
+        <div class="opts">
+          {ORG_TYPES.map((t) => (
+            <label class="opt"><input type="radio" name="q04_org_type" value={t} required /><span>{t}</span></label>
+          ))}
+        </div>
+      </div>
+
+      <div class="q">
+        <span class="q-label">Where do you draw students from? <span class="hint">Select all that apply</span></span>
+        <div class="opts">
+          {REGIONS.map((r) => (
+            <label class="opt"><input type="checkbox" name="q05_region" value={r} /><span>{r}</span></label>
+          ))}
+        </div>
+      </div>
+
+      <div class="q">
+        <span class="q-label">Which trades do you train for? <span class="hint">Select all that apply</span></span>
+        <div class="opts">
+          {TRADES.map((t) => (
+            <label class="opt"><input type="checkbox" name="q06_trades" value={t} /><span>{t}</span></label>
+          ))}
+        </div>
+      </div>
+
+      <div class="q">
+        <span class="q-label">Roughly how many students or apprentices do you enroll a year? <span class="req">*</span></span>
+        <div class="opts opts-row">
+          {ENROLLMENT.map((c) => (
+            <label class="opt"><input type="radio" name="q07_enrollment" value={c} required /><span>{c}</span></label>
+          ))}
+        </div>
+      </div>
+
+      <div class="q">
+        <span class="q-label">Typical program length <span class="req">*</span></span>
+        <div class="opts">
+          {DURATION.map((c) => (
+            <label class="opt"><input type="radio" name="q08_duration" value={c} required /><span>{c}</span></label>
+          ))}
+        </div>
+      </div>
+
+      <!-- SECTION 2 -->
+      <div class="fs-head"><span class="fs-num">02</span><h2>Who finishes</h2></div>
+
+      <div class="q">
+        <span class="q-label">Roughly what share of students who start actually finish?</span>
+        <div class="opts">
+          {COMPLETION.map((c) => (
+            <label class="opt"><input type="radio" name="q09_completion" value={c} /><span>{c}</span></label>
+          ))}
+        </div>
+      </div>
+
+      <div class="q cond" id="q10-wrap" hidden>
+        <span class="q-label">What is the main reason?</span>
+        <div class="opts">
+          {UNTRACKED.map((c) => (
+            <label class="opt"><input type="radio" name="q10_completion_untracked" value={c} /><span>{c}</span></label>
+          ))}
+        </div>
+      </div>
+
+      <div class="q">
+        <span class="q-label">What is the single biggest reason your students finish?</span>
+        <div class="opts">
+          {FINISH_DRIVER.map((c) => (
+            <label class="opt"><input type="radio" name="q11_finish_driver" value={c} /><span>{c}</span></label>
+          ))}
+        </div>
+      </div>
+
+      <div class="q">
+        <label class="q-label" for="q12">When are you most likely to lose someone, and what do you do about it?</label>
+        <textarea id="q12" name="q12_loss_window" rows="4"></textarea>
+      </div>
+
+      <div class="q">
+        <span class="q-label">Can your students earn while they train?</span>
+        <div class="opts">
+          {EARN.map((c) => (
+            <label class="opt"><input type="radio" name="q13_earn_while_learn" value={c} /><span>{c}</span></label>
+          ))}
+        </div>
+      </div>
+
+      <!-- SECTION 3 -->
+      <div class="fs-head"><span class="fs-num">03</span><h2>Employers</h2></div>
+
+      <div class="q">
+        <span class="q-label">What do employers actually do with you today? <span class="hint">Select all that apply</span></span>
+        <div class="opts">
+          {ENGAGEMENT.map((c) => (
+            <label class="opt"><input type="checkbox" name="q14_engagement" value={c} /><span>{c}</span></label>
+          ))}
+          <label class="opt"><input type="checkbox" name="q14_engagement" value="Nothing formal yet" /><span>Nothing formal yet</span></label>
+        </div>
+      </div>
+
+      <div class="q">
+        <span class="q-label">Which ONE has made the biggest difference to your students?</span>
+        <div class="opts">
+          {ENGAGEMENT.map((c) => (
+            <label class="opt"><input type="radio" name="q15_engagement_biggest" value={c} /><span>{c}</span></label>
+          ))}
+        </div>
+      </div>
+
+      <div class="q">
+        <label class="q-label" for="q16">Think of the construction employer partnership that works best. What makes it work?</label>
+        <textarea id="q16" name="q16_best_partner" rows="4"></textarea>
+      </div>
+
+      <div class="q">
+        <span class="q-label">How did that relationship start?</span>
+        <div class="opts">
+          {PARTNER_ORIGIN.map((c) => (
+            <label class="opt"><input type="radio" name="q17_partner_origin" value={c} /><span>{c}</span></label>
+          ))}
+        </div>
+      </div>
+
+      <div class="q">
+        <label class="q-label" for="q18">What does the best contractor you work with do that the others don't?</label>
+        <textarea id="q18" name="q18_best_contractor" rows="4"></textarea>
+      </div>
+
+      <!-- SECTION 4 -->
+      <div class="fs-head"><span class="fs-num">04</span><h2>Where they land</h2></div>
+
+      <div class="q">
+        <span class="q-label">What share of completers are working in construction within six months?</span>
+        <div class="opts">
+          {PLACEMENT.map((c) => (
+            <label class="opt"><input type="radio" name="q19_placement" value={c} /><span>{c}</span></label>
+          ))}
+        </div>
+      </div>
+
+      <div class="q cond" id="q20-wrap" hidden>
+        <span class="q-label">From what you hear back informally, what is your sense?</span>
+        <div class="opts">
+          {PLACEMENT_EST.map((c) => (
+            <label class="opt"><input type="radio" name="q20_placement_estimate" value={c} /><span>{c}</span></label>
+          ))}
+        </div>
+      </div>
+
+      <div class="q">
+        <label class="q-label" for="q21">Describe one completer who went all the way - into a job or a registered apprenticeship that stuck. What made that one different?</label>
+        <textarea id="q21" name="q21_went_all_the_way" rows="4"></textarea>
+      </div>
+
+      <div class="q">
+        <label class="q-label" for="q22">If another Georgia program copied one thing you do, what should it be?</label>
+        <textarea id="q22" name="q22_copy_this" rows="4"></textarea>
+      </div>
+
+      <!-- SECTION 5 - conditional, apprenticeship programs only -->
+      <div class="cond" id="s05-wrap" hidden>
+        <div class="fs-head"><span class="fs-num">05</span><h2>Apprenticeship</h2></div>
+
+        <div class="q">
+          <span class="q-label">How has demand for your program changed over the past two years?</span>
+          <div class="opts">
+            {DEMAND.map((c) => (
+              <label class="opt"><input type="radio" name="q23_demand" value={c} /><span>{c}</span></label>
+            ))}
+          </div>
+        </div>
+
+        <div class="q">
+          <span class="q-label">What has made it possible to add apprentices?</span>
+          <div class="opts">
+            {GROWTH_DRIVER.map((c) => (
+              <label class="opt"><input type="radio" name="q24_growth_driver" value={c} /><span>{c}</span></label>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 6 -->
+      <div class="fs-head"><span class="fs-num">06</span><h2>Close</h2></div>
+
+      <div class="q">
+        <span class="q-label">How confident are you that Georgia will have the construction workforce it needs five years from now?</span>
+        <div class="scale">
+          <span class="scale-end">Not confident</span>
+          <div class="scale-opts">
+            {[1,2,3,4,5].map((n) => (
+              <label class="scale-opt"><input type="radio" name="q25_confidence" value={n} /><span>{n}</span></label>
+            ))}
+          </div>
+          <span class="scale-end scale-end-r">Very confident</span>
+        </div>
+      </div>
+
+      <div class="q">
+        <label class="q-label" for="q26">If one thing changed, what would do the most for your ability to turn out job-ready workers?</label>
+        <textarea id="q26" name="q26_biggest_lever" rows="4"></textarea>
+      </div>
+
+      <div class="q">
+        <span class="q-label">Open to a twenty-minute follow-up conversation?</span>
+        <div class="opts opts-row">
+          <label class="opt"><input type="radio" name="q27_followup" value="Yes" /><span>Yes</span></label>
+          <label class="opt"><input type="radio" name="q27_followup" value="Maybe - send me details" /><span>Maybe - send me details</span></label>
+          <label class="opt"><input type="radio" name="q27_followup" value="No" /><span>No</span></label>
+        </div>
+      </div>
+
+      <div class="q q-chorus">
+        <label class="q-label" for="q28">What would you tell a parent who thinks the trades are a fallback? <span class="hint">Optional</span></label>
+        <textarea id="q28" name="q28_chorus" rows="4"></textarea>
+      </div>
+
+      <button type="submit" class="btn-submit">Submit</button>
+    </form>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-logo">TradeBuilt <span>·</span> Est. 2026</div>
+    <div class="footer-copy">© 2026 TradeBuilt, LLC. All rights reserved. This survey and its findings are proprietary to TradeBuilt, LLC.</div>
+  </footer>
+</Layout>
+
+<style>
+  /* ── HERO ── */
+  .s-hero {
+    padding: 72px 40px 56px;
+    border-bottom: 0.5px solid var(--tb-border);
+    position: relative;
+    overflow: hidden;
+    background: var(--tb-bg-deep);
+  }
+  .blueprint {
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background-image:
+      linear-gradient(rgba(232,227,213,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(232,227,213,0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+  }
+  .hero-inner { position: relative; z-index: 2; max-width: 720px; margin: 0 auto; }
+  .eyebrow {
+    display: inline-flex;
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--tb-text-dim);
+    margin-bottom: 24px;
+    border: 0.5px solid var(--tb-border);
+    padding: 6px 14px;
+  }
+  .s-hero h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: 76px; line-height: 0.93;
+    letter-spacing: -0.01em; text-transform: uppercase;
+    color: var(--tb-text-cream); margin-bottom: 20px;
+  }
+  .lede {
+    font-size: 19px; line-height: 1.6;
+    color: var(--tb-text-cream); margin-bottom: 16px;
+  }
+  .sub {
+    font-size: 15px; line-height: 1.85;
+    color: var(--tb-text-dim); margin-bottom: 28px;
+  }
+  .promise { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+  .p-item { display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--tb-text-muted); }
+  .dot { width: 6px; height: 6px; background: var(--tb-text-cream); flex-shrink: 0; }
+  .sig { border-top: 0.5px solid var(--tb-border); padding-top: 18px; display: flex; flex-direction: column; gap: 2px; }
+  .sig strong { font-size: 14px; color: var(--tb-text-cream); font-weight: 600; }
+  .sig span { font-size: 13px; color: var(--tb-text-ghost); }
+
+  /* ── PROGRESS ── */
+  .progress-bar {
+    position: sticky; top: 0; z-index: 90;
+    height: 3px; background: #d4cfc0;
+  }
+  .progress-fill {
+    height: 100%; width: 0%;
+    background: #141b28;
+    transition: width 0.2s ease-out;
+  }
+
+  /* ── FORM (cream) ── */
+  .form-section { padding: 56px 40px 72px; background: #e8e3d5; }
+  .tb-form { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; }
+  .hidden { display: none; }
+
+  .fs-head {
+    display: flex; align-items: baseline; gap: 14px;
+    margin: 48px 0 8px; padding-bottom: 14px;
+    border-bottom: 0.5px solid rgba(20,27,40,0.28);
+  }
+  .fs-head:first-of-type { margin-top: 0; }
+  .fs-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px; font-weight: 700; letter-spacing: 0.12em;
+    color: #8a8778;
+  }
+  .fs-head h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: 26px;
+    text-transform: uppercase; letter-spacing: 0.01em;
+    color: #141b28;
+  }
+
+  .q { padding: 24px 0; border-bottom: 0.5px solid rgba(20,27,40,0.1); }
+  .q:last-of-type { border-bottom: none; }
+  .q-chorus { border-top: 0.5px solid rgba(20,27,40,0.28); margin-top: 8px; }
+
+  .q-label {
+    display: block;
+    font-size: 15px; font-weight: 500; line-height: 1.5;
+    color: #141b28; margin-bottom: 14px;
+  }
+  .req { color: #8a8778; }
+  .hint {
+    font-size: 12px; font-weight: 400; font-style: italic;
+    color: #7a7768; letter-spacing: 0.02em;
+  }
+  .hint-block { display: block; margin: -8px 0 12px; }
+
+  .q input[type="text"],
+  .q input[type="email"],
+  .q input[type="number"],
+  .q textarea {
+    background: #f0ece1;
+    border: 0.5px solid rgba(20,27,40,0.2);
+    color: #141b28;
+    padding: 13px 16px;
+    font-family: 'Barlow', sans-serif;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+    border-radius: 0;
+    -webkit-appearance: none;
+  }
+  .q textarea { resize: vertical; line-height: 1.6; }
+  .q input:focus, .q textarea:focus { border-color: #141b28; }
+
+  /* ── OPTIONS ── */
+  .opts { display: flex; flex-direction: column; gap: 1px; background: rgba(20,27,40,0.12); border: 0.5px solid rgba(20,27,40,0.2); }
+  .opts-row { flex-direction: row; flex-wrap: wrap; }
+  .opts-row .opt { flex: 1 1 auto; min-width: 96px; }
+
+  .opt {
+    display: flex; align-items: center; gap: 12px;
+    padding: 13px 16px;
+    background: #f0ece1;
+    cursor: pointer;
+    font-size: 15px; line-height: 1.4;
+    color: #3d4757;
+    transition: background 0.15s, color 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .opt:hover { background: #e9e4d7; color: #141b28; }
+  .opt input { position: absolute; opacity: 0; pointer-events: none; }
+  .opt span { flex: 1; }
+  .opt::before {
+    content: '';
+    width: 16px; height: 16px;
+    border: 1px solid rgba(20,27,40,0.35);
+    flex-shrink: 0;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .opt:has(input[type="radio"])::before { border-radius: 50%; }
+  .opt:has(input:checked) { background: #dbd5c3; color: #141b28; }
+  .opt:has(input:checked)::before {
+    background: #141b28;
+    border-color: #141b28;
+    box-shadow: inset 0 0 0 3px #dbd5c3;
+  }
+  .opt:has(input:focus-visible) { outline: 1px solid #141b28; outline-offset: -1px; }
+
+  /* ── SCALE ── */
+  .scale { display: flex; align-items: center; gap: 14px; }
+  .scale-end { font-size: 12px; color: #7a7768; flex: 0 0 auto; max-width: 92px; line-height: 1.3; }
+  .scale-end-r { text-align: right; }
+  .scale-opts { display: flex; gap: 1px; background: rgba(20,27,40,0.12); border: 0.5px solid rgba(20,27,40,0.2); flex: 1; }
+  .scale-opt {
+    flex: 1; display: flex; align-items: center; justify-content: center;
+    padding: 14px 0;
+    background: #f0ece1;
+    cursor: pointer;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px; font-weight: 700;
+    color: #8a8778;
+    transition: background 0.15s, color 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .scale-opt:hover { background: #e9e4d7; color: #141b28; }
+  .scale-opt input { position: absolute; opacity: 0; pointer-events: none; }
+  .scale-opt:has(input:checked) { background: #141b28; color: #e8e3d5; }
+
+  /* ── CONDITIONAL ── */
+  .cond[hidden] { display: none; }
+
+  .btn-submit {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    background: #141b28;
+    color: #e8e3d5;
+    border: none; padding: 18px 32px;
+    cursor: pointer; transition: background 0.2s;
+    margin-top: 40px;
+  }
+  .btn-submit:hover { background: #0e1520; }
+
+  /* ── FOOTER ── */
+  .site-footer {
+    padding: 18px 40px;
+    border-top: 0.5px solid var(--tb-border);
+    display: flex; justify-content: space-between; align-items: center;
+    background: var(--tb-bg-deep);
+  }
+  .footer-logo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: 14px;
+    color: var(--tb-text-ghost);
+    letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .footer-logo span { color: var(--tb-text-dark); }
+  .footer-copy { font-size: 10px; color: var(--tb-text-dark); letter-spacing: 0.06em; }
+
+  /* ── MOBILE ── */
+  @media (max-width: 768px) {
+    .s-hero { padding: 48px 24px 40px; }
+    .s-hero h1 { font-size: 52px; }
+    .lede { font-size: 17px; }
+    .form-section { padding: 40px 20px 56px; }
+    .fs-head h2 { font-size: 22px; }
+    .scale { flex-direction: column; align-items: stretch; gap: 8px; }
+    .scale-end { max-width: none; font-size: 11px; }
+    .scale-end-r { text-align: left; }
+    .opts-row { flex-direction: column; }
+    .site-footer { flex-direction: column; gap: 8px; text-align: center; padding: 24px; }
+  }
+
+  /* conditional section heads need their top margin back */
+  .cond > .fs-head { margin-top: 48px; }
+</style>
+
+<script>
+  // Conditional questions
+  const gates = [
+    { name: 'q09_completion', map: { "We don't formally track this": ['q10-wrap'] } },
+    { name: 'q19_placement', map: { "We don't formally track this": ['q20-wrap'] } },
+    {
+      name: 'q04_org_type',
+      map: {
+        'Union apprenticeship program / JATC': ['s05-wrap'],
+        'Non-union or merit shop apprenticeship program': ['s05-wrap'],
+        'Pre-apprenticeship or workforce readiness program': ['s05-wrap'],
+      },
+    },
+  ];
+
+  gates.forEach(({ name, map }) => {
+    const inputs = document.querySelectorAll(`input[name="${name}"]`);
+    inputs.forEach((input) => {
+      input.addEventListener('change', () => {
+        const all = new Set(Object.values(map).flat());
+        all.forEach((id) => {
+          const el = document.getElementById(id);
+          if (!el) return;
+          el.hidden = true;
+          el.querySelectorAll('input, textarea').forEach((f) => {
+            const field = f as HTMLInputElement;
+            if (field.type === 'radio' || field.type === 'checkbox') field.checked = false;
+            else field.value = '';
+          });
+        });
+        (map[(input as HTMLInputElement).value] || []).forEach((id) => {
+          const el = document.getElementById(id);
+          if (el) el.hidden = false;
+        });
+        updateProgress();
+      });
+    });
+  });
+
+  // Progress bar
+  const form = document.getElementById('tb-form') as HTMLFormElement | null;
+  const fill = document.getElementById('progress-fill');
+
+  function updateProgress() {
+    if (!form || !fill) return;
+    const groups = new Map<string, boolean>();
+    form.querySelectorAll('input, textarea, select').forEach((el) => {
+      const f = el as HTMLInputElement;
+      if (!f.name || f.name === 'form-name' || f.name === 'bot-field') return;
+      const wrap = f.closest('.cond') as HTMLElement | null;
+      if (wrap && wrap.hidden) return;
+      if (!groups.has(f.name)) groups.set(f.name, false);
+      const done =
+        f.type === 'radio' || f.type === 'checkbox' ? f.checked : f.value.trim().length > 0;
+      if (done) groups.set(f.name, true);
+    });
+    const total = groups.size;
+    const answered = [...groups.values()].filter(Boolean).length;
+    fill.style.width = total ? `${Math.round((answered / total) * 100)}%` : '0%';
+  }
+
+  form?.addEventListener('input', updateProgress);
+  form?.addEventListener('change', updateProgress);
+  updateProgress();
+</script>

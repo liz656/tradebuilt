@@ -1,0 +1,117 @@
+---
+import Layout from '../../components/SurveyLayout.astro';
+import Nav from '../../components/Nav.astro';
+---
+
+<Layout
+  title="Thank You — Georgia Construction Talent Study"
+  description="Thank you for contributing to the Georgia Construction Talent Study."
+>
+  <Nav />
+
+  <section class="ty">
+    <div class="blueprint"></div>
+    <div class="ty-inner">
+      <div class="eyebrow">Georgia Construction Talent Study</div>
+      <h1>That Is What<br>The Forms<br><em>Leave Out.</em></h1>
+      <p>You just gave me the part the reporting forms have no field for - not how many enrolled, but who finished, where they landed, and what you did that made the difference. That is the part this study is built to carry.</p>
+      <p>The survey closes October 15 and the report publishes in November. You will get the full findings and the executive summary the same day everyone else does. If you said yes to a follow-up, I will be in touch.</p>
+      <p class="ty-ask"><strong>One more thing, and it takes ninety seconds.</strong> Your programs are listed on TradeBuiltGA.com - it is what a parent or a counselor sees when they go looking for what you offer. Pull it up and email me anything that is wrong, out of date, or missing. There is no fee, and nobody pays for placement on it.</p>
+      <div class="sig">
+        <strong>Liz Manning (Campbell)</strong>
+        <span>Owner, TradeBuilt</span>
+      </div>
+      <div class="ty-btns">
+        <a href="/find-training" class="btn-cream">Check Your Listing</a>
+        <a href="/" class="btn-outline">Back to Home</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-logo">TradeBuilt <span>·</span> Est. 2026</div>
+    <div class="footer-copy">© 2026 TradeBuilt, LLC. All rights reserved. This survey and its findings are proprietary to TradeBuilt, LLC.</div>
+  </footer>
+</Layout>
+
+<style>
+  .ty {
+    padding: 96px 40px 88px;
+    border-bottom: 0.5px solid var(--tb-border);
+    position: relative;
+    overflow: hidden;
+    background: var(--tb-bg-deep);
+    min-height: 72vh;
+    display: flex;
+    align-items: center;
+  }
+  .blueprint {
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background-image:
+      linear-gradient(rgba(232,227,213,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(232,227,213,0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+  }
+  .ty-inner { position: relative; z-index: 2; max-width: 660px; margin: 0 auto; }
+  .eyebrow {
+    display: inline-flex;
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--tb-text-dim);
+    margin-bottom: 24px;
+    border: 0.5px solid var(--tb-border);
+    padding: 6px 14px;
+  }
+  .ty h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: 82px; line-height: 0.93;
+    letter-spacing: -0.01em; text-transform: uppercase;
+    color: var(--tb-text-cream); margin-bottom: 28px;
+  }
+  .ty h1 em {
+    font-style: normal;
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--tb-text-cream);
+  }
+  .ty p {
+    font-size: 16px; line-height: 1.85;
+    color: var(--tb-text-dim); margin-bottom: 18px;
+  }
+  .sig {
+    border-top: 0.5px solid var(--tb-border);
+    margin-top: 28px; padding-top: 18px;
+    display: flex; flex-direction: column; gap: 2px;
+  }
+  .sig strong { font-size: 14px; color: var(--tb-text-cream); font-weight: 600; }
+  .sig span { font-size: 13px; color: var(--tb-text-ghost); }
+  .ty-btns { display: flex; gap: 12px; margin-top: 36px; flex-wrap: wrap; }
+
+  .site-footer {
+    padding: 18px 40px;
+    border-top: 0.5px solid var(--tb-border);
+    display: flex; justify-content: space-between; align-items: center;
+    background: var(--tb-bg-deep);
+  }
+  .footer-logo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: 14px;
+    color: var(--tb-text-ghost);
+    letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .footer-logo span { color: var(--tb-text-dark); }
+  .footer-copy { font-size: 10px; color: var(--tb-text-dark); letter-spacing: 0.06em; }
+
+  @media (max-width: 768px) {
+    .ty { padding: 64px 24px 56px; min-height: 0; }
+    .ty h1 { font-size: 54px; }
+    .site-footer { flex-direction: column; gap: 8px; text-align: center; padding: 24px; }
+  }
+
+  .ty-ask {
+    border-top: 0.5px solid var(--tb-border);
+    padding-top: 18px;
+    margin-top: 26px;
+  }
+  .ty-ask strong { color: var(--tb-text-cream); font-weight: 600; }
+</style>
