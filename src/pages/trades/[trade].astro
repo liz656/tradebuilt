@@ -16,9 +16,11 @@ const approxPre = w.approx ? '~' : '';
 const SCHOOLS = new Set([
   'Georgia Trade School',
   'Heavy Equipment Colleges of America - GA Campus',
+  'Heavy Equipment Colleges of America - Oklahoma Campus',
   'Elite Lineman Training Institute',
   'Georgia Highlands College',
 ]);
+const EMPLOYER_PROVIDERS = new Set(['ER Snell Contractor']);
 const TCSG = { name: 'Technical College System of Georgia (TCSG)', url: 'https://www.tcsg.edu/', note: 'Statewide' };
 const PTP = { name: 'Home Depot Path to Pro', url: 'https://www.pathtopro.com/', note: 'Online' };
 const XCEL = { name: 'Xcel', url: 'https://xceltoday.com/', note: 'Youth Mentoring' };
@@ -27,6 +29,20 @@ const PTP_TRADES = new Set(['carpentry','electrical','hvac','masonry','plumbing'
 const XCEL_TRADES = new Set(['electrical','hvac','plumbing','welding','sheet-metal']);
 
 function tiersFor(slug, provs) {
+  if (slug === 'traffic-control') {
+    const cert = provs.filter((p) => p.name.includes('National Safety Council'));
+    const emp = provs.filter((p) => p.name.includes('ER Snell'));
+    return [
+      { name: 'Certification', desc: 'Flagger and Worksite Traffic Control Supervisor training, required for GDOT work', feat: false, provs: cert },
+      { name: 'Employer-Based Training', desc: 'Train on the job with a Georgia road builder', feat: true, provs: emp },
+    ];
+  }
+  if (slug === 'asphalt-paving-milling') {
+    const emp = provs.filter((p) => p.name.includes('ER Snell'));
+    return [
+      { name: 'Employer-Based Training', desc: 'Most paving and milling training happens on the job, inside the company that hires you', feat: true, provs: emp },
+    ];
+  }
   if (slug === 'safety-inspection') {
     const gt = provs.filter((p) => p.name.includes('Georgia Tech'));
     const bc = provs.filter((p) => p.name.includes('BCSP'));
@@ -36,7 +52,8 @@ function tiersFor(slug, provs) {
       { name: 'Statewide & Online', desc: 'Explore the field and career resources', feat: true, provs: [GW] },
     ];
   }
-  const appr = provs.filter((p) => !SCHOOLS.has(p.name));
+  const emp = provs.filter((p) => EMPLOYER_PROVIDERS.has(p.name));
+  const appr = provs.filter((p) => !SCHOOLS.has(p.name) && !EMPLOYER_PROVIDERS.has(p.name));
   const school = [...provs.filter((p) => SCHOOLS.has(p.name)), TCSG];
   const early = [];
   if (PTP_TRADES.has(slug)) early.push(PTP);
@@ -44,6 +61,7 @@ function tiersFor(slug, provs) {
   early.push(GW);
   const out = [];
   if (appr.length) out.push({ name: 'Registered Apprenticeships', desc: '4–5 years · earn while you learn, finish as a journeyman', feat: false, provs: appr });
+  if (emp.length) out.push({ name: 'Employer-Based Training', desc: 'Train on the job with a participating employer', feat: false, provs: emp });
   out.push({ name: 'Trade Schools & Technical Colleges', desc: 'Weeks to 2 years · earn a credential or diploma', feat: false, provs: school });
   out.push({ name: 'Early-Entry & Online', desc: 'Days to weeks · explore and build basic skills', feat: true, provs: early });
   return out;

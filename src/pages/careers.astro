@@ -18,7 +18,7 @@ const cards = trades.map((t) => {
     range: pre + wk(w.gaEntryAnnual) + '–' + pre + wk(w.gaTopAnnual),
     top: money(w.gaTopAnnual),
   };
-});
+}).sort((a, b) => a.name.localeCompare(b.name));
 
 const groups = [
   { label: 'What draws you', chips: [
@@ -31,7 +31,7 @@ const groups = [
 const labelFor = (tg) => groups.flatMap((g) => g.chips).find((ch) => ch[0] === tg)[1];
 ---
 
-<Layout title="Find Your Trade — Construction Careers in Georgia | TradeBuilt" description="Explore construction careers in Georgia. Twelve skilled trades with real wages, real training, and a real future.">
+<Layout title="Find Your Trade — Construction Careers in Georgia | TradeBuilt" description={`Explore construction careers in Georgia. ${trades.length} skilled trades with real wages, real training, and a real future.`}>
   <Nav />
 
   <header class="fyt-hero">
@@ -77,7 +77,7 @@ const labelFor = (tg) => groups.flatMap((g) => g.chips).find((ch) => ch[0] === t
           </div>
         ))}
         <div class="meta">
-          <span class="count"><b id="cnum">12</b> trades match</span>
+          <span class="count"><b id="cnum">{cards.length}</b> trades match</span>
           <div class="sortwrap"><span class="sortlbl">Sort</span><button class="sortbtn on" data-sort="az">A&ndash;Z</button><button class="sortbtn" data-sort="pay">Top pay</button></div>
           <button class="reset" id="reset">Reset</button>
         </div>
@@ -261,7 +261,7 @@ const labelFor = (tg) => groups.flatMap((g) => g.chips).find((ch) => ch[0] === t
     if (t.dataset.chip) setChip(t.dataset.chip, true);
     apply();
     const finalN = countMatches();
-    cnum.textContent = 12;
+    cnum.textContent = cards.length;
     const p = PATHS[t.dataset.path];
     document.getElementById('trades').scrollIntoView({ behavior: 'smooth' });
     setTimeout(() => {
