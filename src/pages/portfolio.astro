@@ -1,0 +1,29 @@
+---
+// Temporary redirect — sends visitors to Liz's Canva portfolio site.
+// Canva blocks iframe embedding, so this forwards instead of embedding.
+// Safe to delete this file when the portfolio page is no longer needed.
+
+const CANVA_URL = 'https://canva.link/9yhh3v8mxz04fon';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Portfolio — Liz Campbell | TradeBuilt</title>
+    <meta http-equiv="refresh" content={`0; url=${CANVA_URL}`} />
+    <link rel="canonical" href={CANVA_URL} />
+    <script define:vars={{ CANVA_URL }}>
+      window.location.replace(CANVA_URL);
+    </script>
+  </head>
+  <body>
+    <p>
+      Redirecting to Liz Campbell's portfolio&hellip;
+      If you're not redirected automatically,
+      <a href={CANVA_URL}>click here</a>.
+    </p>
+  </body>
+</html>
