@@ -9,6 +9,9 @@ export const MISSION =
 // Confirmed by owner Oct 19, 2026. Verify the inbox receives outside mail before release.
 export const CONTACT_EMAIL = 'liz@tradebuiltusa.com';
 
+// Privacy notice effective date — update whenever the notice changes.
+export const PRIVACY_EFFECTIVE = 'October 19, 2026';
+
 // Study status — the single place to update when the report publishes.
 export const STUDY = {
   name: 'Georgia Construction Talent Study',

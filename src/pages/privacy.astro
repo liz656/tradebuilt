@@ -1,0 +1,83 @@
+---
+import Layout from '../components/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import PageHero from '../components/PageHero.astro';
+import { CONTACT_EMAIL, PRIVACY_EFFECTIVE } from '../data/site.js';
+import '../styles/hub.css';
+// DRAFT for owner review. Every statement here must stay true: if a tool,
+// form or practice changes, update this page and PRIVACY_EFFECTIVE in site.js.
+---
+
+<Layout title="Privacy Notice | TradeBuilt" description="What the TradeBuilt website collects, why, who handles it, and how to ask for your information to be removed.">
+  <Nav />
+
+  <PageHero eyebrow="Privacy" title="Privacy <em>Notice</em>" sub={`Effective ${PRIVACY_EFFECTIVE}`} />
+
+  <section class="hub-sec">
+    <div class="hub-wrap pv">
+      <p class="hub-lede">This page explains what the TradeBuilt website collects, why, who handles it, and how to reach us about it. Plain and short, on purpose.</p>
+
+      <h2 class="pv-h">What we collect</h2>
+      <h3 class="pv-sub">Information you send us</h3>
+      <ul class="pv-list">
+        <li><strong>Report updates signup:</strong> your email address.</li>
+        <li><strong>Contact form:</strong> your name, email address, organization (if you add one), and your message.</li>
+        <li><strong>Email:</strong> whatever you include if you write to us directly.</li>
+      </ul>
+      <p class="hub-p">You don’t need to give us anything to use Find Your Trade, Find Training, or any other part of the site.</p>
+
+      <h3 class="pv-sub">Information collected automatically</h3>
+      <p class="hub-p">We use <strong>Google Analytics</strong> to understand how people use the site: which pages are visited, roughly where visitors are located, what device and browser they use, and how they arrived. Google Analytics uses cookies to do this. We use it to see what’s useful and what isn’t, not to identify you.</p>
+      <p class="hub-p">Like most websites, our host also keeps standard server logs (such as IP address and pages requested) for security and reliability.</p>
+
+      <h2 class="pv-h">How we use it</h2>
+      <ul class="pv-list">
+        <li>To email you about the Georgia Construction Talent Study report, if you signed up.</li>
+        <li>To reply to your message.</li>
+        <li>To understand site traffic and improve the resources on the site.</li>
+      </ul>
+      <p class="hub-p">We don’t sell your personal information, and we don’t add you to other mailing lists.</p>
+
+      <h2 class="pv-h">Who handles it</h2>
+      <ul class="pv-list">
+        <li><strong>Netlify</strong> hosts the site and stores form submissions.</li>
+        <li><strong>Google</strong> provides Google Analytics and the site’s fonts (Google Fonts). Loading the fonts sends your browser’s IP address to Google.</li>
+        <li>Links to other sites, such as training providers or podcasts, take you to sites with their own privacy practices.</li>
+      </ul>
+
+      <h2 class="pv-h">Your choices</h2>
+      <ul class="pv-list">
+        <li><strong>Stop report updates or ask us to delete what you sent:</strong> email <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.</li>
+        <li><strong>Limit analytics:</strong> block cookies in your browser settings, or install Google’s <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer">Analytics opt-out add-on</a>.</li>
+      </ul>
+
+      <h2 class="pv-h">Georgia Construction Talent Study</h2>
+      <p class="hub-p">Participation in the study closed October 15, 2026. Survey responses collected for the study are used for that research. Questions about your responses go to the same address: <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.</p>
+
+      <h2 class="pv-h">Students and young visitors</h2>
+      <p class="hub-p">Our career resources are made for students, families, and educators, but the site’s forms are not meant for children under 13, and we don’t knowingly collect personal information from them. If you believe a child under 13 has sent us information, email us and we’ll delete it.</p>
+
+      <h2 class="pv-h">Changes</h2>
+      <p class="hub-p">If we change how the site handles information, we’ll update this page and the effective date at the top.</p>
+
+      <h2 class="pv-h">Contact</h2>
+      <p class="hub-p">TradeBuilt LLC · <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a></p>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>
+
+<style>
+  .pv { max-width: 780px; }
+  .pv-h { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 28px; text-transform: uppercase; color: var(--tb-text-cream); margin: 40px 0 12px; padding-top: 22px; border-top: 0.5px solid var(--tb-border); }
+  .pv-sub { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 18px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--tb-text-muted); margin: 18px 0 8px; }
+  .pv-list { list-style: none; margin: 0 0 16px; padding: 0; display: flex; flex-direction: column; gap: 10px; max-width: 720px; }
+  .pv-list li { font-size: 16px; line-height: 1.7; color: var(--tb-text-cream); padding-left: 18px; position: relative; }
+  .pv-list li::before { content: ''; position: absolute; left: 0; top: 0.75em; width: 6px; height: 6px; background: var(--tb-orange); }
+  .pv .hub-p { color: var(--tb-text-cream); }
+  .pv strong { color: var(--tb-text-cream); font-weight: 600; }
+  .pv a { color: var(--tb-text-cream); text-decoration: underline; text-underline-offset: 3px; }
+  @media (max-width: 640px) { .pv-h { font-size: 24px; } }
+</style>

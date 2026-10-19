@@ -36,6 +36,7 @@ import '../styles/hub.css';
           <label for="ct-msg">Message</label>
           <textarea id="ct-msg" name="message" rows="6" required></textarea>
         </div>
+        <p class="ct-note">We use what you send only to reply to you. See our <a href="/privacy">privacy notice</a>.</p>
         <button type="submit" class="ct-submit">Send Message</button>
         <p class="ct-status" id="ct-status" role="status" aria-live="polite"></p>
       </form>
@@ -68,6 +69,8 @@ import '../styles/hub.css';
   .ct-status { font-size: 14px; min-height: 1.5em; color: var(--tb-text-cream); }
   .ct-status.err { color: #f0a070; }
   .ct-mail { color: var(--tb-text-cream); }
+  .ct-note { font-size: 13px; line-height: 1.6; color: var(--tb-text-dim); }
+  .ct-note a { color: var(--tb-text-cream); }
   @media (max-width: 860px) { .ct-layout { grid-template-columns: 1fr; gap: 32px; } .ct-form { padding: 26px 20px; } }
 </style>
 

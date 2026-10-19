@@ -15,6 +15,7 @@ export function GET({ site }) {
     ['/find-training/', '0.8'],
     ['/about/', '0.8'],
     ['/contact/', '0.6'],
+    ['/privacy/', '0.3'],
     ...(AMERICAN_TRADES_PUBLISHED ? [['/american-trades/', '0.7']] : []),
     ...trades.map((t) => [`/trades/${t.slug}/`, '0.7']),
   ];
