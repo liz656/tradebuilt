@@ -140,14 +140,14 @@ const featuredCasts = visiblePodcasts.filter((p) => p.featured);
 
   </section>
 
-  <!-- ── PRINCIPLES (replaces How I Help) ── -->
-  <section class="how-help">
+  <!-- ── PRINCIPLES (cream, editorial rows) ── -->
+  <section class="how-help v2-principles-sec">
     <div class="hh-inner">
       <div class="section-label">Principles</div>
       <h2>What Shapes <em>the Work.</em></h2>
-      <div class="hh-grid">
+      <div class="v2-rows">
         {PRINCIPLES.map((p) => (
-          <div class="hh-item">
+          <div class="v2-row">
             <h3>{p.label}</h3>
             <p>{p.lead && <strong>{p.lead} </strong>}{p.body}</p>
           </div>
@@ -759,4 +759,33 @@ const featuredCasts = visiblePodcasts.filter((p) => p.featured);
       padding: 24px;
     }
   }
+</style>
+
+<style>
+/* ══ VISUAL REFINEMENT (Oct 2026) — About page ══ */
+/* Reading: 18px desktop / 17px mobile, 1.65 line-height, ~66ch, lighter copy on navy */
+.bio-opening .bio-opening-text p, .bio-continued .bio-text p, .bio-final .bio-text p:not(.bio-emphasis) { font-size: 18px; line-height: 1.7; color: var(--tb-text-on-dark-2); max-width: 66ch; }
+.bio-continued .bio-text, .bio-final .bio-text { max-width: 760px; }
+.podcasts .podcasts-intro { font-size: 18px; line-height: 1.65; color: var(--tb-text-on-dark-2); max-width: 60ch; }
+.about-hero .hero-sub { font-size: 18px; color: var(--tb-text-on-dark-2); }
+
+/* What Shapes the Work: cream section, blue editorial rows (label left, text right) */
+.how-help.v2-principles-sec { background: var(--tb-bg-light); border-top: none; padding: 96px 32px; }
+.v2-principles-sec .hh-inner { max-width: 1100px; }
+.how-help.v2-principles-sec .section-label { color: var(--tb-muted-blue-on-light); }
+.v2-principles-sec .section-label::after { background: rgba(48, 66, 87, 0.2); }
+.how-help.v2-principles-sec h2 { color: var(--tb-blue); margin-bottom: 48px; }
+.how-help.v2-principles-sec h2 em { -webkit-text-stroke: 1.2px var(--tb-blue); }
+.v2-rows { display: flex; flex-direction: column; border-bottom: 1px solid rgba(48, 66, 87, 0.25); }
+.v2-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 48px; padding: 32px 0; border-top: 1px solid rgba(48, 66, 87, 0.25); align-items: baseline; }
+.v2-row h3 { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 34px; line-height: 1; text-transform: uppercase; color: var(--tb-blue); margin: 0; }
+.v2-row p { font-size: 18px; line-height: 1.7; color: var(--tb-blue); max-width: 62ch; margin: 0; }
+.v2-row p strong { font-weight: 600; }
+.v2-principles-sec a:focus-visible { outline: 3px solid var(--tb-blue); outline-offset: 3px; }
+@media (max-width: 768px) {
+  .bio-opening .bio-opening-text p, .bio-continued .bio-text p, .bio-final .bio-text p:not(.bio-emphasis), .podcasts .podcasts-intro, .v2-row p { font-size: 17px; }
+  .how-help.v2-principles-sec { padding: 56px 20px; }
+  .v2-row { grid-template-columns: 1fr; gap: 12px; padding: 24px 0; }
+  .v2-row h3 { font-size: 28px; }
+}
 </style>

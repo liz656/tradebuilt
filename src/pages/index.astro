@@ -6,6 +6,15 @@ import Footer from '../components/Footer.astro';
 import Partners from '../components/Partners.astro';
 import heroImage from '../assets/Main_SC2023.jpg';
 import headshot from '../assets/Headshot_Final.jpg';
+// Our Work card photos — real TradeBuilt photography already on the site (see docs/visual-assets.md)
+import imgResearch from '../assets/NECAPodcast.jpg';
+import imgCareers from '../assets/derived/SC2023_competitors_3x2.jpg';
+import imgEngagement from '../assets/SkillsChallenge2025_Speaking.jpg';
+const workImages = {
+  'Research & Insights': { src: imgResearch, alt: 'Liz Manning in conversation with a guest on the NECA podcast set', tone: 'duo' },
+  'Career Awareness': { src: imgCareers, alt: 'Competitors framing walls at the Skills Challenge 2023', tone: 'warm' },
+  'Industry Engagement': { src: imgEngagement, alt: 'Liz Manning speaking at Skills Challenge 2025', tone: 'duo' },
+};
 import { MISSION, PRINCIPLES, WORK_AREAS, STUDY, AMERICAN_TRADES_PUBLISHED } from '../data/site.js';
 ---
 
@@ -40,74 +49,102 @@ import { MISSION, PRINCIPLES, WORK_AREAS, STUDY, AMERICAN_TRADES_PUBLISHED } fro
 </section>
 
   <!-- ── STUDY CALLOUT ── -->
-  <section class="study-callout">
+  <section class="study-callout v2-strip">
     <p><strong>{STUDY.name}:</strong> Participation closed {STUDY.closedOn}. The report is anticipated in {STUDY.reportAnticipated}. <a href="/study#report-updates">Get Report Updates →</a></p>
   </section>
 
-  <!-- ── MISSION + PRINCIPLES ── -->
-  <section class="reality">
-    <div class="section-label">What we believe</div>
-    <h2>Listen. Communicate. Take Responsibility.</h2>
-    <p class="reality-intro"><strong>{MISSION}</strong></p>
-    <div class="principle-grid">
-      {PRINCIPLES.map((p) => (
-        <div class="solution-item">
-          <h4>{p.label}</h4>
-          <p>{p.lead && <strong>{p.lead} </strong>}{p.body}</p>
-        </div>
-      ))}
+  <!-- ── MISSION + PRINCIPLES (cream) ── -->
+  <section class="v2-sec v2-cream v2-mission">
+    <div class="v2-wrap">
+      <div class="v2-label">What we believe</div>
+      <h2 class="v2-h2">Listen. Communicate. Take Responsibility.</h2>
+      <p class="v2-lede">{MISSION}</p>
+      <div class="v2-principles">
+        {PRINCIPLES.map((p) => (
+          <div class="v2-principle">
+            <h3>{p.label}</h3>
+            <p>{p.lead && <strong>{p.lead} </strong>}{p.body}</p>
+          </div>
+        ))}
+      </div>
     </div>
   </section>
 
-  <!-- ── WORK AREAS ── -->
-  <section class="pillars">
-    <div class="section-label">Our work</div>
-    <h2>Three Areas.<br>One Purpose.</h2>
-    <p class="pillars-sub">
-      Research, career awareness, and industry engagement around one purpose: helping the industry take responsibility for its future workforce.
-    </p>
-    <div class="pillar-grid">
-      {WORK_AREAS.map((w) => (
-        <div class="pillar">
-          <div class="pillar-num">{w.num} — {w.title}</div>
-          <h3>{w.title}</h3>
-          <p>{w.line}</p>
-          <a class="pillar-link" href={w.href}>{w.cta} →</a>
-        </div>
-      ))}
+  <!-- ── WORK AREAS (navy, photo cards) ── -->
+  <section class="v2-sec v2-navy">
+    <div class="v2-wrap">
+      <div class="v2-label">Our work</div>
+      <h2 class="v2-h2">Three Areas.<br>One Purpose.</h2>
+      <p class="v2-sub">
+        Research, career awareness, and industry engagement around one purpose: helping the industry take responsibility for its future workforce.
+      </p>
+      <div class="v2-work">
+        {WORK_AREAS.map((w) => {
+          const im = workImages[w.title];
+          return (
+            <article class="v2-wcard">
+              {im && (
+                <div class={`v2-wimg v2-tone-${im.tone}`}>
+                  <Image src={im.src} alt={im.alt} widths={[400, 600, 800]} sizes="(max-width: 860px) 100vw, 33vw" loading="lazy" />
+                </div>
+              )}
+              <div class="v2-wbody">
+                <div class="v2-wnum">{w.num} — {w.title}</div>
+                <h3>{w.title}</h3>
+                <p>{w.line}</p>
+                <a class="v2-wlink" href={w.href}>{w.cta} →</a>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+      <div class="v2-more"><a href="/our-work" class="btn-hero">Explore Our Work</a></div>
     </div>
-    <div class="pillars-more"><a href="/our-work" class="btn-hero">Explore Our Work</a></div>
   </section>
 
-  <!-- ── FEATURED RESEARCH ── -->
-  <section class="partner featured-study">
-    <div class="section-label">Featured research</div>
-    <h2>Georgia Construction<br>Talent Study</h2>
-    <p class="partner-sub">
-      Participation closed {STUDY.closedOn}. The report is anticipated in {STUDY.reportAnticipated}. Sign up to hear when it is available.
-    </p>
-    <div class="partner-ctas">
-      <a href="/study#report-updates" class="btn-hero btn-hero--solid">Get Report Updates</a>
-      <a class="btn-orange" href="/study">View the Study →</a>
+  <!-- ── FEATURED RESEARCH (cream editorial) ── -->
+  <section class="v2-sec v2-cream v2-study">
+    <div class="v2-wrap v2-study-grid">
+      <div class="v2-study-copy">
+        <div class="v2-label">Featured research</div>
+        <h2 class="v2-h2">Georgia Construction<br>Talent Study</h2>
+        <p class="v2-lede">
+          Participation closed {STUDY.closedOn}. The report is anticipated in {STUDY.reportAnticipated}. Sign up to hear when it is available.
+        </p>
+        <div class="v2-ctas">
+          <a href="/study#report-updates" class="v2-btn v2-btn--solid">Get Report Updates</a>
+          <a class="v2-btn" href="/study">View the Study →</a>
+        </div>
+      </div>
+      <div class="v2-study-art">
+        <div class="v2-blueprint" aria-hidden="true"></div>
+        <dl class="v2-facts">
+          <div><dt>Focus</dt><dd>Georgia</dd></div>
+          <div><dt>Participation</dt><dd>Closed {STUDY.closedOn}</dd></div>
+          <div><dt>Report</dt><dd>Anticipated {STUDY.reportAnticipated}</dd></div>
+        </dl>
+      </div>
     </div>
   </section>
 
   <!-- ── CAREERS ── -->
-  <section class="audiences" id="careers">
-    <div class="section-label">Construction careers</div>
-    <h2>There’s More Than One Way<br>to Build a Career.</h2>
-    <p class="aud-sub">Explore the trades and discover training pathways. Our current salary information and training directory focus on Georgia.</p>
-    <div class="aud-grid">
-      <a class="aud-card aud-link" href="/careers#trades">
-        <h4>Find Your Trade</h4>
-        <p>Explore trade profiles by your interests and the way you like to work, with Georgia pay information.</p>
-        <span class="aud-go">Find Your Trade →</span>
-      </a>
-      <a class="aud-card aud-link" href="/find-training">
-        <h4>Find Training</h4>
-        <p>Discover Georgia apprenticeship programs, trade schools, and college pathways, organized by trade.</p>
-        <span class="aud-go">Find Training →</span>
-      </a>
+  <section class="audiences v2-careers" id="careers">
+    <div class="v2-wrap">
+      <div class="v2-label v2-label--light">Construction careers</div>
+      <h2 class="v2-h2">There’s More Than One Way<br>to Build a Career.</h2>
+      <p class="v2-sub v2-sub--light">Explore the trades and discover training pathways. Our current salary information and training directory focus on Georgia.</p>
+      <div class="v2-cgrid">
+        <a class="v2-ccard" href="/careers#trades">
+          <h3>Find Your Trade</h3>
+          <p>Explore trade profiles by your interests and the way you like to work, with Georgia pay information.</p>
+          <span class="v2-cgo">Find Your Trade →</span>
+        </a>
+        <a class="v2-ccard" href="/find-training">
+          <h3>Find Training</h3>
+          <p>Discover Georgia apprenticeship programs, trade schools, and college pathways, organized by trade.</p>
+          <span class="v2-cgo">Find Training →</span>
+        </a>
+      </div>
     </div>
   </section>
 
@@ -119,8 +156,8 @@ import { MISSION, PRINCIPLES, WORK_AREAS, STUDY, AMERICAN_TRADES_PUBLISHED } fro
     </section>
   )}
 
-  <!-- ── ABOUT ── -->
-  <section class="quote-section">
+  <!-- ── ABOUT (navy) ── -->
+  <section class="quote-section v2-about">
     <div class="quote-inner">
       <div class="quote-headshot">
         <Image
@@ -138,15 +175,17 @@ import { MISSION, PRINCIPLES, WORK_AREAS, STUDY, AMERICAN_TRADES_PUBLISHED } fro
     </div>
   </section>
 
-  <!-- ── CONNECT ── -->
-  <section class="partner">
-    <div class="section-label">Connect</div>
-    <h2>Be Part of<br>What's Being Built.</h2>
-    <p class="partner-sub">
-      Have a story worth sharing, an educational initiative, or an idea for collaboration? Let’s connect.
-    </p>
-    <div class="partner-ctas">
-      <a href="/contact" class="btn-hero">Connect With TradeBuilt →</a>
+  <!-- ── CONNECT (TradeBuilt Blue) ── -->
+  <section class="v2-sec v2-connect">
+    <div class="v2-wrap">
+      <div class="v2-label v2-label--light">Connect</div>
+      <h2 class="v2-h2">Be Part of<br>What's Being Built.</h2>
+      <p class="v2-sub v2-sub--light">
+        Have a story worth sharing, an educational initiative, or an idea for collaboration? Let’s connect.
+      </p>
+      <div class="v2-ctas">
+        <a href="/contact" class="btn-hero">Connect With TradeBuilt →</a>
+      </div>
     </div>
   </section>
 
@@ -1015,3 +1054,130 @@ a.btn-hero.btn-hero--solid:hover { background: #c17830; border-color: #c17830; c
 }
 </style>
 
+
+<style>
+/* ══ VISUAL REFINEMENT (Oct 2026) — scoped v2 classes for the homepage ══ */
+/* Hero: larger, lighter supporting copy. Gradient + photo unchanged. */
+.hero .hero-body { font-size: 19px; line-height: 1.55; color: var(--tb-text-on-dark-2); max-width: 500px; }
+
+/* Report strip: brand blue instead of orange */
+.study-callout.v2-strip { background: var(--tb-blue); border-bottom: 0.5px solid var(--tb-border); }
+.study-callout.v2-strip p, .study-callout.v2-strip strong, .study-callout.v2-strip a { color: var(--tb-bg-light); }
+.study-callout.v2-strip a { border-bottom-color: var(--tb-bg-light); }
+
+/* Section system: 8px scale, 1200px content, 88px desktop / 52px mobile */
+.v2-sec { padding: 88px 32px; }
+.v2-wrap { max-width: 1200px; margin: 0 auto; }
+.v2-cream { background: var(--tb-bg-light); color: var(--tb-blue); }
+.v2-navy { background: var(--tb-bg-deep); border-bottom: 0.5px solid var(--tb-border); }
+.v2-label { font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--tb-muted-blue-on-light); margin-bottom: 24px; display: flex; align-items: center; gap: 14px; }
+.v2-label::after { content: ''; flex: 1; height: 1px; background: rgba(48, 66, 87, 0.2); }
+.v2-navy .v2-label, .v2-label--light { color: var(--tb-text-on-dark-2); }
+.v2-navy .v2-label::after, .v2-label--light::after { background: rgba(212, 221, 229, 0.25); }
+.v2-h2 { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 64px; line-height: 1; text-transform: uppercase; color: var(--tb-text-cream); margin-bottom: 24px; text-wrap: balance; }
+.v2-cream .v2-h2 { color: var(--tb-blue); }
+.v2-lede { font-size: 20px; line-height: 1.6; color: var(--tb-blue); max-width: 66ch; margin-bottom: 0; }
+.v2-sub { font-size: 18px; line-height: 1.65; color: var(--tb-text-on-dark-2); max-width: 62ch; margin-bottom: 40px; }
+.v2-sub--light { color: var(--tb-text-on-dark-2); }
+
+/* Mission: three equal columns with subtle blue separators */
+.v2-principles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 56px; }
+.v2-principle { padding: 8px 32px; border-left: 1px solid rgba(48, 66, 87, 0.2); }
+.v2-principle:first-child { padding-left: 0; border-left: none; }
+.v2-principle h3 { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 24px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--tb-blue); margin-bottom: 12px; }
+.v2-principle h3::after { content: '.'; }
+.v2-principle p { font-size: 18px; line-height: 1.65; color: var(--tb-blue); }
+.v2-principle p strong { font-weight: 600; }
+
+/* Our Work: 3:2 photo above a solid TradeBuilt Blue text panel */
+.v2-work { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.v2-wcard { display: flex; flex-direction: column; background: var(--tb-blue); min-width: 0; }
+.v2-wimg { position: relative; aspect-ratio: 3 / 2; overflow: hidden; background: var(--tb-bg-deep); }
+.v2-wimg img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.v2-tone-duo img { filter: saturate(0.3) contrast(1.02); }
+.v2-tone-warm img { filter: saturate(0.8); }
+.v2-wimg::after { content: ''; position: absolute; inset: 0; background: var(--tb-blue); pointer-events: none; }
+.v2-tone-duo::after { opacity: 0.22; mix-blend-mode: multiply; }
+.v2-tone-warm::after { opacity: 0.12; mix-blend-mode: multiply; }
+.v2-wbody { padding: 28px; display: flex; flex-direction: column; flex: 1; }
+.v2-wnum { font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--tb-text-on-dark-2); margin-bottom: 16px; }
+.v2-wbody h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 26px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; line-height: 1.1; color: var(--tb-bg-light); margin-bottom: 12px; }
+.v2-wbody p { font-size: 18px; line-height: 1.6; color: var(--tb-text-on-dark-2); margin-bottom: 24px; flex: 1; }
+.v2-wlink { align-self: flex-start; font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--tb-bg-light); text-decoration: none; border-bottom: 1px solid rgba(255, 249, 234, 0.5); padding: 6px 0 2px; }
+.v2-wlink:hover { border-bottom-color: var(--tb-bg-light); }
+.v2-more { margin-top: 40px; }
+
+/* Study: cream editorial feature, 55/45, typographic + blueprint linework (no artwork available) */
+.v2-study-grid { display: grid; grid-template-columns: 55fr 45fr; gap: 56px; align-items: center; }
+.v2-study .v2-h2 { font-size: 72px; }
+.v2-ctas { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 32px; }
+.v2-btn { font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; padding: 14px 24px; min-height: 48px; display: inline-flex; align-items: center; border: 1px solid var(--tb-blue); color: var(--tb-blue); background: transparent; transition: background 0.2s, color 0.2s; }
+.v2-btn:hover { background: rgba(48, 66, 87, 0.08); }
+.v2-btn--solid { background: var(--tb-blue); color: var(--tb-bg-light); }
+.v2-btn--solid:hover { background: var(--tb-bg-deep); color: var(--tb-bg-light); }
+.v2-study-art { position: relative; border: 1px solid rgba(48, 66, 87, 0.25); padding: 40px; min-height: 360px; display: flex; align-items: flex-end; overflow: hidden; }
+.v2-blueprint { position: absolute; inset: 0; pointer-events: none;
+  background-image: linear-gradient(rgba(48,66,87,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(48,66,87,0.07) 1px, transparent 1px), linear-gradient(rgba(48,66,87,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(48,66,87,0.04) 1px, transparent 1px);
+  background-size: 96px 96px, 96px 96px, 24px 24px, 24px 24px; }
+.v2-facts { position: relative; width: 100%; display: flex; flex-direction: column; }
+.v2-facts div { display: flex; justify-content: space-between; gap: 16px; padding: 16px 0; border-top: 1px solid rgba(48, 66, 87, 0.25); }
+.v2-facts dt { font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--tb-muted-blue-on-light); }
+.v2-facts dd { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 26px; line-height: 1.05; text-transform: uppercase; color: var(--tb-blue); text-align: right; margin: 0; }
+
+/* Careers: darker aerial, opaque cream cards */
+.audiences.v2-careers { padding: 88px 32px; background: linear-gradient(180deg, rgba(14,21,32,0.9), rgba(14,21,32,0.9)), url('/photo-aerial-atlanta.webp') center / cover no-repeat; }
+.v2-careers .v2-h2 { color: var(--tb-text-cream); }
+.v2-cgrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.v2-ccard { display: flex; flex-direction: column; background: var(--tb-bg-light); color: var(--tb-blue); padding: 32px; text-decoration: none; border-top: 3px solid var(--tb-orange); transition: transform 0.2s; }
+.v2-ccard:hover { transform: translateY(-2px); }
+.v2-ccard h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 28px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--tb-blue); margin-bottom: 12px; }
+.v2-ccard p { font-size: 18px; line-height: 1.6; color: var(--tb-blue); margin-bottom: 24px; flex: 1; }
+.v2-cgo { font-family: 'Barlow Condensed', sans-serif; font-size: 16px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--tb-blue); border-bottom: 2px solid var(--tb-orange); align-self: flex-start; padding-bottom: 2px; }
+
+/* About preview: navy, portrait ~15% larger (180 → 208px), more breathing room */
+.quote-section.v2-about { background: var(--tb-bg-deep); padding: 88px 32px; }
+.v2-about .quote-inner { gap: 64px; max-width: 840px; }
+.v2-about .quote-headshot { width: 208px; height: 208px; }
+.v2-about .quote-content .quote-main { font-size: 20px; line-height: 1.6; color: var(--tb-text-cream); }
+.v2-about .quote-content .section-label { color: var(--tb-text-on-dark-2); }
+
+/* Connect: solid TradeBuilt Blue (no suitable collaboration photo left unused) */
+.v2-connect { background: var(--tb-blue); padding: 80px 32px; }
+.v2-connect .v2-h2 { color: var(--tb-bg-light); }
+.v2-connect .btn-hero { border-color: var(--tb-bg-light); color: var(--tb-bg-light); }
+.v2-connect .btn-hero:hover { background: var(--tb-bg-light); color: var(--tb-blue); }
+
+/* Focus visible on light and blue surfaces */
+.v2-cream a:focus-visible, .v2-ccard:focus-visible { outline: 3px solid var(--tb-blue); outline-offset: 3px; }
+.v2-navy a:focus-visible, .v2-connect a:focus-visible, .v2-strip a:focus-visible { outline: 3px solid var(--tb-bg-light); outline-offset: 3px; }
+
+@media (max-width: 1024px) {
+  .v2-h2, .v2-study .v2-h2 { font-size: 52px; }
+  .v2-work { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .v2-work .v2-wcard:last-child { grid-column: span 2; }
+  .v2-work .v2-wcard:last-child .v2-wimg { aspect-ratio: 3 / 1.2; }
+  .v2-study-grid { grid-template-columns: 1fr; gap: 40px; }
+}
+@media (max-width: 860px) {
+  .v2-work { grid-template-columns: 1fr; gap: 16px; }
+  .v2-work .v2-wcard:last-child { grid-column: auto; }
+  .v2-work .v2-wcard:last-child .v2-wimg { aspect-ratio: 3 / 2; }
+}
+@media (max-width: 768px) {
+  .hero .hero-body { font-size: 18px; }
+  .v2-sec, .audiences.v2-careers, .quote-section.v2-about, .v2-connect { padding: 52px 20px; }
+  .v2-h2, .v2-study .v2-h2 { font-size: 40px; }
+  .v2-lede { font-size: 18px; }
+  .v2-sub, .v2-principle p, .v2-wbody p, .v2-ccard p { font-size: 17px; }
+  .v2-principles { grid-template-columns: 1fr; margin-top: 32px; }
+  .v2-principle, .v2-principle:first-child { padding: 24px 0; border-left: none; border-top: 1px solid rgba(48, 66, 87, 0.2); }
+  .v2-wbody, .v2-ccard { padding: 24px; }
+  .v2-cgrid { grid-template-columns: 1fr; gap: 16px; }
+  .v2-study-art { padding: 24px; min-height: 0; }
+  .v2-facts dd { font-size: 22px; }
+  .v2-ctas { flex-direction: column; }
+  .v2-ctas a { justify-content: center; }
+  .v2-about .quote-headshot { width: 160px; height: 160px; }
+  .v2-about .quote-inner { gap: 24px; }
+}
+</style>
