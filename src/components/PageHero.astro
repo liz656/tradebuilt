@@ -1,0 +1,25 @@
+---
+// Blueprint-grid page hero shared by the hub pages (matches Study/About heroes).
+export interface Props { eyebrow: string; title: string; sub?: string; }
+const { eyebrow, title, sub } = Astro.props;
+---
+<section class="ph">
+  <div class="ph-grid"></div>
+  <div class="ph-inner">
+    <div class="ph-eyebrow">{eyebrow}</div>
+    <h1 set:html={title} />
+    {sub && <p class="ph-sub">{sub}</p>}
+    <slot />
+  </div>
+</section>
+
+<style>
+  .ph { padding: 80px 40px 64px; border-bottom: 0.5px solid var(--tb-border); position: relative; overflow: hidden; background: var(--tb-bg-deep); text-align: center; }
+  .ph-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(232,227,213,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(232,227,213,0.04) 1px, transparent 1px); background-size: 48px 48px; pointer-events: none; }
+  .ph-inner { position: relative; z-index: 2; max-width: 860px; margin: 0 auto; }
+  .ph-eyebrow { display: inline-flex; font-size: 14px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--tb-text-dim); margin-bottom: 24px; border: 0.5px solid var(--tb-border); padding: 6px 14px; }
+  h1 { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 72px; line-height: 0.95; letter-spacing: -0.01em; text-transform: uppercase; color: var(--tb-text-cream); margin-bottom: 20px; }
+  h1 :global(em) { font-style: normal; color: transparent; -webkit-text-stroke: 1.5px var(--tb-text-cream); }
+  .ph-sub { font-size: 17px; line-height: 1.7; color: var(--tb-text-dim); max-width: 640px; margin: 0 auto; }
+  @media (max-width: 768px) { .ph { padding: 56px 24px 48px; } h1 { font-size: 44px; } .ph-eyebrow { font-size: 12px; } }
+</style>

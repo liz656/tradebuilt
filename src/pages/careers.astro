@@ -31,14 +31,15 @@ const groups = [
 const labelFor = (tg) => groups.flatMap((g) => g.chips).find((ch) => ch[0] === tg)[1];
 ---
 
-<Layout title="Find Your Trade — Construction Careers in Georgia | TradeBuilt" description={`Explore construction careers in Georgia. ${trades.length} skilled trades with real wages, real training, and a real future.`}>
+<Layout title="Find Your Trade | Georgia Career Explorer | TradeBuilt" description="Explore construction trades by interests and work preferences. Compare Georgia pay information and discover related training pathways.">
   <Nav />
 
   <header class="fyt-hero">
     <div class="fyt-wrap">
-      <div class="fyt-eyebrow">Explore Construction Careers</div>
-      <h1>Real Careers.<br>Built to <em>Last.</em></h1>
-      <p class="fyt-lede">Georgia construction is hiring. The trades pay real wages, teach real skills, and build careers you can stand on. Find where you fit and who can train you.</p>
+      <div class="fyt-eyebrow">Construction Careers</div>
+      <h1>There’s More Than One Way<br>to Build a <em>Career.</em></h1>
+      <p class="fyt-lede">Construction brings together hands-on skill, technology, problem-solving, and teamwork. Explore what different trades involve and where training can begin.</p>
+      <p class="fyt-scope">Current pay information and training resources focus on Georgia.</p>
       <div class="fyt-cta">
         <a href="#trades" class="btn-cream">Find Your Trade</a>
         <a href="/find-training" class="btn-outline">Find Training</a>
@@ -63,7 +64,8 @@ const labelFor = (tg) => groups.flatMap((g) => g.chips).find((ch) => ch[0] === t
       <div class="fyt-lead">
         <div class="fyt-lbl accent">Find your trade</div>
         <h2 id="filterHeadline">What do you want <em>out of work?</em></h2>
-        <p id="filterSub">Tap what matters to you. We'll show the Georgia trades that fit, and what they pay.</p>
+        <p id="filterSub">What do you enjoy doing? Explore construction trades by your interests and the way you like to work.</p>
+        <p class="fyt-paynote">The current explorer includes Georgia pay information (BLS Occupational Employment and Wage Statistics, Georgia, entry-level to top earners; construction technology figures are approximate). Earnings vary by location, experience, employer, and training pathway.</p>
       </div>
     </div>
     <div class="fyt-controls">
@@ -72,13 +74,13 @@ const labelFor = (tg) => groups.flatMap((g) => g.chips).find((ch) => ch[0] === t
           <div class="chipgroup">
             <span class="cglabel">{g.label}</span>
             <div class="chiprow">
-              {g.chips.map(([k, l]) => <button class="chip" data-tag={k}>{l}</button>)}
+              {g.chips.map(([k, l]) => <button class="chip" data-tag={k} aria-pressed="false">{l}</button>)}
             </div>
           </div>
         ))}
         <div class="meta">
-          <span class="count"><b id="cnum">{cards.length}</b> trades match</span>
-          <div class="sortwrap"><span class="sortlbl">Sort</span><button class="sortbtn on" data-sort="az">A&ndash;Z</button><button class="sortbtn" data-sort="pay">Top pay</button></div>
+          <span class="count" role="status" aria-live="polite" aria-atomic="true"><b id="cnum">{cards.length}</b> trades match</span>
+          <div class="sortwrap"><span class="sortlbl">Sort</span><button class="sortbtn on" data-sort="az" aria-pressed="true">A&ndash;Z</button><button class="sortbtn" data-sort="pay" aria-pressed="false">Top pay</button></div>
           <button class="reset" id="reset">Reset</button>
         </div>
       </div>
@@ -96,17 +98,20 @@ const labelFor = (tg) => groups.flatMap((g) => g.chips).find((ch) => ch[0] === t
             </a>
           ))}
         </div>
-        <div class="empty" id="empty">No trade matches all of that. Try loosening a filter.</div>
+        <div class="empty" id="empty">No trades match these filters. Try removing a filter or resetting your choices.</div>
       </div>
     </div>
   </section>
 
   <section class="fyt-partner" id="partner">
     <div class="fyt-wrap">
-      <div class="fyt-lbl accent" style="justify-content:center;">For training providers</div>
-      <h2>Are You Training the <em>Next Generation?</em></h2>
-      <p>If you run an apprenticeship or training program in Georgia and don't see it listed, let's fix that. Reach out and I'll get you on the map.</p>
-      <a href="mailto:liz@tradebuiltga.com" class="btn-cream">Contact Liz</a>
+      <div class="fyt-lbl accent" style="justify-content:center;">Find training</div>
+      <h2>Ready to Explore <em>Training?</em></h2>
+      <p>Find Georgia programs connected to the trades that interest you. Know a Georgia training program we should include, or see a listing that needs updating? Send TradeBuilt the details.</p>
+      <div class="fyt-cta" style="justify-content:center;">
+        <a href="/find-training" class="btn-cream">Find Training</a>
+        <a href="/contact" class="btn-outline">Suggest a Program or Correction</a>
+      </div>
     </div>
   </section>
 
@@ -127,6 +132,9 @@ const labelFor = (tg) => groups.flatMap((g) => g.chips).find((ch) => ch[0] === t
   .fyt-hero h1 { font-weight: 900; font-size: 74px; color: var(--tb-text-cream); margin-bottom: 22px; }
   .fyt-lede { font-size: 19px; color: #d8d3c6; max-width: 540px; margin-bottom: 34px; }
   .fyt-cta { display: flex; gap: 14px; flex-wrap: wrap; }
+  .fyt-scope { font-size: 14px; color: #c9c4b6; margin: -18px 0 30px; letter-spacing: 0.02em; }
+  .fyt-lead .fyt-paynote, .fyt-paynote { font-size: 13px !important; line-height: 1.6; color: var(--tb-text-faint); max-width: 720px; margin-top: 12px; }
+  .chip:focus-visible, .sortbtn:focus-visible, .reset:focus-visible, .tri:focus-visible, .tcard:focus-visible, .fyt-wrap a:focus-visible { outline: 2px solid #c17830; outline-offset: 3px; }
 
   .fyt-triage { padding: 88px 0; background: var(--tb-bg-base); }
   .fyt-triage h2, .fyt-filterband h2, .fyt-partner h2 { font-weight: 900; font-size: 44px; color: var(--tb-text-cream); margin-bottom: 44px; }
@@ -136,7 +144,7 @@ const labelFor = (tg) => groups.flatMap((g) => g.chips).find((ch) => ch[0] === t
   .tri .tn { font-size: 10px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--tb-text-faint); }
   .tri h3 { font-weight: 700; font-size: 26px; color: var(--tb-text-cream); margin: 12px 0 10px; }
   .tri p { font-size: 15px; color: var(--tb-text-muted); margin-bottom: 16px; line-height: 1.6; }
-  .tri .go { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #c17830; }
+  .tri .go { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--tb-orange); }
 
   .fyt-filterband { background: var(--tb-bg-deep); border-top: 0.5px solid var(--tb-border); padding-top: 80px; }
   .fyt-lead { max-width: 560px; margin-bottom: 32px; }
@@ -165,22 +173,22 @@ const labelFor = (tg) => groups.flatMap((g) => g.chips).find((ch) => ch[0] === t
 
   .fyt-gridwrap { background: var(--tb-bg-deep); padding: 20px 0 96px; }
   .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-  .tcard { position: relative; overflow: hidden; text-align: center; text-decoration: none; background: #eae4d5; color: var(--tb-bg-deep); border: 0.5px solid rgba(14,21,32,0.12); padding: 30px 26px; transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; align-items: center; }
+  .tcard { position: relative; overflow: hidden; text-align: center; text-decoration: none; background: var(--tb-bg-light); color: var(--tb-text-on-light); border: 0.5px solid rgba(14,21,32,0.12); padding: 30px 26px; transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; align-items: center; }
   .tcard::before { content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none; background: url('/grain.webp'); background-size: 200px 200px; }
   .tcard > * { position: relative; z-index: 1; }
   .tcard:hover { transform: translateY(-5px); box-shadow: 0 18px 40px rgba(0,0,0,0.4); }
   .tcard.hide { display: none; }
   @keyframes cardIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
   .tcard.reveal { animation: cardIn 0.5s ease both; }
-  .seal { width: 112px; height: 112px; color: #1c2b3a; margin-bottom: 12px; transition: color 0.25s; }
+  .seal { width: 112px; height: 112px; color: var(--tb-blue); margin-bottom: 12px; transition: color 0.25s; }
   .seal :global(svg) { width: 100%; height: 100%; display: block; }
   .tcard:hover .seal { color: #c17830; }
   .tcard h3 { font-weight: 700; font-size: 21px; letter-spacing: 0.02em; color: var(--tb-bg-deep); margin-bottom: 8px; }
   .twage { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 31px; line-height: 1; color: var(--tb-bg-deep); }
-  .tper { display: block; font-family: 'Barlow', sans-serif; font-weight: 600; font-size: 10.5px; letter-spacing: 0.03em; text-transform: uppercase; color: rgba(14,21,32,0.55); margin-top: 6px; }
+  .tper { display: block; font-family: 'Barlow', sans-serif; font-weight: 600; font-size: 10.5px; letter-spacing: 0.03em; text-transform: uppercase; color: var(--tb-blue-on-light); margin-top: 6px; }
   .pills { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin: 14px 0 16px; }
-  .pill { font-size: 10px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: #5a6880; border: 0.5px solid rgba(14,21,32,0.2); padding: 3px 9px; border-radius: 999px; }
-  .tgo { margin-top: auto; font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #c17830; }
+  .pill { font-size: 10px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--tb-muted-blue-on-light); border: 0.5px solid rgba(48,66,87,0.35); padding: 3px 9px; border-radius: 999px; }
+  .tgo { margin-top: auto; font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--tb-blue-on-light); }
   .empty { display: none; text-align: center; padding: 50px 0; color: var(--tb-text-muted); font-size: 16px; }
   .empty.show { display: block; }
 
@@ -237,6 +245,7 @@ const labelFor = (tg) => groups.flatMap((g) => g.chips).find((ch) => ch[0] === t
     if (!el) return;
     if (on) { active.add(tag); el.classList.add('on'); }
     else { active.delete(tag); el.classList.remove('on'); }
+    el.setAttribute('aria-pressed', String(on));
   }
   function countMatches() { return cards.filter((c) => !c.classList.contains('hide')).length; }
   function animateCount(to) {
@@ -254,10 +263,10 @@ const labelFor = (tg) => groups.flatMap((g) => g.chips).find((ch) => ch[0] === t
     arr.forEach((c) => grid.appendChild(c));
   }
   chips.forEach((ch) => ch.addEventListener('click', () => { const t = ch.dataset.tag; active.has(t) ? setChip(t, false) : setChip(t, true); apply(); }));
-  document.querySelectorAll('.sortbtn').forEach((btn) => btn.addEventListener('click', () => { document.querySelectorAll('.sortbtn').forEach((b) => b.classList.remove('on')); btn.classList.add('on'); sortMode = btn.dataset.sort; sortCards(); }));
-  document.getElementById('reset').addEventListener('click', () => { active.clear(); chips.forEach((c) => c.classList.remove('on')); apply(); HEAD.innerHTML = DEF_H; SUB.textContent = DEF_S; });
+  document.querySelectorAll('.sortbtn').forEach((btn) => btn.addEventListener('click', () => { document.querySelectorAll('.sortbtn').forEach((b) => { b.classList.remove('on'); b.setAttribute('aria-pressed', 'false'); }); btn.classList.add('on'); btn.setAttribute('aria-pressed', 'true'); sortMode = btn.dataset.sort; sortCards(); }));
+  document.getElementById('reset').addEventListener('click', () => { active.clear(); chips.forEach((c) => { c.classList.remove('on'); c.setAttribute('aria-pressed', 'false'); }); apply(); HEAD.innerHTML = DEF_H; SUB.textContent = DEF_S; });
   document.querySelectorAll('.tri').forEach((t) => t.addEventListener('click', () => {
-    active.clear(); chips.forEach((c) => c.classList.remove('on'));
+    active.clear(); chips.forEach((c) => { c.classList.remove('on'); c.setAttribute('aria-pressed', 'false'); });
     if (t.dataset.chip) setChip(t.dataset.chip, true);
     apply();
     const finalN = countMatches();

@@ -1,0 +1,87 @@
+---
+// Shown at every former Study enrollment/survey URL (and their thank-you pages)
+// after participation closed. The original survey instruments are preserved in
+// git history (last live version: commit 3bbffb1 on main). Submissions already
+// received live in Netlify Forms and are not touched by this page.
+import Layout from './Layout.astro';
+import Nav from './Nav.astro';
+import Footer from './Footer.astro';
+import { STUDY } from '../data/site.js';
+
+export interface Props {
+  title: string;
+  heading: string;
+  intro: string;
+}
+const { title, heading, intro } = Astro.props;
+---
+
+<Layout title={`${title} | TradeBuilt`} description={`Participation in the ${STUDY.name} closed ${STUDY.closedOn}.`} noindex>
+  <Nav />
+  <section class="sc">
+    <div class="sc-grid"></div>
+    <div class="sc-inner">
+      <div class="sc-eyebrow">{STUDY.name}</div>
+      <h1 set:html={heading} />
+      <p>{intro}</p>
+      <p><strong>Participation closed {STUDY.closedOn}.</strong> The report is anticipated in {STUDY.reportAnticipated}. Sign up to hear when it is available.</p>
+      <div class="sc-btns">
+        <a href="/study#report-updates" class="btn-cream">Get Report Updates</a>
+        <a href="/study" class="btn-outline">About the Study</a>
+      </div>
+    </div>
+  </section>
+  <Footer />
+</Layout>
+
+<style>
+  .sc {
+    min-height: 64vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px 40px;
+    background: var(--tb-bg-deep);
+    position: relative;
+    overflow: hidden;
+  }
+  .sc-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(232,227,213,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(232,227,213,0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+  }
+  .sc-inner { position: relative; max-width: 620px; }
+  .sc-eyebrow {
+    display: inline-flex;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--tb-text-dim);
+    border: 0.5px solid var(--tb-border);
+    padding: 6px 14px;
+    margin-bottom: 24px;
+  }
+  h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 64px;
+    line-height: 0.95;
+    text-transform: uppercase;
+    color: var(--tb-text-cream);
+    margin-bottom: 24px;
+  }
+  h1 :global(em) { font-style: normal; color: transparent; -webkit-text-stroke: 1.5px var(--tb-text-cream); }
+  p { font-size: 16px; line-height: 1.75; color: var(--tb-text-dim); margin-bottom: 14px; }
+  p strong { color: var(--tb-text-cream); font-weight: 600; }
+  .sc-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 28px; }
+  @media (max-width: 640px) {
+    .sc { padding: 56px 24px; }
+    h1 { font-size: 44px; }
+    .sc-btns { flex-direction: column; }
+  }
+</style>

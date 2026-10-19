@@ -2,17 +2,25 @@
 
 /* ── Brand Tokens ── */
 :root {
+  /* Mirror of the live tokens in src/components/Layout.astro (this file is not imported). */
+  --tb-blue:        #304257;
   --tb-bg-deep:     #0e1520;
   --tb-bg-base:     #141b28;
+  --tb-bg-light:    #FFF9EA;
   --tb-border:      #1e2a3e;
-  --tb-border-mid:  #2d3f5f;
+  --tb-border-mid:  #304257;
   --tb-border-dim:  #1a2235;
+  --tb-orange:      #c17830;
   --tb-text-cream:  #e8e3d5;
-  --tb-text-muted:  #9aa4b4;
-  --tb-text-dim:    #7a8a9e;
-  --tb-text-faint:  #5a6880;
-  --tb-text-ghost:  #3a4d66;
-  --tb-text-dark:   #2d3f5f;
+  --tb-text-muted:  #b8c2d0;
+  --tb-text-dim:    #9eabbe;
+  --tb-text-faint:  #7a8fa6;
+  --tb-text-ghost:  #6e86a4;
+  --tb-text-dark:   #6a84a9;
+  --tb-text-on-light: #0e1520;
+  --tb-blue-on-light: #304257;
+  --tb-muted-blue-on-light: #5a7290;
+  --tb-text-on-orange: #0e1520;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }

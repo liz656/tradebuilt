@@ -1,45 +1,92 @@
 ---
+import { TAGLINE, MISSION, AMERICAN_TRADES_PUBLISHED } from '../data/site.js';
+const year = new Date().getFullYear(); // build year; Netlify rebuilds on each deploy
+
+const cols = [
+  {
+    head: 'Our Work',
+    links: [
+      { label: 'Our Work', href: '/our-work' },
+      { label: 'Research & Insights', href: '/research-insights' },
+      { label: 'Georgia Construction Talent Study', href: '/study' },
+      ...(AMERICAN_TRADES_PUBLISHED ? [{ label: 'The American Trades', href: '/american-trades' }] : []),
+    ],
+  },
+  {
+    head: 'Construction Careers',
+    links: [
+      { label: 'Construction Careers', href: '/careers' },
+      { label: 'Find Your Trade', href: '/careers#trades' },
+      { label: 'Find Training', href: '/find-training' },
+    ],
+  },
+  {
+    head: 'TradeBuilt',
+    links: [
+      { label: 'About', href: '/about' },
+      { label: 'Contact', href: '/contact' },
+      { label: 'Privacy', href: '/privacy' },
+    ],
+  },
+];
 ---
 
 <footer class="tb-footer">
-  <div class="tb-footer-brand">
-    <div class="tb-footer-logo">TradeBuilt <span>·</span> Est. 2026</div>
-    <div class="tb-footer-copy">© 2026 TradeBuilt</div>
+  <div class="tb-footer-top">
+    <div class="tb-footer-brand">
+      <div class="tb-footer-logo">TradeBuilt</div>
+      <div class="tb-footer-tag">{TAGLINE}</div>
+      <p class="tb-footer-mission">{MISSION}</p>
+      <p class="tb-footer-geo">A national-facing platform for construction’s future workforce. Our current research study, pay information, and training directory focus on Georgia.</p>
+    </div>
+    <nav class="tb-footer-cols" aria-label="Footer">
+      {cols.map((c) => (
+        <div class="tb-footer-col">
+          <div class="tb-footer-head">{c.head}</div>
+          <ul>{c.links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}</ul>
+        </div>
+      ))}
+    </nav>
   </div>
-  <div class="tb-footer-social">
-    <a href="https://www.linkedin.com/company/tradebuiltga" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/>
-        <rect x="2" y="9" width="4" height="12"/>
-        <circle cx="4" cy="4" r="2"/>
-      </svg>
-    </a>
-    <a href="https://www.tiktok.com/@tradebuiltliz" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
-      <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-        <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.75a4.85 4.85 0 01-1.01-.06z"/>
-      </svg>
-    </a>
-    <a href="https://www.instagram.com/tradebuiltga" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-        <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/>
-        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
-      </svg>
-    </a>
-    <!-- Facebook: add here once the page URL is confirmed. -->
+  <div class="tb-footer-bottom">
+    <div class="tb-footer-copy">© {year} TradeBuilt. All rights reserved.</div>
+    <div class="tb-footer-social">
+      <a href="https://www.linkedin.com/company/tradebuiltga" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/>
+          <rect x="2" y="9" width="4" height="12"/>
+          <circle cx="4" cy="4" r="2"/>
+        </svg>
+      </a>
+      <a href="https://www.tiktok.com/@tradebuiltliz" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+          <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.75a4.85 4.85 0 01-1.01-.06z"/>
+        </svg>
+      </a>
+      <a href="https://www.instagram.com/tradebuiltga" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+          <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/>
+          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+        </svg>
+      </a>
+      <!-- Facebook: add here once the page URL is confirmed. -->
+    </div>
   </div>
 </footer>
 
 <style>
   .tb-footer {
-    padding: 22px 40px;
+    padding: 48px 40px 22px;
     border-top: 0.5px solid var(--tb-border);
     background: var(--tb-bg-deep);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
-    flex-wrap: wrap;
+  }
+  .tb-footer-top {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 2fr);
+    gap: 48px;
+    max-width: 1200px;
+    margin: 0 auto 36px;
   }
   .tb-footer-logo {
     font-family: 'Barlow Condensed', sans-serif;
@@ -47,18 +94,64 @@
     letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--tb-text-cream);
+    font-size: 18px;
+  }
+  .tb-footer-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
     font-size: 15px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #c17830;
+    margin: 6px 0 14px;
   }
-  .tb-footer-logo span { color: var(--tb-text-faint); margin: 0 4px; }
-  .tb-footer-copy {
-    font-size: 12px;
+  .tb-footer-mission, .tb-footer-geo {
+    font-size: 13px;
+    line-height: 1.65;
+    color: var(--tb-text-dim);
+    margin-bottom: 10px;
+    max-width: 420px;
+  }
+  .tb-footer-geo { color: var(--tb-text-faint); }
+  .tb-footer-cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
+  .tb-footer-head {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
     color: var(--tb-text-faint);
-    margin-top: 4px;
+    margin-bottom: 14px;
   }
+  .tb-footer-col ul { list-style: none; }
+  .tb-footer-col li { margin-bottom: 10px; }
+  .tb-footer-col a {
+    font-size: 14px;
+    color: var(--tb-text-muted);
+    text-decoration: none;
+  }
+  .tb-footer-col a:hover, .tb-footer-col a:focus-visible { color: var(--tb-text-cream); text-decoration: underline; }
+  .tb-footer-bottom {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-top: 18px;
+    border-top: 0.5px solid var(--tb-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .tb-footer-copy { font-size: 12px; color: var(--tb-text-faint); }
   .tb-footer-social { display: flex; gap: 16px; }
   .tb-footer-social a { color: var(--tb-text-dim); transition: color 0.2s; display: flex; }
   .tb-footer-social a:hover { color: var(--tb-text-cream); }
+  .tb-footer a:focus-visible { outline: 2px solid #c17830; outline-offset: 3px; }
+  @media (max-width: 900px) {
+    .tb-footer-top { grid-template-columns: 1fr; gap: 32px; }
+  }
   @media (max-width: 640px) {
-    .tb-footer { flex-direction: column; align-items: flex-start; text-align: left; }
+    .tb-footer { padding: 40px 24px 22px; }
+    .tb-footer-cols { grid-template-columns: 1fr 1fr; }
+    .tb-footer-bottom { flex-direction: column; align-items: flex-start; }
   }
 </style>

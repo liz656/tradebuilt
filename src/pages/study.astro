@@ -3,42 +3,53 @@ import Layout from '../components/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import Partners from '../components/Partners.astro';
+import ReportSignup from '../components/ReportSignup.astro';
+import { STUDY } from '../data/site.js';
 ---
 
-<Layout title="The Georgia Construction Talent Study — TradeBuilt" description="The Georgia Construction Talent Study is a field-informed research initiative capturing what's working across education, industry, and workforce development in Georgia.">
+<Layout title="Georgia Construction Talent Study | TradeBuilt" description="Participation closed October 15, 2026. The Georgia Construction Talent Study report is anticipated in November. Sign up for report updates.">
   <Nav />
 
-  <!-- â”€â”€ HERO â”€â”€ -->
+  <!-- ── HERO ── -->
   <section class="study-hero">
     <div class="blueprint"></div>
     <div class="hero-content">
-      <h1>The Study.</h1>
+      <div class="eyebrow">Georgia Construction Talent Study</div>
+      <h1>Participation Closed.<br>The Conversation <em>Continues.</em></h1>
       <p class="hero-sub">Field-informed. Industry-driven. Built on what's actually working.</p>
     </div>
   </section>
 
-  <!-- â”€â”€ WHAT IT IS â”€â”€ -->
+  <!-- ── CLOSURE NOTICE ── -->
+  <section class="closed-notice" aria-labelledby="closed-h">
+    <div class="closed-inner">
+      <h2 id="closed-h" class="closed-h">Participation closed {STUDY.closedOn}.</h2>
+      <p>Thank you to everyone who contributed time and perspective. The report is anticipated in {STUDY.reportAnticipated}. <a href="#report-updates">Sign up below</a> to hear when it is available.</p>
+    </div>
+  </section>
+
+  <!-- ── WHAT IT IS ── -->
   <section class="what-section">
     <div class="what-grid">
       <div class="what-text">
-        <div class="section-label">What this is</div>
+        <div class="section-label">About the study</div>
         <h2>A Statewide Look at What's Working in Georgia's Construction Workforce.</h2>
-        <p>The Georgia Construction Talent Study is a field-informed research initiative designed to capture insight from the people closest to the work — educators, contractors, trade associations, training providers, and parents — to understand what strategies are successfully attracting the next generation into construction careers.</p>
-        <p>This isn't a government report or an academic exercise. It's a ground-level look at what's actually happening in Georgia classrooms, jobsites, and apprenticeship programs and what's producing real results.</p>
-        <p>The findings will be used to highlight effective approaches, strengthen industry-education alignment, and inform how construction career pathways are communicated across the state.</p>
+        <p>The Georgia Construction Talent Study focuses on the people and experiences shaping construction’s workforce in Georgia. It brings field perspectives into the conversation about career awareness, training pathways, and the industry’s role in developing its future workforce.</p>
+        <p>The study was designed to capture insight from the people closest to the work — educators, contractors, trade associations, training providers, and parents — to understand what strategies are successfully attracting the next generation into construction careers.</p>
+        <p>This isn't a government report or an academic exercise. It's a ground-level look at what's actually happening in Georgia classrooms, jobsites, and apprenticeship programs.</p>
       </div>
       <div class="what-aside">
-        <div class="aside-block">
-          <div class="aside-num">3</div>
-          <div class="aside-label">Sectors being engaged</div>
-        </div>
         <div class="aside-block">
           <div class="aside-num">Georgia</div>
           <div class="aside-label">Statewide focus</div>
         </div>
         <div class="aside-block">
-          <div class="aside-num">Q4 2026</div>
-          <div class="aside-label">Results releasing</div>
+          <div class="aside-num">Closed</div>
+          <div class="aside-label">Participation ended {STUDY.closedOn}</div>
+        </div>
+        <div class="aside-block">
+          <div class="aside-num">{STUDY.reportAnticipated}</div>
+          <div class="aside-label">Report anticipated</div>
         </div>
         <div class="aside-block">
           <div class="aside-num">Field-first</div>
@@ -48,7 +59,7 @@ import Partners from '../components/Partners.astro';
     </div>
   </section>
 
-  <!-- â”€â”€ WHY IT MATTERS â”€â”€ -->
+  <!-- ── WHY IT MATTERS ── -->
   <section class="why-section">
     <div class="section-label">Why it matters</div>
     <h2>The Industry Doesn't Need Another Career Fair.<br>It Needs the Right Megaphone.</h2>
@@ -59,22 +70,22 @@ import Partners from '../components/Partners.astro';
       </div>
       <div class="why-item">
         <h4>But they're often invisible</h4>
-        <p>The most effective approaches are rarely the loudest. This study is designed to surface what's working at the ground level and make it accessible on a state and national level.</p>
+        <p>The most effective approaches are rarely the loudest. This study is designed to surface what's working at the ground level.</p>
       </div>
       <div class="why-item">
         <h4>Alignment is the missing piece</h4>
         <p>When educators, contractors, and trade organizations are working from the same picture, the pipeline strengthens. This study helps build that shared picture.</p>
       </div>
       <div class="why-item">
-        <h4>Your voice shapes the outcome</h4>
-        <p>The findings are only as strong as the people who contribute. If you're in the field, in the classroom, or leading an organization your perspective matters here.</p>
+        <h4>Built on the people who contributed</h4>
+        <p>The findings are only as strong as the people who shared their perspective. Thank you to everyone in the field, in the classroom, and leading organizations who took part.</p>
       </div>
     </div>
   </section>
 
-  <!-- â”€â”€ WHO WE'RE HEARING FROM â”€â”€ -->
+  <!-- ── WHO WE HEARD FROM ── -->
   <section class="who-section">
-    <div class="section-label">Who we're hearing from</div>
+    <div class="section-label">Who we heard from</div>
     <h2>This Study Belongs to the People<br>Doing the Work.</h2>
     <div class="who-grid">
       <div class="who-card">
@@ -100,86 +111,30 @@ import Partners from '../components/Partners.astro';
     </div>
   </section>
 
-  <!-- â”€â”€ FORM â”€â”€ -->
-  <section class="form-section">
+  <!-- ── REPORT UPDATES ── -->
+  <section class="form-section" id="report-updates">
     <div class="form-layout">
       <div class="form-text">
-        <div class="section-label">Participate</div>
-        <h2>Join the Study.</h2>
-        <p>If you're working in Georgia's construction ecosystem as an educator, contractor, association leader, training provider, or parent — your perspective is exactly what this study needs.</p>
-        <p>Submit your information below and you'll be contacted with next steps. Participation takes approximately 10-15 minutes and your responses will be kept confidential.</p>
-        <div class="form-promise">
-          <div class="promise-item">
-            <span class="promise-dot"></span>
-            10-15 minutes of your time
-          </div>
-          <div class="promise-item">
-            <span class="promise-dot"></span>
-            Responses kept confidential
-          </div>
-          <div class="promise-item">
-            <span class="promise-dot"></span>
-            Early access to findings for participants
-          </div>
-          <div class="promise-item">
-            <span class="promise-dot"></span>
-            No spam. No selling your information.
-          </div>
-        </div>
+        <div class="section-label">Get report updates</div>
+        <h2>Hear When the Report Is Available.</h2>
+        <p>Enter your email to receive updates about the Georgia Construction Talent Study report. The report is anticipated in {STUDY.reportAnticipated}.</p>
+        <p>Questions about the research? <a class="inline-link" href="/contact">Connect with TradeBuilt</a>.</p>
       </div>
-
       <div class="form-wrap">
-        <form name="study-participation" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/thank-you" class="study-form">
-          <input type="hidden" name="form-name" value="study-participation" />
-          <p class="hidden"><label>Don't fill this out: <input name="bot-field" /></label></p>
-
-          <div class="field-group">
-            <label for="name">Full Name <span class="required">*</span></label>
-            <input type="text" id="name" name="name" required placeholder="Your full name" />
-          </div>
-
-          <div class="field-group">
-            <label for="email">Email Address <span class="required">*</span></label>
-            <input type="email" id="email" name="email" required placeholder="your@email.com" />
-          </div>
-
-          <div class="field-group">
-            <label for="organization">Organization / School Name <span class="required">*</span></label>
-            <input type="text" id="organization" name="organization" required placeholder="Where do you work or teach?" />
-          </div>
-
-          <div class="field-group">
-            <label for="role">Your Role <span class="required">*</span></label>
-            <select id="role" name="role" required>
-              <option value="" disabled selected>Select your role</option>
-              <option value="educator">Educator</option>
-              <option value="parent">Parent</option>
-              <option value="contractor">Contractor</option>
-              <option value="trade-association">Trade Association</option>
-              <option value="training-provider">Training Provider</option>
-            </select>
-          </div>
-
-          <div class="field-group">
-            <label for="location">City / State <span class="required">*</span></label>
-            <input type="text" id="location" name="location" required placeholder="e.g. Atlanta, GA" />
-          </div>
-
-          <button type="submit" class="btn-submit">Join the Study</button>
-        </form>
+        <ReportSignup />
       </div>
     </div>
   </section>
 
-  <!-- â”€â”€ CTA â”€â”€ -->
-  <Partners />
+  <Partners label="Study Partners" />
 
   <section class="study-cta">
     <div class="fc-grid"></div>
-    <h2>Have Questions?<br>Let's <em>Talk.</em></h2>
-    <p>If you'd like to learn more about the study before participating, or if you're interested in partnering with TradeBuilt on this initiative, reach out directly.</p>
+    <h2>Have Questions<br>About the <em>Research?</em></h2>
+    <p>Reach out about the study, the upcoming report, or the conversations it’s part of.</p>
     <div class="cta-btns">
-      <a href="mailto:liz@tradebuiltga.com" class="btn-cream">Contact Liz</a>
+      <a href="/contact" class="btn-cream">Connect With TradeBuilt</a>
+      <a href="/research-insights" class="btn-outline">Research &amp; Insights</a>
     </div>
   </section>
 
@@ -188,7 +143,7 @@ import Partners from '../components/Partners.astro';
 </Layout>
 
 <style>
-  /* â”€â”€ HERO â”€â”€ */
+  /* ── HERO ── */
   .study-hero {
     padding: 80px 40px 64px;
     border-bottom: 0.5px solid var(--tb-border);
@@ -210,7 +165,7 @@ import Partners from '../components/Partners.astro';
   .hero-content {
     position: relative;
     z-index: 2;
-    max-width: 640px;
+    max-width: 900px;
     margin: 0 auto;
   }
 
@@ -229,7 +184,7 @@ import Partners from '../components/Partners.astro';
   .study-hero h1 {
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 900;
-    font-size: 96px;
+    font-size: 72px;
     line-height: 0.93;
     letter-spacing: -0.01em;
     text-transform: uppercase;
@@ -244,7 +199,34 @@ import Partners from '../components/Partners.astro';
     font-style: italic;
   }
 
-  /* â”€â”€ WHAT SECTION â”€â”€ */
+  .study-hero h1 em {
+    font-style: normal;
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--tb-text-cream);
+  }
+
+  /* ── CLOSURE NOTICE ── */
+  .closed-notice {
+    background: #c17830;
+    padding: 22px 40px;
+    border-bottom: 0.5px solid var(--tb-border);
+    text-align: center;
+  }
+  .closed-inner { max-width: 820px; margin: 0 auto; }
+  .closed-h {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--tb-text-on-orange);
+    margin-bottom: 4px;
+  }
+  .closed-notice p { font-size: 15px; line-height: 1.6; color: var(--tb-text-on-orange); }
+  .closed-notice a { color: var(--tb-text-on-orange); font-weight: 700; }
+  .inline-link { color: var(--tb-text-cream); }
+
+  /* ── WHAT SECTION ── */
   .what-section {
     padding: 64px 40px;
     border-bottom: 0.5px solid var(--tb-border);
@@ -307,7 +289,7 @@ import Partners from '../components/Partners.astro';
     line-height: 1.4;
   }
 
-  /* â”€â”€ WHY SECTION â”€â”€ */
+  /* ── WHY SECTION ── */
   .why-section {
     padding: 64px 40px;
     border-bottom: 0.5px solid var(--tb-border);
@@ -358,11 +340,11 @@ import Partners from '../components/Partners.astro';
   .why-item p {
     font-size: 13px;
     line-height: 1.7;
-    color: var(--tb-text-dim);
+    color: var(--tb-text-cream);
     margin: 0;
   }
 
-  /* â”€â”€ WHO SECTION â”€â”€ */
+  /* ── WHO SECTION ── */
   .who-section {
     padding: 64px 40px;
     border-bottom: 0.5px solid var(--tb-border);
@@ -415,7 +397,7 @@ import Partners from '../components/Partners.astro';
     margin: 0;
   }
 
-  /* â”€â”€ FORM SECTION â”€â”€ */
+  /* ── FORM SECTION ── */
   .form-section {
     padding: 64px 40px;
     border-bottom: 0.5px solid var(--tb-border);
@@ -470,7 +452,7 @@ import Partners from '../components/Partners.astro';
     flex-shrink: 0;
   }
 
-  /* â”€â”€ FORM STYLES â”€â”€ */
+  /* ── FORM STYLES ── */
   .study-form {
     background: var(--tb-bg-base);
     border: 0.5px solid var(--tb-border);
@@ -552,7 +534,7 @@ import Partners from '../components/Partners.astro';
 
   .btn-submit:hover { background: #c8c4b8; }
 
-  /* â”€â”€ CTA â”€â”€ */
+  /* ── CTA ── */
   .study-cta {
     padding: 72px 40px;
     text-align: center;
@@ -603,7 +585,7 @@ import Partners from '../components/Partners.astro';
     position: relative;
   }
 
-  /* â”€â”€ FOOTER â”€â”€ */
+  /* ── FOOTER ── */
   .site-footer {
     padding: 18px 40px;
     border-top: 0.5px solid var(--tb-border);
@@ -625,7 +607,7 @@ import Partners from '../components/Partners.astro';
   .footer-logo span { color: var(--tb-text-dark); }
   .footer-copy { font-size: 10px; color: var(--tb-text-dark); letter-spacing: 0.06em; }
 
-  /* â”€â”€ SECTION LABEL â”€â”€ */
+  /* ── SECTION LABEL ── */
   .section-label {
     font-size: 10px;
     font-weight: 600;
@@ -645,10 +627,10 @@ import Partners from '../components/Partners.astro';
     background: var(--tb-border);
   }
 
-  /* â”€â”€ MOBILE â”€â”€ */
+  /* ── MOBILE ── */
   @media (max-width: 768px) {
     .study-hero { padding: 56px 24px 48px; }
-    .study-hero h1 { font-size: 64px; }
+    .study-hero h1 { font-size: 44px; }
 
     .what-section { padding: 48px 24px; }
     .what-grid { grid-template-columns: 1fr; gap: 32px; }
@@ -670,6 +652,8 @@ import Partners from '../components/Partners.astro';
     .form-text h2 { font-size: 36px; }
 
     .study-cta { padding: 56px 24px; }
+    .closed-notice { padding: 20px 24px; }
+    .cta-btns { flex-direction: column; align-items: center; }
     .study-cta h2 { font-size: 38px; }
 
     .site-footer {

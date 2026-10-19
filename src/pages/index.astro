@@ -2,25 +2,28 @@
 import { Image } from 'astro:assets';
 import Layout from '../components/Layout.astro';
 import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
 import Partners from '../components/Partners.astro';
 import heroImage from '../assets/Main_SC2023.jpg';
 import headshot from '../assets/Headshot_Final.jpg';
+import { MISSION, PRINCIPLES, WORK_AREAS, STUDY, AMERICAN_TRADES_PUBLISHED } from '../data/site.js';
 ---
 
-<Layout>
+<Layout title="TradeBuilt | Built by the Field. Backed by Experience." description="Field perspectives, research, and career resources connecting the construction industry with its future workforce.">
   <Nav />
 
   <!-- ── HERO ── -->
 <section class="hero">
   <div class="hero-left">
-    <div class="eyebrow">Workforce Development • Industry Strategy • Field-Driven Storytelling</div>
-    <h1>Amplifying<br>Real Stories.<br><em>Attracting</em><br><em>Genuine Talent.</em></h1>
+    <div class="eyebrow">Research • Career Awareness • Industry Engagement</div>
+    <h1>Built by<br>the Field.<br><em>Backed by</em><br><em>Experience.</em></h1>
     <p class="hero-body">
-      TradeBuilt helps contractors and trade associations strengthen the systems that attract, develop, and retain their workforce — while continuing to connect Georgia students, families, and educators with real construction careers and training pathways.
+      TradeBuilt brings field perspectives, construction career resources, and industry conversations together to help shape the future workforce.
     </p>
     <div class="cta-row">
-      <a href="mailto:liz@tradebuiltusa.com" class="btn-hero">Work With TradeBuilt</a>
-      <a href="/careers" class="btn-hero">Explore Georgia Careers</a>
+      <a href="/careers#trades" class="btn-hero btn-hero--solid">Find Your Trade</a>
+      <a href="/find-training" class="btn-hero">Find Training</a>
+      <a href="/our-work" class="btn-hero">Explore Our Work</a>
     </div>
   </div>
   <div class="hero-right">
@@ -38,83 +41,85 @@ import headshot from '../assets/Headshot_Final.jpg';
 
   <!-- ── STUDY CALLOUT ── -->
   <section class="study-callout">
-    <p><strong>The Georgia Construction Talent Study is underway.</strong> Help identify what is actually working in Georgia's construction workforce. <a href="/study">Participate in the Study →</a></p>
+    <p><strong>{STUDY.name}:</strong> Participation closed {STUDY.closedOn}. The report is anticipated in {STUDY.reportAnticipated}. <a href="/study#report-updates">Get Report Updates →</a></p>
   </section>
 
-  <!-- ── REALITY ── -->
+  <!-- ── MISSION + PRINCIPLES ── -->
   <section class="reality">
-    <div class="section-label">The reality</div>
-    <h2>The Work Is Happening. It’s Time to Scale It.</h2>
-    <p class="reality-intro">
-      Strong workforce practices are already working inside contractors, associations, training programs, and classrooms. The challenge isn't starting from zero.
-      <strong>It's identifying what produces results, strengthening the systems behind it, and making the good work easier to repeat.</strong>
-    </p>
-    <div class="solution-grid">
-      <div class="solution-item">
-        <h4>Identify What's Working</h4>
-        <p>Field-informed research and workforce assessments that show where the real opportunities are.</p>
-      </div>
-      <div class="solution-item">
-        <h4>Strengthen the System</h4>
-        <p>Practical workforce development built around recruiting, onboarding, mentorship, advancement, and retention.</p>
-      </div>
-      <div class="solution-item">
-        <h4>Tell the Real Story</h4>
-        <p>Employer branding, digital campaigns, and content rooted in the work itself, not recruitment spin.</p>
-      </div>
-      <div class="solution-item">
-        <h4>Build Stronger Alignment</h4>
-        <p>Connecting contractors, associations, educators, and training partners around strategies that produce results.</p>
-      </div>
+    <div class="section-label">What we believe</div>
+    <h2>Listen. Communicate. Take Responsibility.</h2>
+    <p class="reality-intro"><strong>{MISSION}</strong></p>
+    <div class="principle-grid">
+      {PRINCIPLES.map((p) => (
+        <div class="solution-item">
+          <h4>{p.label}</h4>
+          <p>{p.lead && <strong>{p.lead} </strong>}{p.body}</p>
+        </div>
+      ))}
     </div>
   </section>
 
-  <!-- ── PILLARS ── -->
+  <!-- ── WORK AREAS ── -->
   <section class="pillars">
-    <div class="section-label">The initiative</div>
-    <h2>Three Connected Parts.<br>One Workforce Message.</h2>
+    <div class="section-label">Our work</div>
+    <h2>Three Areas.<br>One Purpose.</h2>
     <p class="pillars-sub">
-      The industry doesn't need another awareness campaign. It needs alignment between the people already building the next generation workforce.
+      Research, career awareness, and industry engagement around one purpose: helping the industry take responsibility for its future workforce.
     </p>
     <div class="pillar-grid">
-      <div class="pillar">
-        <div class="pillar-num">01 — The Study</div>
-        <h3>Georgia Construction Talent Study</h3>
-        <p>Field-informed research capturing what's working and where opportunity exists across educators, contractors, associations, and training providers statewide.</p>
-        <a class="pillar-link" href="/study">Participate →</a>
-      </div>
-      <div class="pillar">
-        <div class="pillar-num">02 — The Platform</div>
-        <h3>Construction Careers in Georgia</h3>
-        <p>A centralized hub for students, educators, and industry with real pathways, jobsite stories, salary ranges, apprenticeship listings, and toolkits.</p>
-        <a class="pillar-link" href="/careers">Explore Careers →</a>
-      </div>
-      <div class="pillar">
-        <div class="pillar-num">03 — The Work</div>
-        <h3>Workforce Development • Industry Strategy • Field-Driven Storytelling</h3>
-        <p>TradeBuilt helps contractors and trade associations strengthen workforce systems, shape strategy, and tell the real story of the work through consulting, research, employer branding, and field-driven campaigns.</p>
-        <a class="pillar-link" href="mailto:liz@tradebuiltusa.com">Work With TradeBuilt →</a>
-      </div>
+      {WORK_AREAS.map((w) => (
+        <div class="pillar">
+          <div class="pillar-num">{w.num} — {w.title}</div>
+          <h3>{w.title}</h3>
+          <p>{w.line}</p>
+          <a class="pillar-link" href={w.href}>{w.cta} →</a>
+        </div>
+      ))}
+    </div>
+    <div class="pillars-more"><a href="/our-work" class="btn-hero">Explore Our Work</a></div>
+  </section>
+
+  <!-- ── FEATURED RESEARCH ── -->
+  <section class="partner featured-study">
+    <div class="section-label">Featured research</div>
+    <h2>Georgia Construction<br>Talent Study</h2>
+    <p class="partner-sub">
+      Participation closed {STUDY.closedOn}. The report is anticipated in {STUDY.reportAnticipated}. Sign up to hear when it is available.
+    </p>
+    <div class="partner-ctas">
+      <a href="/study#report-updates" class="btn-hero btn-hero--solid">Get Report Updates</a>
+      <a class="btn-orange" href="/study">View the Study →</a>
     </div>
   </section>
 
-  <!-- ── AUDIENCES ── -->
-  <section class="audiences">
-    <div class="section-label">Who I work with</div>
-    <h2>For the People<br>Moving Industry Forward.</h2>
+  <!-- ── CAREERS ── -->
+  <section class="audiences" id="careers">
+    <div class="section-label">Construction careers</div>
+    <h2>There’s More Than One Way<br>to Build a Career.</h2>
+    <p class="aud-sub">Explore the trades and discover training pathways. Our current salary information and training directory focus on Georgia.</p>
     <div class="aud-grid">
-      <div class="aud-card">
-        <h4>Contractors</h4>
-        <p>TradeBuilt helps contractors strengthen the systems that attract, develop, and retain their workforce — from first-year systems and apprenticeship strategy to employer branding and digital campaigns.</p>
-      </div>
-      <div class="aud-card">
-        <h4>Trade Associations</h4>
-        <p>TradeBuilt helps associations turn workforce challenges into practical member value through strategy, research, industry engagement, workforce resources, and storytelling.</p>
-      </div>
+      <a class="aud-card aud-link" href="/careers#trades">
+        <h4>Find Your Trade</h4>
+        <p>Explore trade profiles by your interests and the way you like to work, with Georgia pay information.</p>
+        <span class="aud-go">Find Your Trade →</span>
+      </a>
+      <a class="aud-card aud-link" href="/find-training">
+        <h4>Find Training</h4>
+        <p>Discover Georgia apprenticeship programs, trade schools, and college pathways, organized by trade.</p>
+        <span class="aud-go">Find Training →</span>
+      </a>
     </div>
-    <p class="aud-ecosystem">TradeBuilt also works across educators, training providers, apprenticeship programs, students, and workforce partners to strengthen the connections between industry and the next generation of construction talent.</p>
   </section>
-<!-- ── QUOTE ── -->
+
+  {AMERICAN_TRADES_PUBLISHED && (
+    <section class="pillars">
+      <div class="section-label">The American Trades</div>
+      <h2>The People. The Skills.<br>The Work That Builds America.</h2>
+      <a class="pillar-link" href="/american-trades">Explore The American Trades →</a>
+    </section>
+  )}
+
+  <!-- ── ABOUT ── -->
   <section class="quote-section">
     <div class="quote-inner">
       <div class="quote-headshot">
@@ -126,22 +131,22 @@ import headshot from '../assets/Headshot_Final.jpg';
         />
       </div>
       <div class="quote-content">
-        <div class="quote-marks">"</div>
-        <p class="quote-main">There is good workforce work happening all over this industry. The opportunity is to understand why it works, tell the story well, and make it easier for others to build on.</p>
-        <p class="quote-attribution">Liz Manning — Owner, TradeBuilt</p>
+        <div class="section-label">Built through experience</div>
+        <p class="quote-main">Meet Liz Manning and learn how a career shaped by the field became TradeBuilt.</p>
+        <a href="/about" class="btn-hero">Meet Liz</a>
       </div>
     </div>
   </section>
-  <!-- ── PARTNER ── -->
+
+  <!-- ── CONNECT ── -->
   <section class="partner">
-    <div class="section-label">Work with TradeBuilt</div>
+    <div class="section-label">Connect</div>
     <h2>Be Part of<br>What's Being Built.</h2>
     <p class="partner-sub">
-      Whether the challenge is workforce development, industry strategy, apprenticeship, retention, or how your company tells its story, the first step is understanding where the system is actually breaking.
+      Have a story worth sharing, an educational initiative, or an idea for collaboration? Let’s connect.
     </p>
     <div class="partner-ctas">
-      <a href="mailto:liz@tradebuiltusa.com" class="btn-hero">Start a Conversation →</a>
-      <a class="btn-orange" href="/study">Participate in the Georgia Construction Talent Study →</a>
+      <a href="/contact" class="btn-hero">Connect With TradeBuilt →</a>
     </div>
   </section>
 
@@ -152,40 +157,15 @@ import headshot from '../assets/Headshot_Final.jpg';
     <div class="fc-grid"></div>
     <h2>The Future of the<br>Workforce Isn't Built<br>by <em>Accident.</em></h2>
    <div class="fc-btns">
-      <a href="mailto:liz@tradebuiltusa.com" class="btn-cream">Partner with TradeBuilt</a>
-      <a href="/study" class="btn-cream">Participate in the Study</a>
-    </div>
-    <div class="fc-social">
-      <a href="https://www.linkedin.com/company/tradebuiltga" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/>
-          <rect x="2" y="9" width="4" height="12"/>
-          <circle cx="4" cy="4" r="2"/>
-        </svg>
-      </a>
-      <a href="https://www.tiktok.com/@tradebuiltliz" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
-        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-          <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.75a4.85 4.85 0 01-1.01-.06z"/>
-        </svg>
-      </a>
-      <a href="https://www.instagram.com/tradebuiltga" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-          <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/>
-          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
-        </svg>
-      </a>
+      <a href="/careers#trades" class="btn-cream">Find Your Trade</a>
+      <a href="/find-training" class="btn-cream">Find Training</a>
     </div>
     <div class="fc-mark">
-      <img src="/TradeBuilt Logo_BuilderMark_NavyBckgdCreamLogo.png" alt="TradeBuilt" />
+      <img src="/TradeBuilt Logo_BuilderMark_NavyBckgdCreamLogo.png" alt="" />
     </div>
   </section>
 
-  <!-- ── FOOTER ── -->
-  <footer class="site-footer">
-    <div class="footer-logo">TradeBuilt <span>·</span> Est. 2026</div>
-    <div class="footer-copy">© 2026 TradeBuilt</div>
-  </footer>
+  <Footer />
 </Layout>
 
 <style>
@@ -348,13 +328,13 @@ import headshot from '../assets/Headshot_Final.jpg';
 
 .study-callout p {
   font-size: 14px;
-  color: var(--tb-text-cream);
+  color: var(--tb-text-on-orange);
   letter-spacing: 0.02em;
   margin: 0;
 }
 
 .study-callout strong {
-  color: var(--tb-text-cream);
+  color: var(--tb-text-on-orange);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -362,9 +342,9 @@ import headshot from '../assets/Headshot_Final.jpg';
 }
 
 .study-callout a {
-  color: var(--tb-text-cream);
+  color: var(--tb-text-on-orange);
   text-decoration: none;
-  border-bottom: 1px solid var(--tb-text-cream);
+  border-bottom: 1px solid var(--tb-text-on-orange);
   margin-left: 6px;
   font-weight: 700;
 }
@@ -546,7 +526,7 @@ import headshot from '../assets/Headshot_Final.jpg';
     border-bottom: 1px solid var(--tb-border-mid);
   }
 
-  .aud-card p { font-size: 16px; line-height: 1.65; color: var(--tb-text-dim); }
+  .aud-card p { font-size: 16px; line-height: 1.65; color: var(--tb-text-cream); }
 
   .aud-ecosystem {
     margin-top: 28px;
@@ -993,7 +973,7 @@ import headshot from '../assets/Headshot_Final.jpg';
   }
 
   .fc-social a {
-    color: #4a6080;
+    color: var(--tb-text-dim);
     text-decoration: none;
     transition: color 0.2s;
     display: flex;
@@ -1004,3 +984,34 @@ import headshot from '../assets/Headshot_Final.jpg';
     color: var(--tb-text-cream);
   }
 </style>
+
+<style>
+/* ── REPOSITIONING ADDITIONS ── */
+a.btn-hero.btn-hero--solid { background: var(--tb-text-cream); color: var(--tb-bg-deep); }
+a.btn-hero.btn-hero--solid:hover { background: #c17830; border-color: #c17830; color: var(--tb-text-cream); }
+.btn-hero:focus-visible, .btn-orange:focus-visible, .btn-cream:focus-visible, .aud-link:focus-visible, .pillar-link:focus-visible { outline: 2px solid #c17830; outline-offset: 3px; }
+.principle-grid { display: grid; grid-template-columns: repeat(3, 1fr); border: 0.5px solid var(--tb-border); }
+.principle-grid .solution-item { border-bottom: none; border-right: 0.5px solid var(--tb-border); }
+.principle-grid .solution-item:last-child { border-right: none; }
+.principle-grid .solution-item p strong { color: var(--tb-text-cream); font-weight: 600; }
+.reality h2 { max-width: 900px; }
+.reality-intro { max-width: 820px; }
+.pillars-more { margin-top: 32px; }
+.featured-study { background: var(--tb-bg-deep); }
+.featured-study .partner-sub { max-width: 560px; }
+.aud-sub { font-size: 18px; color: var(--tb-text-cream); max-width: 620px; line-height: 1.7; margin: -16px 0 28px; }
+.aud-link { text-decoration: none; display: block; transition: border-color 0.2s, transform 0.2s; }
+.aud-link:hover { border-color: var(--tb-text-cream); transform: translateY(-2px); }
+.aud-go { display: inline-block; margin-top: 16px; font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #c17830; }
+.quote-content .section-label { margin-bottom: 16px; }
+.quote-content .quote-main { font-style: normal; font-size: 20px; }
+.fc-mark img { opacity: 0.6; }
+@media (max-width: 768px) {
+  .principle-grid { grid-template-columns: 1fr; }
+  .principle-grid .solution-item { border-right: none; border-bottom: 0.5px solid var(--tb-border); }
+  .principle-grid .solution-item:last-child { border-bottom: none; }
+  .aud-sub { font-size: 16px; margin-top: -12px; }
+  .quote-content .section-label { justify-content: center; }
+}
+</style>
+

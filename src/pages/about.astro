@@ -8,9 +8,13 @@ import aecaBooth from '../assets/AECABooth.jpg';
 import skillsUsa from '../assets/SkillsUSAGeorgia2024.jpg';
 import speaking from '../assets/SkillsChallenge2025_Speaking.jpg';
 import necaPodcast from '../assets/NECAPodcast.jpg';
+import { visiblePodcasts } from '../data/podcasts.js';
+import { PRINCIPLES } from '../data/site.js';
+const gridCasts = visiblePodcasts.filter((p) => !p.featured);
+const featuredCasts = visiblePodcasts.filter((p) => p.featured);
 ---
 
-<Layout title="About Liz Manning — TradeBuilt" description="Liz Manning (Campbell) is a workforce strategist working where construction, talent, and the future of the skilled trades collide.">
+<Layout title="About Liz Manning &amp; TradeBuilt" description="Meet Liz Manning and learn how field experience, industry relationships, and construction workforce conversations shaped TradeBuilt.">
   <Nav />
 
   <!-- ── HERO ── -->
@@ -19,7 +23,7 @@ import necaPodcast from '../assets/NECAPodcast.jpg';
     <div class="hero-content">
       <div class="eyebrow">About Liz Manning</div>
       <h1>They Are<br>The <em>Heroes.</em></h1>
-      <p class="hero-sub">Educators. Contractors. Apprentices. The people building something real every day — I'm here to make sure their story gets told.</p>
+      <p class="hero-sub">Educators. Contractors. Apprentices. The people building something real every day.</p>
     </div>
   </section>
 
@@ -28,25 +32,25 @@ import necaPodcast from '../assets/NECAPodcast.jpg';
     <div class="bio-opening-photo">
       <Image
         src={aecaBooth}
-        alt="Liz Campbell at AECA"
+        alt="Liz Manning at AECA"
         widths={[308, 616]}
         sizes="(max-width: 700px) 80vw, 308px"
         loading="eager"
       />
     </div>
     <div class="bio-opening-text">
-      <h2 class="bio-pull">I'm Liz Manning (Campbell), a workforce strategist working where construction, talent, and the future of the skilled trades collide.</h2>
-      <p>I did not come from a trades background, and I didn't take a traditional path into this industry. My career was built through relationships, work ethic, and learning the business from different perspectives.</p>
-      <p>That experience is a big part of why I care so deeply about helping young people understand the opportunities that exist in the skilled trades.</p>
+      <h2 class="bio-pull">I’m Liz Manning. My career was built by the field.</h2>
+      <p>I didn’t come from a trades background, and I didn’t take a traditional path into construction.</p>
+      <p>My career was built through relationships, work ethic, and learning the industry from the people who know it best.</p>
     </div>
   </section>
 
   <!-- ── BIO CONTINUED ── -->
   <section class="bio-continued">
     <div class="bio-text">
-      <p>For the past decade, I've worked alongside general contractors, subcontractors, trade associations, and statewide workforce initiatives to build apprenticeship programs, strengthen contractor engagement, and fix broken recruiting pipelines from the inside out.</p>
-      <p>That experience is what eventually led me to build TradeBuilt — a place where I can bring those perspectives together and focus on the work I believe matters most: <strong>helping this industry attract, develop, and keep great people while making sure the people already doing the work have a voice in how we build what comes next.</strong></p>
-      <p>That work has taken many forms. Building and operationalizing apprenticeship structures at the office, local, and federal level. Leading superintendents and field teams, and designing the playbooks and integration systems that hold field culture together. Raising money for high school construction programs, launching workforce alliances that connect contractors directly to classrooms, and building communication platforms that actually reflect the field.</p>
+      <p>For the past decade, I’ve worked alongside general contractors, specialty contractors, trade associations, apprenticeship programs, and workforce organizations. I’ve seen what happens when the right people and programs come together, and what happens when they don’t.</p>
+      <p>Those experiences eventually led me to create TradeBuilt. <strong>I believed the people closest to the work deserved a bigger voice in the conversations shaping its future.</strong></p>
+      <p>That work has taken many forms: building and operationalizing apprenticeship structures at the office, local, and federal level; leading superintendents and field teams; designing playbooks and integration systems that support field culture; raising money for high school construction programs; launching workforce alliances that connect contractors with classrooms; and building communication platforms that reflect the field.</p>
     </div>
   </section>
 
@@ -54,8 +58,8 @@ import necaPodcast from '../assets/NECAPodcast.jpg';
   <section class="pull-quote-section">
     <div class="pq-layout">
       <div class="pq-content">
-        <div class="pq-mark">&ldquo;</div>
-        <p class="pq-text">The work has never just been about programs. It's about changing the conversation.</p>
+        <div class="pq-mark" aria-hidden="true">&ldquo;</div>
+        <p class="pq-text">The work has never just been about programs. It’s about changing the conversation.</p>
       </div>
       <div class="pq-photo">
         <Image
@@ -71,9 +75,8 @@ import necaPodcast from '../assets/NECAPodcast.jpg';
   <!-- ── BIO FINAL ── -->
   <section class="bio-final">
     <div class="bio-text">
-      <p>Students are not always shown the full picture. Parents are not always given the right information. Schools are not always connected to jobsite reality. And the construction industry has not always told its own story well.</p>
-      <p class="bio-emphasis">That is the gap I am here to fix.</p>
-      <p>Because the future of construction belongs to the organizations willing to build differently.</p>
+      <p>Listening to the field means understanding what’s actually happening. Communicating opportunities means making sure the right people hear about them. Taking responsibility means recognizing that the industry’s future workforce won’t develop itself.</p>
+      <p class="bio-emphasis">That’s the thinking behind TradeBuilt.</p>
     </div>
   </section>
 
@@ -81,7 +84,7 @@ import necaPodcast from '../assets/NECAPodcast.jpg';
   <section class="speaking-strip">
     <Image
       src={speaking}
-      alt="Liz Campbell Speaking at Skills Challenge 2025"
+      alt="Liz Manning speaking at Skills Challenge 2025"
       widths={[720, 1080, 1440]}
       sizes="100vw"
     />
@@ -89,17 +92,18 @@ import necaPodcast from '../assets/NECAPodcast.jpg';
   </section>
 
   <!-- ── PODCASTS ── -->
-  <section class="podcasts">
+  <section class="podcasts" id="conversations">
     <div class="podcasts-header">
       <div class="podcasts-header-text">
         <div class="section-label">Featured conversations</div>
-        <h2>Industry Voices<br>from the Field.</h2>
-        <p class="podcasts-intro">I've been part of some of the construction industry's most important conversations around workforce development, industry branding, and what it takes to attract the next generation.</p>
+        <h2>Conversations<br>From the Field.</h2>
+        <p class="podcasts-intro">Some of the most important conversations about construction’s workforce happen outside conference rooms.</p>
+        <p class="podcasts-intro">These discussions explore workforce development, industry branding, recruiting, and the people shaping what’s next.</p>
       </div>
       <div class="podcasts-header-photo">
         <Image
           src={necaPodcast}
-          alt="Liz Campbell at NECA Podcast"
+          alt="Liz Manning at the NECA podcast"
           widths={[400, 799]}
           sizes="(max-width: 700px) 80vw, 400px"
         />
@@ -109,89 +113,58 @@ import necaPodcast from '../assets/NECAPodcast.jpg';
     <div class="recent-label">Recent Conversations</div>
 
     <div class="podcast-grid">
-
-      <a href="https://www.youtube.com/watch?v=C7Myf5DWUVE&pp=ygUfY29uc3RydWN0aW9uIGRvcmtzIGxpeiBjYW1wYmVsbA%3D%3D" target="_blank" rel="noopener noreferrer" class="podcast-card">
-        <div class="podcast-meta">
-          <span class="podcast-show">Construction Dorks Podcast</span>
-          <span class="podcast-ep">Episode 81</span>
-        </div>
-        <h4>Energizing Minds</h4>
-        <div class="podcast-platform">Watch on YouTube</div>
-      </a>
-
-      <a href="https://youtu.be/UqziCq-r8fs?si=ljKLGnjqOfrmLlB2" target="_blank" rel="noopener noreferrer" class="podcast-card">
-        <div class="podcast-meta">
-          <span class="podcast-show">BlackLine Podcast</span>
-          <span class="podcast-ep">Featured Episode</span>
-        </div>
-        <h4>The Truth</h4>
-        <div class="podcast-platform">Watch on YouTube</div>
-      </a>
-
-      <a href="https://open.spotify.com/episode/0rcTGgN1ccKimzbzmcRFYQ?si=J-WxcEQCTNK_t82fSBkK-w" target="_blank" rel="noopener noreferrer" class="podcast-card">
-        <div class="podcast-meta">
-          <span class="podcast-show">NECA Innovation Podcast</span>
-          <span class="podcast-ep">Episode 101 — Liz Campbell</span>
-        </div>
-        <h4>Contractor Takeover</h4>
-        <div class="podcast-platform">Listen on Spotify</div>
-      </a>
-
-      <a href="https://youtu.be/hrTs3SL1h0U?si=NO2dz8K3lGtpFW7f" target="_blank" rel="noopener noreferrer" class="podcast-card">
-        <div class="podcast-meta">
-          <span class="podcast-show">Build America Podcast</span>
-          <span class="podcast-ep">Featured Episode</span>
-        </div>
-        <h4>How Important is Your Organization's Brand in Recruiting?</h4>
-        <div class="podcast-platform">Watch on YouTube</div>
-      </a>
-
+      {gridCasts.map((p) => (
+        <a href={p.url} target="_blank" rel="noopener noreferrer" class="podcast-card" data-podcast-id={p.id}>
+          <div class="podcast-meta">
+            <span class="podcast-show">{p.show}</span>
+            <span class="podcast-ep">{p.episode}</span>
+          </div>
+          <h4>{p.title}</h4>
+          {p.description && <p class="podcast-desc">{p.description}</p>}
+          <div class="podcast-platform">{p.platform}</div>
+        </a>
+      ))}
     </div>
 
-    <a href="https://open.spotify.com/show/16oRgsML9BB6F3cUIWCCLu?si=914a82cb7d764e2b" target="_blank" rel="noopener noreferrer" class="podcast-card podcast-card--full">
-      <div class="podcast-meta">
-        <span class="podcast-show">The Alternating Current Podcast — Atlanta Electrical Contractors Association</span>
-        <span class="podcast-ep">Former Host</span>
-      </div>
-      <h4>The Alternating Current Podcast</h4>
-      <p class="podcast-desc">Hosted and produced an industry podcast elevating contractor voices and increasing visibility for the electrical contracting industry in the state of Georgia.</p>
-      <div class="podcast-platform">Listen on Spotify</div>
-    </a>
+    {featuredCasts.map((p) => (
+      <a href={p.url} target="_blank" rel="noopener noreferrer" class="podcast-card podcast-card--full" data-podcast-id={p.id}>
+        <div class="podcast-meta">
+          <span class="podcast-show">{p.show}</span>
+          <span class="podcast-ep">{p.episode}</span>
+        </div>
+        <h4>{p.title}</h4>
+        {p.description && <p class="podcast-desc">{p.description}</p>}
+        <div class="podcast-platform">{p.platform}</div>
+      </a>
+    ))}
 
   </section>
 
-  <!-- ── HOW I HELP ── -->
+  <!-- ── PRINCIPLES (replaces How I Help) ── -->
   <section class="how-help">
     <div class="hh-inner">
-      <div class="section-label">How I help</div>
-      <h2>Build <em>Differently.</em></h2>
-      <p class="hh-lede">I work with the organizations willing to do the harder, better version of workforce development. What that looks like is different for everyone — but it usually starts in one of these places:</p>
+      <div class="section-label">Principles</div>
+      <h2>What Shapes <em>the Work.</em></h2>
       <div class="hh-grid">
-        <div class="hh-item">
-          <h3>Keeping the People You Hire</h3>
-          <p>The systems that hold a craft worker past year one — onboarding, mentorship, a clear path forward, apprenticeship that actually works. Recruiting is the easy part; retention is where the money leaks.</p>
-        </div>
-        <div class="hh-item">
-          <h3>Building a Real Pipeline</h3>
-          <p>Recruiting strategy that produces hires instead of noise, and school partnerships that connect your jobsites to the classroom before graduation — not after.</p>
-        </div>
-        <div class="hh-item">
-          <h3>Telling the Story Straight</h3>
-          <p>Employer branding and communication that sound like the field, not a brochure. The trades don't need spin. They need the truth told well.</p>
-        </div>
+        {PRINCIPLES.map((p) => (
+          <div class="hh-item">
+            <h3>{p.label}</h3>
+            <p>{p.lead && <strong>{p.lead} </strong>}{p.body}</p>
+          </div>
+        ))}
       </div>
-      <p class="hh-close">Every company is in a different spot, so I don't start with a package — I start with a conversation.</p>
     </div>
   </section>
 
   <!-- ── CTA ── -->
   <section class="about-cta">
     <div class="fc-grid"></div>
-    <p class="cta-pre">The future of the workforce is built by the people in this industry.</p>
-    <h2>Let's Make Sure<br>Their Story Gets <em>Told.</em></h2>
+    <p class="cta-pre">TradeBuilt continues to explore the people, opportunities, and challenges shaping construction’s future workforce.</p>
+    <h2>Be Part of<br>What’s Being <em>Built.</em></h2>
+    <p class="cta-pre cta-post">Have a story worth sharing, an educational initiative, or an idea for collaboration? Let’s connect.</p>
     <div class="cta-btns">
-      <a href="mailto:liz@tradebuiltga.com" class="btn-cream">Let's Talk</a>
-      <a href="/study" class="btn-outline">Participate in the Study</a>
+      <a href="/contact" class="btn-cream">Connect With TradeBuilt</a>
+      <a href="/our-work" class="btn-outline">Explore Our Work</a>
     </div>
   </section>
 
@@ -234,6 +207,12 @@ import necaPodcast from '../assets/NECAPodcast.jpg';
     letter-spacing: 0.01em; color: var(--tb-text-cream); margin-bottom: 12px;
   }
   .hh-item p { font-size: 14.5px; line-height: 1.7; color: var(--tb-text-dim); }
+  .hh-item p strong { color: var(--tb-text-cream); font-weight: 600; }
+  .podcast-card { min-width: 0; overflow-wrap: anywhere; }
+  @media (max-width: 480px) { .podcast-grid { grid-template-columns: 1fr !important; } }
+  .cta-post { margin: 0 auto 28px; max-width: 560px; }
+  .about-cta .cta-pre { max-width: 620px; margin-left: auto; margin-right: auto; }
+  .how-help h2 { margin-bottom: 40px; }
   .hh-close {
     font-size: 18px; font-style: italic; line-height: 1.6;
     color: var(--tb-text-cream); max-width: 720px;
@@ -488,7 +467,8 @@ import necaPodcast from '../assets/NECAPodcast.jpg';
     font-weight: 600;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: rgba(232,227,213,0.5);
+    color: rgba(232,227,213,0.85);
+    text-shadow: 0 1px 3px rgba(14,21,32,0.8);
   }
 
   /* ── PODCASTS ── */
@@ -657,7 +637,7 @@ import necaPodcast from '../assets/NECAPodcast.jpg';
 
   .cta-pre {
     font-size: 15px;
-    color: var(--tb-text-dim);
+    color: var(--tb-text-cream);
     letter-spacing: 0.04em;
     margin-bottom: 12px;
     position: relative;

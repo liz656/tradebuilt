@@ -1,0 +1,106 @@
+---
+import Layout from '../components/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import PageHero from '../components/PageHero.astro';
+import { CONTACT_EMAIL } from '../data/site.js';
+import '../styles/hub.css';
+// Delivery: Netlify Forms, form name "contact". Email notifications for this form
+// must be switched on in Netlify (Forms → contact → Form notifications).
+---
+
+<Layout title="Connect With TradeBuilt" description="Connect with TradeBuilt about research, educational resources, industry stories, and collaboration.">
+  <Nav />
+
+  <PageHero eyebrow="Connect With TradeBuilt" title="Be Part of What’s <em>Being Built.</em>" sub="Have a story worth sharing, a question about the research, an educational resource, or an idea for collaboration? We’d like to hear from you." />
+
+  <section class="hub-sec">
+    <div class="hub-wrap ct-layout">
+      <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/contact/thanks" class="ct-form" id="contact-form" novalidate>
+        <input type="hidden" name="form-name" value="contact" />
+        <p class="ct-hidden" aria-hidden="true"><label>Don’t fill this out: <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
+
+        <div class="ct-field">
+          <label for="ct-name">Name</label>
+          <input id="ct-name" name="name" type="text" required autocomplete="name" />
+        </div>
+        <div class="ct-field">
+          <label for="ct-email">Email address</label>
+          <input id="ct-email" name="email" type="email" required autocomplete="email" />
+        </div>
+        <div class="ct-field">
+          <label for="ct-org">Organization <span class="opt">(optional)</span></label>
+          <input id="ct-org" name="organization" type="text" autocomplete="organization" />
+        </div>
+        <div class="ct-field">
+          <label for="ct-msg">Message</label>
+          <textarea id="ct-msg" name="message" rows="6" required></textarea>
+        </div>
+        <p class="ct-note">We use what you send only to reply to you. See our <a href="/privacy">privacy notice</a>.</p>
+        <button type="submit" class="ct-submit">Send Message</button>
+        <p class="ct-status" id="ct-status" role="status" aria-live="polite"></p>
+      </form>
+
+      <aside class="ct-aside">
+        <div class="section-label">Other ways to reach us</div>
+        <p class="hub-p">Prefer email? Write to <a class="ct-mail" href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.</p>
+        <p class="hub-p">Know a Georgia training program we should include, or see a listing that needs updating? Send TradeBuilt the details.</p>
+      </aside>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>
+
+<style>
+  .ct-layout { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 56px; align-items: start; }
+  .ct-form { background: var(--tb-bg-deep); border: 0.5px solid var(--tb-border); padding: 36px; display: flex; flex-direction: column; gap: 18px; }
+  .ct-hidden { display: none; }
+  .ct-field { display: flex; flex-direction: column; gap: 8px; }
+  .ct-field label { font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--tb-text-muted); }
+  .opt { text-transform: none; letter-spacing: 0; font-weight: 400; color: var(--tb-text-faint); }
+  .ct-field input, .ct-field textarea { background: var(--tb-bg-base); border: 0.5px solid var(--tb-border-mid); color: var(--tb-text-cream); padding: 13px 16px; font-family: 'Barlow', sans-serif; font-size: 15px; width: 100%; resize: vertical; }
+  .ct-field input:focus, .ct-field textarea:focus { outline: 2px solid #c17830; outline-offset: 1px; }
+  .ct-field [aria-invalid='true'] { border-color: #e0864a; }
+  .ct-submit { font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; background: var(--tb-text-cream); color: var(--tb-bg-base); border: none; padding: 16px 24px; cursor: pointer; }
+  .ct-submit:hover { background: #c8c4b8; }
+  .ct-submit:focus-visible { outline: 2px solid #c17830; outline-offset: 3px; }
+  .ct-submit[disabled] { opacity: 0.6; cursor: wait; }
+  .ct-status { font-size: 14px; min-height: 1.5em; color: var(--tb-text-cream); }
+  .ct-status.err { color: #f0a070; }
+  .ct-mail { color: var(--tb-text-cream); }
+  .ct-note { font-size: 13px; line-height: 1.6; color: var(--tb-text-dim); }
+  .ct-note a { color: var(--tb-text-cream); }
+  @media (max-width: 860px) { .ct-layout { grid-template-columns: 1fr; gap: 32px; } .ct-form { padding: 26px 20px; } }
+</style>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  if (form) {
+    const status = form.querySelector('#ct-status') as HTMLElement;
+    const btn = form.querySelector('.ct-submit') as HTMLButtonElement;
+    const say = (m: string, err = false) => { status.textContent = m; status.classList.toggle('err', err); };
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (btn.disabled) return;
+      const required = [...form.querySelectorAll('[required]')] as (HTMLInputElement | HTMLTextAreaElement)[];
+      const bad = required.filter((el) => !el.value.trim() || !el.checkValidity());
+      required.forEach((el) => el.toggleAttribute('aria-invalid', bad.includes(el)));
+      if (bad.length) { say('Please complete your name, a valid email address, and a message.', true); bad[0].focus(); return; }
+      btn.disabled = true;
+      say('Sending…');
+      try {
+        const body = new URLSearchParams(new FormData(form) as any).toString();
+        const res = await fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body });
+        if (!res.ok) throw new Error(String(res.status));
+        form.reset();
+        say('Thanks for reaching out. Your message has been received.');
+        (window as any).gtag?.('event', 'contact_submit');
+      } catch {
+        say('Your message couldn’t be sent. Please try again.', true);
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  }
+</script>
