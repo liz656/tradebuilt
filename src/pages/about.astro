@@ -58,7 +58,7 @@ const featuredCasts = visiblePodcasts.filter((p) => p.featured);
   <section class="pull-quote-section">
     <div class="pq-layout">
       <div class="pq-content">
-        <div class="pq-mark">&ldquo;</div>
+        <div class="pq-mark" aria-hidden="true">&ldquo;</div>
         <p class="pq-text">The work has never just been about programs. It’s about changing the conversation.</p>
       </div>
       <div class="pq-photo">
@@ -467,7 +467,8 @@ const featuredCasts = visiblePodcasts.filter((p) => p.featured);
     font-weight: 600;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: rgba(232,227,213,0.5);
+    color: rgba(232,227,213,0.85);
+    text-shadow: 0 1px 3px rgba(14,21,32,0.8);
   }
 
   /* ── PODCASTS ── */
@@ -636,7 +637,7 @@ const featuredCasts = visiblePodcasts.filter((p) => p.featured);
 
   .cta-pre {
     font-size: 15px;
-    color: var(--tb-text-dim);
+    color: var(--tb-text-cream);
     letter-spacing: 0.04em;
     margin-bottom: 12px;
     position: relative;

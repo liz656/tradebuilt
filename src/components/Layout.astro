@@ -63,17 +63,28 @@ const canonical = new URL(Astro.url.pathname, siteBase).href;
     -webkit-font-smoothing: antialiased;
   }
   :root {
+    /* Core brand */
+    --tb-blue: #304257;          /* TradeBuilt Blue — core brand color */
     --tb-bg-deep: #0e1520;
     --tb-bg-base: #141b28;
+    --tb-bg-light: #FFF9EA;      /* complementary light background */
     --tb-border: #1e2a3e;
-    --tb-border-mid: #2d3f5f;
+    --tb-border-mid: #304257;    /* TradeBuilt Blue (was #2d3f5f) */
     --tb-border-dim: #1a2235;
-    --tb-text-cream: #e8e3d5;
---tb-text-muted: #b8c2d0;
---tb-text-dim: #9eabbe;
---tb-text-faint: #7a8fa6;
---tb-text-ghost: #5a7290;
---tb-text-dark: #4a6080;
+    --tb-orange: #c17830;
+    /* Text on dark (deep/base). All pass WCAG AA (4.5:1) for normal text. */
+    --tb-text-cream: #e8e3d5;    /* long body copy; 13.5:1 on base */
+    --tb-text-muted: #b8c2d0;    /* muted blue, 9.6:1 */
+    --tb-text-dim: #9eabbe;      /* muted blue, 7.4:1 */
+    --tb-text-faint: #7a8fa6;    /* muted blue, 5.2:1 */
+    --tb-text-ghost: #6e86a4;    /* muted blue labels, 4.6:1 (was #5a7290, 3.5:1) */
+    --tb-text-dark: #6a84a9;     /* muted blue fine print, 4.5:1 (was #4a6080, 2.7:1) */
+    /* Text on light (--tb-bg-light / cream surfaces) */
+    --tb-text-on-light: #0e1520;        /* 17.4:1 */
+    --tb-blue-on-light: #304257;        /* 9.8:1 */
+    --tb-muted-blue-on-light: #5a7290;  /* original muted blue, 4.7:1 */
+    /* Text on the orange banner */
+    --tb-text-on-orange: #0e1520;       /* 5.2:1 (cream was 2.7:1) */
   }
   .section-label {
     font-size: 10px;
