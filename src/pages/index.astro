@@ -7,13 +7,13 @@ import Partners from '../components/Partners.astro';
 import heroImage from '../assets/Main_SC2023.jpg';
 import headshot from '../assets/Headshot_Final.jpg';
 // Our Work card photos — real TradeBuilt photography already on the site (see docs/visual-assets.md)
-import imgResearch from '../assets/NECAPodcast.jpg';
+import imgResearch from '../assets/FieldConversation_Expo.jpg';
 import imgCareers from '../assets/derived/SC2023_competitors_3x2.jpg';
 import imgEngagement from '../assets/SkillsChallenge2025_Speaking.jpg';
 const workImages = {
-  'Research & Insights': { src: imgResearch, alt: 'Liz Manning in conversation with a guest on the NECA podcast set', tone: 'duo' },
-  'Career Awareness': { src: imgCareers, alt: 'Competitors framing walls at the Skills Challenge 2023', tone: 'warm' },
-  'Industry Engagement': { src: imgEngagement, alt: 'Liz Manning speaking at Skills Challenge 2025', tone: 'duo' },
+  'Research & Insights': { src: imgResearch, alt: 'A speaker with a microphone talks with a small group of educators and industry members at an outdoor career expo', tone: 'full', focus: 'center 30%' },
+  'Career Awareness': { src: imgCareers, alt: 'Competitors framing walls at the Skills Challenge 2023', tone: 'full' },
+  'Industry Engagement': { src: imgEngagement, alt: 'Liz Manning speaking at Skills Challenge 2025', tone: 'full' },
 };
 import { MISSION, PRINCIPLES, WORK_AREAS, STUDY, AMERICAN_TRADES_PUBLISHED } from '../data/site.js';
 ---
@@ -85,7 +85,7 @@ import { MISSION, PRINCIPLES, WORK_AREAS, STUDY, AMERICAN_TRADES_PUBLISHED } fro
             <article class="v2-wcard">
               {im && (
                 <div class={`v2-wimg v2-tone-${im.tone}`}>
-                  <Image src={im.src} alt={im.alt} widths={[400, 600, 800]} sizes="(max-width: 860px) 100vw, 33vw" loading="lazy" />
+                  <Image src={im.src} alt={im.alt} widths={[400, 600, 800]} sizes="(max-width: 860px) 100vw, 33vw" loading="lazy" style={im.focus ? `object-position: ${im.focus}` : undefined} />
                 </div>
               )}
               <div class="v2-wbody">
@@ -1097,6 +1097,8 @@ a.btn-hero.btn-hero--solid:hover { background: #c17830; border-color: #c17830; c
 .v2-tone-duo img { filter: saturate(0.3) contrast(1.02); }
 .v2-tone-warm img { filter: saturate(0.8); }
 .v2-wimg::after { content: ''; position: absolute; inset: 0; background: var(--tb-blue); pointer-events: none; }
+.v2-tone-full img { filter: none; }
+.v2-tone-full::after { display: none; } /* full-color field documentary (owner preference) */
 .v2-tone-duo::after { opacity: 0.22; mix-blend-mode: multiply; }
 .v2-tone-warm::after { opacity: 0.12; mix-blend-mode: multiply; }
 .v2-wbody { padding: 28px; display: flex; flex-direction: column; flex: 1; }
