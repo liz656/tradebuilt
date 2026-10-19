@@ -8,27 +8,29 @@ import { trades } from '../data/trades.js';
 const sorted = [...trades].sort((a, b) => a.name.localeCompare(b.name));
 ---
 
-<Layout title="Find Trade Training in Georgia — TradeBuilt" description="Apprenticeships, training alliances, trade schools, and college programs across Georgia, organized by trade.">
+<Layout title="Find Trade Training in Georgia | TradeBuilt" description="Explore Georgia apprenticeships, trade schools, and college pathways organized by trade. Contact providers for current program information.">
   <Nav />
 
   <header class="ft-hero">
     <div class="ft-wrap">
       <a class="back" href="/careers">&larr; Find Your Trade</a>
-      <div class="eyebrow">Find Training</div>
-      <h1>Training Providers <em>in Georgia.</em></h1>
-      <p>Apprenticeships, training alliances, trade schools, and college programs across the state, organized by trade. Reach out to any program directly to get started.</p>
+      <div class="eyebrow">Find Training in Georgia</div>
+      <h1>Your Next Step Starts With <em>the Right Program.</em></h1>
+      <p>Explore apprenticeship programs, trade schools, training alliances, and college pathways serving Georgia. Resources are organized by trade to help you find a starting point.</p>
+      <p class="ft-sub">Program requirements, costs, schedules, and availability vary. Contact each provider directly for current information.</p>
     </div>
   </header>
 
   <section class="ft-body">
     <div class="ft-wrap">
       {sorted.map((t) => (
-        <section class="tsec">
+        <section class="tsec" id={t.slug}>
           <div class="tsec-head">
             <div class="tsec-icon" set:html={t.icon}></div>
             <h2>{t.name}</h2>
           </div>
           {t.detail.providersNote && <p class="tnote">{t.detail.providersNote}</p>}
+          {t.slug === 'safety-inspection' && <p class="tnote">Training and credential requirements vary by role and employer. Review the current requirements with the provider and the relevant credentialing organization.</p>}
           <ul class="providers">
             {t.detail.providers.map((p) => (
               <li class="provider">
@@ -36,7 +38,7 @@ const sorted = [...trades].sort((a, b) => a.name.localeCompare(b.name));
                   ? <a class="pname" href={p.url} target="_blank" rel="noopener">{p.name}</a>
                   : <span class="pname nolink">{p.name}</span>}
                 {p.note ? <span class="pnote">{p.note}</span> : null}
-                {!p.url ? <span class="pending">link coming</span> : null}
+                {!p.url ? <span class="pending">Link not yet available</span> : null}
               </li>
             ))}
           </ul>
@@ -49,10 +51,13 @@ const sorted = [...trades].sort((a, b) => a.name.localeCompare(b.name));
 
   <section class="ft-cta">
     <div class="ft-wrap">
-      <div class="eyebrow" style="text-align:center;">For training providers</div>
-      <h2 class="cta-h">Are You Training the <em>Next Generation?</em></h2>
-      <p>If you run an apprenticeship or training program in Georgia and don't see it listed here, let's fix that. Reach out and I'll get you on the map.</p>
-      <a href="mailto:liz@tradebuiltga.com" class="btn-cream">Contact Liz</a>
+      <div class="eyebrow" style="text-align:center;">Help keep this resource useful</div>
+      <h2 class="cta-h">Know a Program <em>We Should Include?</em></h2>
+      <p>Know a Georgia training program we should include, or see a listing that needs updating? Send TradeBuilt the details.</p>
+      <div class="ft-btns">
+        <a href="/contact" class="btn-cream">Suggest a Program or Correction</a>
+        <a href="/careers" class="btn-outline">Explore Trades</a>
+      </div>
     </div>
   </section>
 
@@ -68,6 +73,9 @@ const sorted = [...trades].sort((a, b) => a.name.localeCompare(b.name));
   .ft-hero { background: var(--tb-bg-deep); border-bottom: 0.5px solid var(--tb-border); padding: 40px 0 54px; }
   .ft-hero h1 { font-weight: 900; font-size: 58px; color: var(--tb-text-cream); margin-bottom: 16px; }
   .ft-hero p { font-size: 18px; color: var(--tb-text-muted); max-width: 640px; }
+  .ft-hero .ft-sub { font-size: 15px; color: var(--tb-text-dim); margin-top: 12px; }
+  .ft-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .ft-wrap a:focus-visible { outline: 2px solid #c17830; outline-offset: 3px; }
   .back { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--tb-text-dim); text-decoration: none; display: inline-block; margin-bottom: 28px; }
   .back:hover { color: var(--tb-text-cream); }
   .ft-body { padding: 64px 0 30px; background: var(--tb-bg-base); }

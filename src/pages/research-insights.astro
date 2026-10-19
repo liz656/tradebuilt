@@ -1,0 +1,49 @@
+---
+import Layout from '../components/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import PageHero from '../components/PageHero.astro';
+import { STUDY } from '../data/site.js';
+import '../styles/hub.css';
+// Add publication cards here only when real published content exists.
+---
+
+<Layout title="Research &amp; Insights | TradeBuilt" description="Explore field perspectives and the Georgia Construction Talent Study. Participation is closed; the report is anticipated in November 2026.">
+  <Nav />
+
+  <PageHero eyebrow="Research &amp; Insights" title="Start With the People <em>Closest to the Work.</em>" sub="TradeBuilt listens to the field to better understand the experiences shaping construction’s future workforce. This is where we share research and perspectives as they become available." />
+
+  <section class="hub-sec">
+    <div class="hub-wrap hub-spot">
+      <div>
+        <div class="section-label">Flagship project</div>
+        <h2 class="hub-h2">Georgia Construction <em>Talent Study</em></h2>
+        <p class="hub-p">A Georgia-focused research project exploring construction workforce experiences and pathways. Participation closed {STUDY.closedOn}. The report is anticipated in {STUDY.reportAnticipated}.</p>
+        <div class="hub-btns">
+          <a href="/study" class="btn-cream">View the Study</a>
+          <a href="/study#report-updates" class="btn-outline">Get Report Updates</a>
+        </div>
+        <div class="hub-note">
+          <h3>Georgia research. A wider conversation.</h3>
+          <p>The study focuses on Georgia. Its findings may inform broader industry conversations, but should not be presented as a national sample.</p>
+        </div>
+      </div>
+      <div class="hub-facts">
+        <div class="hub-fact"><b>Status</b><span>Participation closed {STUDY.closedOn}</span></div>
+        <div class="hub-fact"><b>Geography</b><span>Georgia</span></div>
+        <div class="hub-fact"><b>Report</b><span>Anticipated {STUDY.reportAnticipated}</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hub-sec deep">
+    <div class="hub-wrap">
+      <div class="section-label">Questions</div>
+      <h2 class="hub-h2">Ask About the Research.</h2>
+      <p class="hub-p">Have a question about the study or the upcoming report? Reach out.</p>
+      <div class="hub-btns"><a href="/contact" class="btn-cream">Connect With TradeBuilt</a></div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>

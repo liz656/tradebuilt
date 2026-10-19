@@ -1,28 +1,61 @@
 ---
+import { AMERICAN_TRADES_PUBLISHED } from '../data/site.js';
+
+const groups = [
+  {
+    id: 'work',
+    label: 'Our Work',
+    href: '/our-work',
+    items: [
+      { label: 'Research & Insights', href: '/research-insights' },
+      { label: 'Georgia Construction Talent Study', href: '/study' },
+      ...(AMERICAN_TRADES_PUBLISHED ? [{ label: 'The American Trades', href: '/american-trades' }] : []),
+    ],
+  },
+  {
+    id: 'careers',
+    label: 'Construction Careers',
+    href: '/careers',
+    items: [
+      { label: 'Find Your Trade', href: '/careers#trades' },
+      { label: 'Find Training', href: '/find-training' },
+    ],
+  },
+];
 ---
 
-<nav class="tb-nav">
+<nav class="tb-nav" aria-label="Main">
   <a href="/" class="tb-logo-wrap">
-    <img 
-      src="/TradeBuilt Logo_NavyBckgdCreamLogo.png" 
-      alt="TradeBuilt" 
+    <img
+      src="/TradeBuilt Logo_NavyBckgdCreamLogo.png"
+      alt="TradeBuilt home"
       height="50"
       style="display:block;"
     />
   </a>
 
-  <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
     <span></span>
     <span></span>
     <span></span>
   </button>
 
   <ul class="tb-nav-links" id="nav-links">
-    <li><a href="/study">The Study</a></li>
-    <li><a href="/careers">Find Your Trade</a></li>
-    <li><a href="/find-training">Find Training</a></li>
+    {groups.map((g) => (
+      <li class="has-sub" data-group={g.id}>
+        <div class="sub-head">
+          <a href={g.href}>{g.label}</a>
+          <button class="sub-toggle" aria-expanded="false" aria-controls={`sub-${g.id}`} aria-label={`Show ${g.label} links`}>
+            <svg viewBox="0 0 12 8" width="12" height="8" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" /></svg>
+          </button>
+        </div>
+        <ul class="sub" id={`sub-${g.id}`}>
+          {g.items.map((it) => <li><a href={it.href}>{it.label}</a></li>)}
+        </ul>
+      </li>
+    ))}
     <li><a href="/about">About</a></li>
-    <li class="nav-cta"><a href="mailto:liz@tradebuiltga.com">Work With Me</a></li>
+    <li class="nav-cta"><a href="/contact">Connect</a></li>
   </ul>
 </nav>
 
@@ -46,11 +79,12 @@
 
   .tb-nav-links {
     display: flex;
+    align-items: center;
     gap: 28px;
     list-style: none;
   }
 
-  .tb-nav-links li a {
+  .tb-nav-links a {
     font-size: 15px;
     font-weight: 500;
     color: var(--tb-text-dim);
@@ -60,9 +94,48 @@
     transition: color 0.2s;
   }
 
-  .tb-nav-links li a:hover {
-    color: var(--tb-text-cream);
+  .tb-nav-links a:hover,
+  .tb-nav-links a:focus-visible { color: var(--tb-text-cream); }
+
+  .tb-nav a:focus-visible,
+  .tb-nav button:focus-visible {
+    outline: 2px solid #c17830;
+    outline-offset: 3px;
   }
+
+  /* ── DROPDOWNS ── */
+  .has-sub { position: relative; }
+  .sub-head { display: flex; align-items: center; gap: 6px; }
+  .sub-toggle {
+    background: none;
+    border: none;
+    color: var(--tb-text-dim);
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+  }
+  .sub-toggle svg { transition: transform 0.2s; }
+  .sub-toggle[aria-expanded='true'] svg { transform: rotate(180deg); }
+  .sub {
+    display: none;
+    position: absolute;
+    top: calc(100% + 14px);
+    left: -18px;
+    min-width: 280px;
+    list-style: none;
+    background: var(--tb-bg-deep);
+    border: 0.5px solid var(--tb-border-mid);
+    padding: 8px 0;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+  }
+  .has-sub.open .sub { display: block; }
+  .sub a {
+    display: block;
+    padding: 11px 18px;
+    font-size: 13px;
+  }
+  .sub a:hover { background: var(--tb-bg-base); }
 
   /* ── NAV CTA ── */
   .nav-cta a {
@@ -96,32 +169,29 @@
     transition: all 0.3s ease;
   }
 
-  .hamburger.open span:nth-child(1) {
-    transform: translateY(7px) rotate(45deg);
-  }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-  .hamburger.open span:nth-child(2) {
-    opacity: 0;
-  }
-
-  .hamburger.open span:nth-child(3) {
-    transform: translateY(-7px) rotate(-45deg);
+  @media (max-width: 1060px) and (min-width: 901px) {
+    .tb-nav { padding: 16px 28px; }
+    .tb-nav-links { gap: 18px; }
+    .tb-nav-links a { font-size: 13px; }
   }
 
   /* ── MOBILE ── */
-  @media (max-width: 768px) {
+  @media (max-width: 900px) {
     .tb-nav {
       padding: 16px 24px;
       flex-wrap: wrap;
     }
 
-    .hamburger {
-      display: flex;
-    }
+    .hamburger { display: flex; }
 
     .tb-nav-links {
       display: none;
       flex-direction: column;
+      align-items: stretch;
       gap: 0;
       width: 100%;
       background: var(--tb-bg-deep);
@@ -129,40 +199,93 @@
       margin-top: 16px;
     }
 
-    .tb-nav-links.open {
-      display: flex;
-    }
+    .tb-nav-links.open { display: flex; }
 
-    .tb-nav-links li {
-      border-bottom: 0.5px solid var(--tb-border);
-    }
+    .tb-nav-links > li { border-bottom: 0.5px solid var(--tb-border); }
+    .tb-nav-links > li:last-child { border-bottom: none; }
 
-    .tb-nav-links li:last-child {
-      border-bottom: none;
-    }
-
-    .tb-nav-links li a {
+    .tb-nav-links a {
       display: block;
       padding: 16px 0;
       font-size: 16px;
     }
+
+    /* Sub-links are always visible on mobile: no nested collapsing. */
+    .sub-toggle { display: none; }
+    .sub,
+    .has-sub.open .sub {
+      display: block;
+      position: static;
+      min-width: 0;
+      border: none;
+      box-shadow: none;
+      padding: 0 0 10px 16px;
+    }
+    .sub a { padding: 10px 0; font-size: 14px; }
+    .sub a:hover { background: none; }
+    .nav-cta a { display: inline-block; margin: 14px 0; }
   }
 </style>
 
 <script>
   const hamburger = document.getElementById('hamburger');
   const navLinks = document.getElementById('nav-links');
+  const subs = [...document.querySelectorAll('.tb-nav .has-sub')];
+
+  function closeAll(except?: Element) {
+    subs.forEach((li) => {
+      if (li === except) return;
+      li.classList.remove('open');
+      li.querySelector('.sub-toggle')?.setAttribute('aria-expanded', 'false');
+    });
+  }
 
   hamburger?.addEventListener('click', () => {
-    hamburger.classList.toggle('open');
-    navLinks?.classList.toggle('open');
+    const open = !hamburger.classList.contains('open');
+    hamburger.classList.toggle('open', open);
+    navLinks?.classList.toggle('open', open);
+    hamburger.setAttribute('aria-expanded', String(open));
   });
 
-  // Close menu when a link is clicked
-  navLinks?.querySelectorAll('a').forEach(link => {
+  subs.forEach((li) => {
+    const btn = li.querySelector('.sub-toggle');
+    btn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const open = !li.classList.contains('open');
+      closeAll(li);
+      li.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', String(open));
+    });
+    // Desktop hover convenience (click/keyboard remain the primary controls).
+    li.addEventListener('mouseenter', () => {
+      if (window.matchMedia('(min-width: 901px)').matches) { closeAll(li); li.classList.add('open'); btn?.setAttribute('aria-expanded', 'true'); }
+    });
+    li.addEventListener('mouseleave', () => {
+      if (window.matchMedia('(min-width: 901px)').matches) { li.classList.remove('open'); btn?.setAttribute('aria-expanded', 'false'); }
+    });
+    li.addEventListener('focusout', (e) => {
+      if (!li.contains((e as FocusEvent).relatedTarget as Node)) { li.classList.remove('open'); btn?.setAttribute('aria-expanded', 'false'); }
+    });
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    const openLi = subs.find((li) => li.classList.contains('open'));
+    if (openLi) {
+      closeAll();
+      (openLi.querySelector('.sub-toggle') as HTMLElement | null)?.focus();
+    }
+  });
+  document.addEventListener('click', (e) => {
+    if (!(e.target as Element).closest('.has-sub')) closeAll();
+  });
+
+  // Close mobile menu when a link is clicked
+  navLinks?.querySelectorAll('a').forEach((link) => {
     link.addEventListener('click', () => {
       hamburger?.classList.remove('open');
       navLinks?.classList.remove('open');
+      hamburger?.setAttribute('aria-expanded', 'false');
     });
   });
 </script>

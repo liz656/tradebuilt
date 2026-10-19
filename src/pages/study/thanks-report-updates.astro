@@ -1,0 +1,32 @@
+---
+// No-JavaScript fallback destination for the report-updates form.
+import Layout from '../../components/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import { STUDY } from '../../data/site.js';
+---
+
+<Layout title="Report Updates | TradeBuilt" description="Report updates signup for the Georgia Construction Talent Study." noindex>
+  <Nav />
+  <section class="ty">
+    <div class="ty-inner">
+      <h1>You’re Signed Up for <em>Report Updates.</em></h1>
+      <p>We’ll email you when the {STUDY.name} report is available. The report is anticipated in {STUDY.reportAnticipated}.</p>
+      <div class="ty-btns">
+        <a href="/careers" class="btn-cream">Find Your Trade</a>
+        <a href="/" class="btn-outline">Back to Home</a>
+      </div>
+    </div>
+  </section>
+  <Footer />
+</Layout>
+
+<style>
+  .ty { min-height: 60vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 80px 24px; background: var(--tb-bg-deep); }
+  .ty-inner { max-width: 600px; }
+  h1 { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 54px; line-height: 0.95; text-transform: uppercase; color: var(--tb-text-cream); margin-bottom: 22px; }
+  h1 em { font-style: normal; color: transparent; -webkit-text-stroke: 1.5px var(--tb-text-cream); }
+  p { font-size: 16px; line-height: 1.75; color: var(--tb-text-dim); }
+  .ty-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 28px; }
+  @media (max-width: 640px) { h1 { font-size: 40px; } }
+</style>

@@ -1,0 +1,14 @@
+---
+// No-JavaScript fallback destination for the contact form.
+import Layout from '../../components/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import PageHero from '../../components/PageHero.astro';
+---
+<Layout title="Message Received | TradeBuilt" description="Contact TradeBuilt." noindex>
+  <Nav />
+  <PageHero eyebrow="Connect With TradeBuilt" title="Thanks for <em>Reaching Out.</em>" sub="Your message has been received.">
+    <p style="margin-top:28px;"><a href="/" class="btn-cream">Back to Home</a></p>
+  </PageHero>
+  <Footer />
+</Layout>

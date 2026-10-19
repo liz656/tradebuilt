@@ -2,11 +2,13 @@
 export interface Props {
   title?: string;
   description?: string;
+  noindex?: boolean;
 }
 
 const {
-  title = 'TradeBuilt — Georgia Construction Workforce',
-  description = 'Amplifying real stories from the field. Attracting genuine talent.',
+  title = 'TradeBuilt | Built by the Field. Backed by Experience.',
+  description = 'Field perspectives, research, and career resources connecting the construction industry with its future workforce.',
+  noindex = false,
 } = Astro.props;
 
 const siteBase = Astro.site ?? new URL('https://tradebuiltga.com');
@@ -22,6 +24,7 @@ const canonical = new URL(Astro.url.pathname, siteBase).href;
     <meta name="description" content={description} />
     <title>{title}</title>
     <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
     <link rel="icon" type="image/png" href="/TradeBuilt Logo_BuilderMark_NavyBckgdCreamLogo.png" />
 
     <!-- Open Graph (LinkedIn, Facebook) -->

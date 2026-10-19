@@ -1,0 +1,78 @@
+---
+import Layout from '../components/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import PageHero from '../components/PageHero.astro';
+import { STUDY } from '../data/site.js';
+import '../styles/hub.css';
+---
+
+<Layout title="Our Work | TradeBuilt" description="Explore TradeBuilt’s research, career awareness, and industry conversations shaping construction’s future workforce.">
+  <Nav />
+
+  <PageHero eyebrow="Our Work" title="Listening. Making Opportunities <em>Visible.</em> Connecting the Industry." />
+
+  <section class="hub-sec">
+    <div class="hub-wrap">
+      <p class="hub-lede">TradeBuilt’s work connects research, career awareness, and industry engagement around one purpose: <strong>helping the industry take responsibility for its future workforce.</strong></p>
+    </div>
+  </section>
+
+  <section class="hub-sec deep">
+    <div class="hub-wrap">
+      <div class="hub-grid">
+        <div class="hub-card" id="research">
+          <div class="hub-num">01 — Listen</div>
+          <h3>Research &amp; Insights</h3>
+          <p>Understanding the workforce starts with hearing from the people closest to it. The Georgia Construction Talent Study is TradeBuilt’s flagship research project.</p>
+          <a class="hub-link" href="/research-insights">Explore Research &amp; Insights →</a>
+        </div>
+        <div class="hub-card" id="career-awareness">
+          <div class="hub-num">02 — Communicate</div>
+          <h3>Career Awareness</h3>
+          <p>Clear information helps students, families, educators, and career changers explore construction with greater confidence. Find Your Trade and Find Training offer practical starting points, with current resources focused on Georgia.</p>
+          <a class="hub-link" href="/careers">Explore Construction Careers →</a>
+        </div>
+        <div class="hub-card" id="industry-engagement">
+          <div class="hub-num">03 — Take Responsibility</div>
+          <h3>Industry Engagement</h3>
+          <p>Conversations across jobsites, classrooms, training programs, and industry organizations help bring field perspectives into the discussion about what comes next.</p>
+          <a class="hub-link" href="/about#conversations">Conversations From the Field →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hub-sec">
+    <div class="hub-wrap hub-spot">
+      <div>
+        <div class="section-label">Research spotlight</div>
+        <h2 class="hub-h2">Georgia Construction <em>Talent Study</em></h2>
+        <p class="hub-p">A Georgia-focused research project exploring construction workforce experiences and pathways. Participation closed {STUDY.closedOn}. The report is anticipated in {STUDY.reportAnticipated}.</p>
+        <div class="hub-btns">
+          <a href="/study" class="btn-cream">View the Study</a>
+          <a href="/study#report-updates" class="btn-outline">Get Report Updates</a>
+        </div>
+      </div>
+      <div class="hub-facts">
+        <div class="hub-fact"><b>Georgia</b><span>Statewide focus</span></div>
+        <div class="hub-fact"><b>Closed</b><span>{STUDY.closedOn}</span></div>
+        <div class="hub-fact"><b>{STUDY.reportAnticipated}</b><span>Report anticipated</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hub-sec deep">
+    <div class="hub-wrap">
+      <div class="section-label">Construction careers</div>
+      <h2 class="hub-h2">Start Exploring.</h2>
+      <p class="hub-p">Explore the trades and discover training pathways. Our current salary information and training directory focus on Georgia.</p>
+      <div class="hub-btns">
+        <a href="/careers#trades" class="btn-cream">Find Your Trade</a>
+        <a href="/find-training" class="btn-outline">Find Training</a>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>
