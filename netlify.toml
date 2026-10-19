@@ -4,3 +4,17 @@
 
 [build.environment]
   NODE_VERSION = "20"
+
+# /portfolio retired Oct 2026 (was a temporary redirect to the Canva portfolio).
+# Permanent redirect so old links land somewhere useful instead of a 404.
+[[redirects]]
+  from = "/portfolio"
+  to = "/about/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/portfolio/"
+  to = "/about/"
+  status = 301
+  force = true

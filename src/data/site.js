@@ -6,9 +6,8 @@ export const MISSION =
   'TradeBuilt believes the industry should listen to the field, communicate opportunities more effectively, and take responsibility for developing its future workforce.';
 
 // Public contact inbox used by mailto links and as the fallback on the Contact page.
-// OWNER TO CONFIRM: the live site used both liz@tradebuiltga.com and liz@tradebuiltusa.com.
-// Kept on the GA inbox (used on most pages) until USA delivery is verified.
-export const CONTACT_EMAIL = 'liz@tradebuiltga.com';
+// Confirmed by owner Oct 19, 2026. Verify the inbox receives outside mail before release.
+export const CONTACT_EMAIL = 'liz@tradebuiltusa.com';
 
 // Study status — the single place to update when the report publishes.
 export const STUDY = {
