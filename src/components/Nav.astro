@@ -130,6 +130,8 @@ const groups = [
     box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
   }
   .has-sub.open .sub { display: block; }
+  /* Invisible bridge across the gap so the menu stays open while the pointer moves down to it. */
+  .sub::before { content: ''; position: absolute; left: 0; right: 0; top: -16px; height: 16px; }
   .sub a {
     display: block;
     padding: 11px 18px;
@@ -251,17 +253,20 @@ const groups = [
     const btn = li.querySelector('.sub-toggle');
     btn?.addEventListener('click', (e) => {
       e.stopPropagation();
-      const open = !li.classList.contains('open');
+      // If hover already opened it, a click should keep it open rather than close it.
+      const hoverOpened = li.dataset.hover === '1';
+      li.dataset.hover = '';
+      const open = hoverOpened ? true : !li.classList.contains('open');
       closeAll(li);
       li.classList.toggle('open', open);
       btn.setAttribute('aria-expanded', String(open));
     });
     // Desktop hover convenience (click/keyboard remain the primary controls).
     li.addEventListener('mouseenter', () => {
-      if (window.matchMedia('(min-width: 901px)').matches) { closeAll(li); li.classList.add('open'); btn?.setAttribute('aria-expanded', 'true'); }
+      if (window.matchMedia('(min-width: 901px)').matches && !li.classList.contains('open')) { closeAll(li); li.classList.add('open'); li.dataset.hover = '1'; btn?.setAttribute('aria-expanded', 'true'); }
     });
     li.addEventListener('mouseleave', () => {
-      if (window.matchMedia('(min-width: 901px)').matches) { li.classList.remove('open'); btn?.setAttribute('aria-expanded', 'false'); }
+      if (window.matchMedia('(min-width: 901px)').matches) { li.classList.remove('open'); li.dataset.hover = ''; btn?.setAttribute('aria-expanded', 'false'); }
     });
     li.addEventListener('focusout', (e) => {
       if (!li.contains((e as FocusEvent).relatedTarget as Node)) { li.classList.remove('open'); btn?.setAttribute('aria-expanded', 'false'); }
