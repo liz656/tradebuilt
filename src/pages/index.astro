@@ -10,6 +10,8 @@ import headshot from '../assets/Headshot_Final.jpg';
 import imgResearch from '../assets/FieldConversation_Expo.jpg';
 import imgCareers from '../assets/derived/SC2023_competitors_3x2.jpg';
 import imgEngagement from '../assets/SkillsChallenge2025_Speaking.jpg';
+// Georgia outline: U.S. Census Bureau cartographic boundary (public domain) via us-atlas 3.0.1; see docs/visual-assets.md
+import georgiaSvg from '../assets/georgia-silhouette.svg?raw';
 const workImages = {
   'Research & Insights': { src: imgResearch, alt: 'A speaker with a microphone talks with a small group of educators and industry members at an outdoor career expo', tone: 'full', focus: 'center 30%' },
   'Career Awareness': { src: imgCareers, alt: 'Competitors framing walls at the Skills Challenge 2023', tone: 'full' },
@@ -118,6 +120,7 @@ import { MISSION, PRINCIPLES, WORK_AREAS, STUDY, AMERICAN_TRADES_PUBLISHED } fro
       </div>
       <div class="v2-study-art">
         <div class="v2-blueprint" aria-hidden="true"></div>
+        <div class="v2-ga" aria-hidden="true" set:html={georgiaSvg} />
         <dl class="v2-facts">
           <div><dt>Focus</dt><dd>Georgia</dd></div>
           <div><dt>Participation</dt><dd>Closed {STUDY.closedOn}</dd></div>
@@ -1117,7 +1120,9 @@ a.btn-hero.btn-hero--solid:hover { background: #c17830; border-color: #c17830; c
 .v2-btn:hover { background: rgba(48, 66, 87, 0.08); }
 .v2-btn--solid { background: var(--tb-blue); color: var(--tb-bg-light); }
 .v2-btn--solid:hover { background: var(--tb-bg-deep); color: var(--tb-bg-light); }
-.v2-study-art { position: relative; border: 1px solid rgba(48, 66, 87, 0.25); padding: 40px; min-height: 360px; display: flex; align-items: flex-end; overflow: hidden; }
+.v2-study-art { position: relative; border: 1px solid rgba(48, 66, 87, 0.25); padding: 40px; display: flex; flex-direction: column; align-items: stretch; gap: 32px; overflow: hidden; }
+.v2-ga { position: relative; color: var(--tb-blue); width: 62%; max-width: 260px; margin: 0 auto; }
+.v2-ga :global(svg) { display: block; width: 100%; height: auto; }
 .v2-blueprint { position: absolute; inset: 0; pointer-events: none;
   background-image: linear-gradient(rgba(48,66,87,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(48,66,87,0.07) 1px, transparent 1px), linear-gradient(rgba(48,66,87,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(48,66,87,0.04) 1px, transparent 1px);
   background-size: 96px 96px, 96px 96px, 24px 24px, 24px 24px; }
@@ -1175,7 +1180,8 @@ a.btn-hero.btn-hero--solid:hover { background: #c17830; border-color: #c17830; c
   .v2-principle, .v2-principle:first-child { padding: 24px 0; border-left: none; border-top: 1px solid rgba(48, 66, 87, 0.2); }
   .v2-wbody, .v2-ccard { padding: 24px; }
   .v2-cgrid { grid-template-columns: 1fr; gap: 16px; }
-  .v2-study-art { padding: 24px; min-height: 0; }
+  .v2-study-art { padding: 24px; gap: 24px; }
+  .v2-ga { width: 55%; max-width: 200px; }
   .v2-facts dd { font-size: 22px; }
   .v2-ctas { flex-direction: column; }
   .v2-ctas a { justify-content: center; }
