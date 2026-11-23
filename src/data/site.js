@@ -10,15 +10,20 @@ export const MISSION =
 export const CONTACT_EMAIL = 'liz@tradebuiltusa.com';
 
 // Privacy notice effective date — update whenever the notice changes.
-export const PRIVACY_EFFECTIVE = 'October 19, 2026';
+export const PRIVACY_EFFECTIVE = 'November 23, 2026';
 
-// Study status — the single place to update when the report publishes.
+// Study status — the single place to update study/report facts.
 export const STUDY = {
   name: 'Georgia Construction Talent Study',
   closedOn: 'October 15, 2026',
-  reportAnticipated: 'November 2026',
-  reportPublished: false, // flip to true only when a real report URL exists
-  reportUrl: '',
+  reportPublished: true,
+  reportTitle: 'The Work Behind the Workforce',
+  reportSubtitle: 'Georgia Construction Talent Study 2026',
+  publishedOn: 'November 23, 2026',
+  // The full report is NOT on the site: people request it on /research-insights
+  // (Netlify form "report-request") and Liz emails the PDF.
+  summaryUrl: '/research-insights#executive-summary',
+  requestUrl: '/research-insights#request-report',
 };
 
 // The American Trades page/preview stays hidden until approved campaign assets are in the repo.

@@ -1,49 +1,272 @@
 ---
+import { Image } from 'astro:assets';
 import Layout from '../components/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import PageHero from '../components/PageHero.astro';
-import { STUDY } from '../data/site.js';
+import Partners from '../components/Partners.astro';
+import { STUDY, CONTACT_EMAIL } from '../data/site.js';
+import cover from '../assets/study-2026-cover.jpg';
 import '../styles/hub.css';
-// Add publication cards here only when real published content exists.
+
+// Executive summary: verbatim from page 2 of the published report
+// (The Work Behind the Workforce, Nov 23, 2026). Do not edit the wording.
+// The full report PDF is deliberately NOT in this repo: requests go through
+// the "report-request" Netlify form and Liz emails the PDF.
+const findings = [
+  ['Partnerships need follow-through.', 'Teachers and employers describe the difference between an introduction and a lasting relationship: repeated involvement, clear communication and a person who owns the next step.'],
+  ['Hiring gives the partnership a destination.', 'Seventy-eight percent of responding teachers report that industry hired their students. When asked which support for their program made the biggest difference, hiring was the most common answer.'],
+  ['A strong start takes preparation and support.', 'Employers describe the value of realistic expectations, practical training, mentoring and regular conversations. All seven contractors reporting their highest retention band also reported regular check-ins with new hires.'],
+  ['Different stages require different support.', 'High school construction programs need room and teacher allotments to expand, along with materials and equipment to teach. After graduation, access to technical colleges, trade schools and apprenticeship programs depends on instructors, classroom or lab space, and geographic location. Separately, employers need the ability to hire and develop beginners. Both sides must connect for a training opportunity to lead into work.'],
+  ['People need to see the career ahead.', 'Students and families need examples they can understand. Teachers and employers need a shared picture of what students have learned and how that learning connects to work and advancement.'],
+];
+
+const orgTypes = ['Contractor', 'Trade Association', 'Educator / School', 'Training Provider', 'Workforce Development Organization', 'Other'];
 ---
 
-<Layout title="Research &amp; Insights | TradeBuilt" description="Explore field perspectives and the Georgia Construction Talent Study. Participation is closed; the report is anticipated in November 2026.">
+<Layout
+  title="Georgia Construction Talent Study 2026 | TradeBuilt Research"
+  description="Explore the Georgia Construction Talent Study 2026. Read the executive summary and request the full report on construction workforce development."
+  ogImage="/og-study-2026.jpg"
+>
   <Nav />
 
-  <PageHero eyebrow="Research &amp; Insights" title="Start With the People <em>Closest to the Work.</em>" sub="TradeBuilt listens to the field to better understand the experiences shaping construction’s future workforce. This is where we share research and perspectives as they become available." />
+  <PageHero eyebrow="Research &amp; Insights" title="Start With the People <em>Closest to the Work.</em>" sub="TradeBuilt listens to the people closest to the work. Through original research and industry experience, we examine what’s working in construction workforce development and share insights others can put to use." />
 
-  <section class="hub-sec">
-    <div class="hub-wrap hub-spot">
-      <div>
-        <div class="section-label">Flagship project</div>
-        <h2 class="hub-h2">Georgia Construction <em>Talent Study</em></h2>
-        <p class="hub-p">A Georgia-focused research project exploring construction workforce experiences and pathways. Participation closed {STUDY.closedOn}. The report is anticipated in {STUDY.reportAnticipated}.</p>
+  <!-- ── FEATURED RESEARCH ── -->
+  <section class="hub-sec" id="study">
+    <div class="hub-wrap ri-feature">
+      <div class="ri-feature-copy">
+        <div class="section-label">Featured research · November 2026</div>
+        <h2 class="hub-h2 ri-title">The Work Behind <em>the Workforce</em></h2>
+        <p class="ri-subtitle">{STUDY.reportSubtitle}</p>
+        <p class="hub-p">Across Georgia, educators, contractors, trade associations, and training providers are working to connect people with construction careers.</p>
+        <p class="hub-p">TradeBuilt’s Georgia Construction Talent Study brings together their experiences to identify practices that are helping, where progress stalls, and what others can learn from the work already underway.</p>
         <div class="hub-btns">
-          <a href="/study" class="btn-cream">View the Study</a>
-          <a href="/study#report-updates" class="btn-outline">Get Report Updates</a>
-        </div>
-        <div class="hub-note">
-          <h3>Georgia research. A wider conversation.</h3>
-          <p>The study focuses on Georgia. Its findings may inform broader industry conversations, but should not be presented as a national sample.</p>
+          <a href="#executive-summary" class="btn-cream">Read Executive Summary</a>
+          <a href="#request-report" class="btn-outline">Get the Full Report</a>
         </div>
       </div>
-      <div class="hub-facts">
-        <div class="hub-fact"><b>Status</b><span>Participation closed {STUDY.closedOn}</span></div>
-        <div class="hub-fact"><b>Geography</b><span>Georgia</span></div>
-        <div class="hub-fact"><b>Report</b><span>Anticipated {STUDY.reportAnticipated}</span></div>
+      <figure class="ri-cover">
+        <Image src={cover} alt="Cover of The Work Behind the Workforce: Georgia Construction Talent Study 2026, by Liz Manning, TradeBuilt" widths={[360, 540, 720, 900]} sizes="(max-width: 860px) 70vw, 360px" loading="eager" />
+      </figure>
+    </div>
+    <div class="hub-wrap">
+      <ul class="ri-stats" aria-label="Research scope">
+        <li><b>84</b><span>Survey responses</span></li>
+        <li><b>5</b><span>Association interviews</span></li>
+        <li><b>5</b><span>Practical findings</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── EXECUTIVE SUMMARY (public, verbatim) ── -->
+  <section class="ri-summary" id="executive-summary" aria-labelledby="es-h">
+    <div class="ri-summary-wrap">
+      <div class="ri-label">Executive summary</div>
+      <h2 id="es-h" class="ri-h2">What helps people build a career in construction?</h2>
+      <div class="ri-prose">
+        <p>A teacher can get a student interested. A contractor can offer a job. A training program can teach the skills. Turning those efforts into a career takes people who stay involved—and a clear connection between one step and the next.</p>
+        <p>The Georgia Construction Talent Study asked the people doing that work what is helping, where progress stalls, and what others could learn from their experience. It brings together 84 survey responses from contractors, construction teachers, school pathway staff and training providers, alongside interviews with five trade associations.</p>
+        <p>The strongest message is practical: opportunities grow when someone takes responsibility for the relationship, follows through on a commitment, and helps that person succeed.</p>
+      </div>
+
+      <h3 class="ri-h3">Five findings</h3>
+      <ol class="ri-findings">
+        {findings.map(([lead, body], i) => (
+          <li>
+            <span class="ri-num" aria-hidden="true">{i + 1}</span>
+            <p><strong>{lead}</strong> {body}</p>
+          </li>
+        ))}
+      </ol>
+
+      <h3 class="ri-h3">Where to begin</h3>
+      <div class="ri-prose">
+        <p>For employers, start with a school relationship you can sustain and an opportunity you can explain. For educators, make it easy for industry to connect and understand what students need next. For associations and training providers, help those connections produce work, learning and continued development.</p>
+        <p>The practices described here are grounded in participants’ experience. They offer useful starting points for organizations ready to strengthen their own workforce efforts.</p>
+      </div>
+
+      <div class="ri-context">
+        <h3>Georgia research. A wider conversation.</h3>
+        <p>This study reflects the experiences of participating Georgia construction educators, contractors, workforce professionals, training providers, and trade associations. Findings are based on self-reported responses and interviews and should not be interpreted as a statistically representative assessment of every Georgia employer or program.</p>
       </div>
     </div>
   </section>
 
+  <!-- ── FULL REPORT REQUEST ── -->
+  <section class="hub-sec deep" id="request-report">
+    <div class="hub-wrap ri-request">
+      <div>
+        <div class="section-label">Complete research report</div>
+        <h2 class="hub-h2">Get the Full <em>Study.</em></h2>
+        <p class="hub-p">The executive summary introduces the study’s five principal findings. The complete report provides supporting data, participant examples, industry perspectives, and practical recommendations for contractors, educators, trade associations, and training providers.</p>
+        <p class="hub-p ri-how">Request <em>{STUDY.reportTitle}: {STUDY.reportSubtitle}</em> and TradeBuilt will email you the full report.</p>
+      </div>
+
+      <form name="report-request" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/research-insights/thanks" class="ri-form" id="report-request-form" data-fallback={CONTACT_EMAIL} novalidate>
+        <input type="hidden" name="form-name" value="report-request" />
+        <input type="hidden" name="report" value={`${STUDY.reportTitle}: ${STUDY.reportSubtitle}`} />
+        <p class="ri-hidden" aria-hidden="true"><label>Don’t fill this out: <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
+
+        <div class="ri-field">
+          <label for="rr-name">Name</label>
+          <input id="rr-name" name="name" type="text" required autocomplete="name" />
+        </div>
+        <div class="ri-field">
+          <label for="rr-email">Email address</label>
+          <input id="rr-email" name="email" type="email" required autocomplete="email" />
+        </div>
+        <div class="ri-field">
+          <label for="rr-org">Organization <span class="opt">(optional)</span></label>
+          <input id="rr-org" name="organization" type="text" autocomplete="organization" />
+        </div>
+        <div class="ri-field">
+          <label for="rr-type">Organization type <span class="opt">(optional)</span></label>
+          <select id="rr-type" name="organization-type">
+            <option value="">Select one</option>
+            {orgTypes.map((t) => <option value={t}>{t}</option>)}
+          </select>
+        </div>
+        <p class="ri-consent" id="rr-consent">We use this information only to send you the report you requested. You won’t be added to a mailing list. See our <a href="/privacy">privacy notice</a>.</p>
+        <button type="submit" class="ri-submit" aria-describedby="rr-consent">Request the Full Report</button>
+        <p class="ri-status" id="rr-status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- ── ABOUT TRADEBUILT + FOUNDING PARTNERS ── -->
+  <section class="hub-sec ri-about">
+    <div class="hub-wrap">
+      <div class="section-label">About TradeBuilt</div>
+      <!-- Verbatim from "About TradeBuilt" on the last page (p. 13) of the report; the closing "visit www.tradebuiltusa.com" line is omitted on the site. -->
+      <p class="hub-lede">TradeBuilt helps contractors, trade associations, and workforce partners strengthen construction career pathways and tell the stories behind the work. Founded by Liz Manning, TradeBuilt brings experience in field recruiting, apprenticeship, industry partnerships, and marketing to practical workforce challenges.</p>
+      <p class="hub-lede">Through research, strategy, and field-driven storytelling, TradeBuilt connects industry experience with actionable next steps. The Georgia Construction Talent Study reflects that mission: listening to the people doing the work, identifying what is working, and sharing insights that help the industry move forward.</p>
+    </div>
+  </section>
+
+  <Partners label="Founding Partners" />
+
+  <!-- ── QUESTIONS ── -->
   <section class="hub-sec deep">
     <div class="hub-wrap">
       <div class="section-label">Questions</div>
       <h2 class="hub-h2">Ask About the Research.</h2>
-      <p class="hub-p">Have a question about the study or the upcoming report? Reach out.</p>
+      <p class="hub-p">Interested in discussing the findings, exploring practical applications, or learning more about TradeBuilt’s workforce research? Let’s connect.</p>
       <div class="hub-btns"><a href="/contact" class="btn-cream">Connect With TradeBuilt</a></div>
     </div>
   </section>
 
   <Footer />
 </Layout>
+
+<style>
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  [id] { scroll-margin-top: 16px; }
+
+  /* Featured research */
+  .ri-feature { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 64px; align-items: center; }
+  .ri-title { font-size: 60px; }
+  .ri-subtitle { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 22px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--tb-text-on-dark-2); margin: -6px 0 22px; }
+  .ri-feature .hub-p { font-size: 18px; color: var(--tb-text-on-dark-2); }
+  .ri-cover { margin: 0; border: 1px solid var(--tb-border-mid); box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35); }
+  .ri-cover :global(img) { display: block; width: 100%; height: auto; }
+  .ri-stats { list-style: none; margin: 48px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border: 0.5px solid var(--tb-border); }
+  .ri-stats li { padding: 24px 28px; border-right: 0.5px solid var(--tb-border); background: var(--tb-bg-deep); }
+  .ri-stats li:last-child { border-right: none; }
+  .ri-stats b { display: block; font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 56px; line-height: 1; color: var(--tb-text-cream); }
+  .ri-stats span { display: block; margin-top: 8px; font-size: 13px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--tb-text-on-dark-2); }
+
+  /* Executive summary: cream reading surface */
+  .ri-summary { background: var(--tb-bg-light); color: var(--tb-blue); padding: 96px 32px; }
+  .ri-summary-wrap { max-width: 760px; margin: 0 auto; }
+  .ri-label { font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--tb-muted-blue-on-light); margin-bottom: 20px; display: flex; align-items: center; gap: 14px; }
+  .ri-label::after { content: ''; flex: 1; height: 1px; background: rgba(48, 66, 87, 0.2); }
+  .ri-h2 { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 52px; line-height: 1; text-transform: uppercase; color: var(--tb-blue); margin-bottom: 32px; text-wrap: balance; }
+  .ri-h3 { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 26px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--tb-blue); margin: 48px 0 8px; }
+  .ri-prose p, .ri-findings p { font-size: 18px; line-height: 1.7; color: var(--tb-blue); margin-bottom: 18px; }
+  .ri-findings { list-style: none; margin: 0; padding: 0; }
+  .ri-findings li { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 16px; padding: 22px 0; border-top: 1px solid rgba(48, 66, 87, 0.22); }
+  .ri-findings li:last-child { border-bottom: 1px solid rgba(48, 66, 87, 0.22); }
+  .ri-findings p { margin: 0; }
+  .ri-findings strong { font-weight: 700; }
+  .ri-num { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 34px; line-height: 1; color: var(--tb-blue); }
+  .ri-context { margin-top: 48px; border-left: 3px solid var(--tb-blue); padding: 6px 0 6px 22px; }
+  .ri-context h3 { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 20px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--tb-blue); margin-bottom: 8px; }
+  .ri-context p { font-size: 16px; line-height: 1.7; color: var(--tb-blue); }
+  .ri-summary a:focus-visible { outline: 3px solid var(--tb-blue); outline-offset: 3px; }
+
+  /* Report request */
+  .ri-about .hub-lede { margin-bottom: 16px; }
+  .ri-request { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px; align-items: start; }
+  .ri-request .hub-p { font-size: 18px; color: var(--tb-text-on-dark-2); }
+  .ri-how em { font-style: italic; color: var(--tb-text-cream); }
+  .ri-form { background: var(--tb-bg-base); border: 0.5px solid var(--tb-border-mid); padding: 36px; display: flex; flex-direction: column; gap: 18px; }
+  .ri-hidden { display: none; }
+  .ri-field { display: flex; flex-direction: column; gap: 8px; }
+  .ri-field label { font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--tb-text-muted); }
+  .opt { text-transform: none; letter-spacing: 0; font-weight: 400; color: var(--tb-text-faint); }
+  .ri-field input, .ri-field select { background: var(--tb-bg-deep); border: 1px solid var(--tb-border-mid); color: var(--tb-text-cream); padding: 13px 16px; font-family: 'Barlow', sans-serif; font-size: 16px; width: 100%; min-height: 48px; }
+  .ri-field select { appearance: auto; }
+  .ri-field input:focus, .ri-field select:focus { outline: 2px solid var(--tb-bg-light); outline-offset: 1px; }
+  .ri-field [aria-invalid='true'] { border-color: #f0a070; }
+  .ri-consent { font-size: 13px; line-height: 1.6; color: var(--tb-text-on-dark-2); }
+  .ri-consent a { color: var(--tb-text-cream); }
+  .ri-submit { font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; background: var(--tb-text-cream); color: var(--tb-bg-base); border: none; padding: 16px 24px; min-height: 52px; cursor: pointer; }
+  .ri-submit:hover { background: #c8c4b8; }
+  .ri-submit:focus-visible { outline: 2px solid var(--tb-bg-light); outline-offset: 3px; }
+  .ri-submit[disabled] { opacity: 0.6; cursor: wait; }
+  .ri-status { font-size: 15px; line-height: 1.5; min-height: 1.5em; color: var(--tb-text-cream); }
+  .ri-status.err { color: #f0a070; }
+
+  @media (max-width: 960px) {
+    .ri-feature { grid-template-columns: 1fr; gap: 40px; }
+    .ri-cover { max-width: 300px; }
+    .ri-request { grid-template-columns: 1fr; gap: 32px; }
+  }
+  @media (max-width: 768px) {
+    .ri-title { font-size: 44px; }
+    .ri-stats { grid-template-columns: 1fr; }
+    .ri-stats li { border-right: none; border-bottom: 0.5px solid var(--tb-border); }
+    .ri-stats li:last-child { border-bottom: none; }
+    .ri-stats b { font-size: 44px; }
+    .ri-summary { padding: 56px 20px; }
+    .ri-h2 { font-size: 38px; }
+    .ri-prose p, .ri-findings p, .ri-feature .hub-p, .ri-request .hub-p { font-size: 17px; }
+    .ri-findings li { grid-template-columns: 36px minmax(0, 1fr); gap: 12px; }
+    .ri-num { font-size: 28px; }
+    .ri-form { padding: 24px 20px; }
+  }
+</style>
+
+<script>
+  const form = document.getElementById('report-request-form') as HTMLFormElement | null;
+  if (form) {
+    const status = form.querySelector('#rr-status') as HTMLElement;
+    const btn = form.querySelector('.ri-submit') as HTMLButtonElement;
+    const say = (m: string, err = false) => { status.textContent = m; status.classList.toggle('err', err); };
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (btn.disabled) return; // no double submits
+      const required = [...form.querySelectorAll('[required]')] as HTMLInputElement[];
+      const bad = required.filter((el) => !el.value.trim() || !el.checkValidity());
+      required.forEach((el) => (bad.includes(el) ? el.setAttribute('aria-invalid', 'true') : el.removeAttribute('aria-invalid')));
+      if (bad.length) { say('Please enter your name and a valid email address.', true); bad[0].focus(); return; }
+      btn.disabled = true;
+      say('Sending…');
+      try {
+        const body = new URLSearchParams(new FormData(form) as any).toString();
+        const res = await fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body });
+        if (!res.ok) throw new Error(String(res.status));
+        form.reset();
+        say('Thank you. Your request was received, and TradeBuilt will email you the full report.');
+        (window as any).gtag?.('event', 'report_request');
+      } catch {
+        say('We couldn’t send your request. Please try again, or email ' + form.dataset.fallback + '.', true);
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  }
+</script>

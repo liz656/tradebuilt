@@ -3,11 +3,10 @@ import Layout from '../components/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import Partners from '../components/Partners.astro';
-import ReportSignup from '../components/ReportSignup.astro';
 import { STUDY } from '../data/site.js';
 ---
 
-<Layout title="Georgia Construction Talent Study | TradeBuilt" description="Participation closed October 15, 2026. The Georgia Construction Talent Study report is anticipated in November. Sign up for report updates.">
+<Layout title="Georgia Construction Talent Study | TradeBuilt" description="The Georgia Construction Talent Study report, The Work Behind the Workforce, was published November 23, 2026. Read the executive summary and request the full report.">
   <Nav />
 
   <!-- ── HERO ── -->
@@ -24,7 +23,7 @@ import { STUDY } from '../data/site.js';
   <section class="closed-notice" aria-labelledby="closed-h">
     <div class="closed-inner">
       <h2 id="closed-h" class="closed-h">Participation closed {STUDY.closedOn}.</h2>
-      <p>Thank you to everyone who contributed time and perspective. The report is anticipated in {STUDY.reportAnticipated}. <a href="#report-updates">Sign up below</a> to hear when it is available.</p>
+      <p>Thank you to everyone who contributed time and perspective. The report, <em>{STUDY.reportTitle}</em>, was published {STUDY.publishedOn}. <a href={STUDY.summaryUrl}>Read the executive summary</a>.</p>
     </div>
   </section>
 
@@ -48,8 +47,8 @@ import { STUDY } from '../data/site.js';
           <div class="aside-label">Participation ended {STUDY.closedOn}</div>
         </div>
         <div class="aside-block">
-          <div class="aside-num">{STUDY.reportAnticipated}</div>
-          <div class="aside-label">Report anticipated</div>
+          <div class="aside-num">Published</div>
+          <div class="aside-label">Report released {STUDY.publishedOn}</div>
         </div>
         <div class="aside-block">
           <div class="aside-num">Field-first</div>
@@ -115,13 +114,14 @@ import { STUDY } from '../data/site.js';
   <section class="form-section" id="report-updates">
     <div class="form-layout">
       <div class="form-text">
-        <div class="section-label">Get report updates</div>
-        <h2>Hear When the Report Is Available.</h2>
-        <p>Enter your email to receive updates about the Georgia Construction Talent Study report. The report is anticipated in {STUDY.reportAnticipated}.</p>
+        <div class="section-label">The report</div>
+        <h2>{STUDY.reportTitle}.</h2>
+        <p>{STUDY.reportSubtitle} was published {STUDY.publishedOn}. The executive summary is free to read online. The full report is available on request.</p>
         <p>Questions about the research? <a class="inline-link" href="/contact">Connect with TradeBuilt</a>.</p>
       </div>
-      <div class="form-wrap">
-        <ReportSignup />
+      <div class="form-wrap report-ctas">
+        <a href={STUDY.summaryUrl} class="btn-cream">Read Executive Summary</a>
+        <a href={STUDY.requestUrl} class="btn-outline">Get the Full Report</a>
       </div>
     </div>
   </section>
@@ -131,7 +131,7 @@ import { STUDY } from '../data/site.js';
   <section class="study-cta">
     <div class="fc-grid"></div>
     <h2>Have Questions<br>About the <em>Research?</em></h2>
-    <p>Reach out about the study, the upcoming report, or the conversations it’s part of.</p>
+    <p>Reach out about the study, the report, or the conversations it’s part of.</p>
     <div class="cta-btns">
       <a href="/contact" class="btn-cream">Connect With TradeBuilt</a>
       <a href="/research-insights" class="btn-outline">Research &amp; Insights</a>
@@ -223,6 +223,8 @@ import { STUDY } from '../data/site.js';
     margin-bottom: 4px;
   }
   .closed-notice p { font-size: 15px; line-height: 1.6; color: var(--tb-text-on-orange); }
+  .report-ctas { display: flex; flex-direction: column; gap: 12px; align-self: center; }
+  .report-ctas a { text-align: center; }
   .closed-notice a { color: var(--tb-text-on-orange); font-weight: 700; }
   .inline-link { color: var(--tb-text-cream); }
 

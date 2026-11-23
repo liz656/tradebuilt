@@ -24,10 +24,10 @@ const { title, heading, intro } = Astro.props;
       <div class="sc-eyebrow">{STUDY.name}</div>
       <h1 set:html={heading} />
       <p>{intro}</p>
-      <p><strong>Participation closed {STUDY.closedOn}.</strong> The report is anticipated in {STUDY.reportAnticipated}. Sign up to hear when it is available.</p>
+      <p><strong>Participation closed {STUDY.closedOn}.</strong> The report, <em>{STUDY.reportTitle}</em>, was published {STUDY.publishedOn}.</p>
       <div class="sc-btns">
-        <a href="/study#report-updates" class="btn-cream">Get Report Updates</a>
-        <a href="/study" class="btn-outline">About the Study</a>
+        <a href={STUDY.summaryUrl} class="btn-cream">Read Executive Summary</a>
+        <a href={STUDY.requestUrl} class="btn-outline">Get the Full Report</a>
       </div>
     </div>
   </section>

@@ -52,7 +52,7 @@ import { MISSION, PRINCIPLES, WORK_AREAS, STUDY, AMERICAN_TRADES_PUBLISHED } fro
 
   <!-- ── STUDY CALLOUT ── -->
   <section class="study-callout v2-strip">
-    <p><strong>{STUDY.name}:</strong> Participation closed {STUDY.closedOn}. The report is anticipated in {STUDY.reportAnticipated}. <a href="/study#report-updates">Get Report Updates →</a></p>
+    <p><strong>Now available:</strong> {STUDY.reportTitle}, {STUDY.reportSubtitle}. <a href={STUDY.summaryUrl}>Read the Executive Summary →</a></p>
   </section>
 
   <!-- ── MISSION + PRINCIPLES (cream) ── -->
@@ -111,11 +111,11 @@ import { MISSION, PRINCIPLES, WORK_AREAS, STUDY, AMERICAN_TRADES_PUBLISHED } fro
         <div class="v2-label">Featured research</div>
         <h2 class="v2-h2">Georgia Construction<br>Talent Study</h2>
         <p class="v2-lede">
-          Participation closed {STUDY.closedOn}. The report is anticipated in {STUDY.reportAnticipated}. Sign up to hear when it is available.
+          {STUDY.reportTitle} was published {STUDY.publishedOn}. Read the executive summary, then request the full report.
         </p>
         <div class="v2-ctas">
-          <a href="/study#report-updates" class="v2-btn v2-btn--solid">Get Report Updates</a>
-          <a class="v2-btn" href="/study">View the Study →</a>
+          <a href={STUDY.summaryUrl} class="v2-btn v2-btn--solid">Read Executive Summary</a>
+          <a class="v2-btn" href={STUDY.requestUrl}>Get the Full Report →</a>
         </div>
       </div>
       <div class="v2-study-art">
@@ -124,7 +124,7 @@ import { MISSION, PRINCIPLES, WORK_AREAS, STUDY, AMERICAN_TRADES_PUBLISHED } fro
         <dl class="v2-facts">
           <div><dt>Focus</dt><dd>Georgia</dd></div>
           <div><dt>Participation</dt><dd>Closed {STUDY.closedOn}</dd></div>
-          <div><dt>Report</dt><dd>Anticipated {STUDY.reportAnticipated}</dd></div>
+          <div><dt>Report</dt><dd>Published {STUDY.publishedOn}</dd></div>
         </dl>
       </div>
     </div>
