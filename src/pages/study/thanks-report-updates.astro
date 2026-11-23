@@ -11,9 +11,9 @@ import { STUDY } from '../../data/site.js';
   <section class="ty">
     <div class="ty-inner">
       <h1>You’re Signed Up for <em>Report Updates.</em></h1>
-      <p>We’ll email you when the {STUDY.name} report is available. The report is anticipated in {STUDY.reportAnticipated}.</p>
+      <p>The {STUDY.name} report, {STUDY.reportTitle}, was published {STUDY.publishedOn}.</p>
       <div class="ty-btns">
-        <a href="/careers" class="btn-cream">Find Your Trade</a>
+        <a href={STUDY.summaryUrl} class="btn-cream">Read Executive Summary</a>
         <a href="/" class="btn-outline">Back to Home</a>
       </div>
     </div>

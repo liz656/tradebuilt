@@ -1,0 +1,15 @@
+---
+// No-JavaScript fallback destination for the report-request form.
+import Layout from '../../components/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import PageHero from '../../components/PageHero.astro';
+import { STUDY } from '../../data/site.js';
+---
+<Layout title="Report Request Received | TradeBuilt" description="Full report request for the Georgia Construction Talent Study 2026." noindex>
+  <Nav />
+  <PageHero eyebrow={STUDY.reportSubtitle} title="Request <em>Received.</em>" sub={`Thank you. TradeBuilt will email you ${STUDY.reportTitle}.`}>
+    <p style="margin-top:28px;"><a href="/research-insights#executive-summary" class="btn-cream">Back to the Executive Summary</a></p>
+  </PageHero>
+  <Footer />
+</Layout>

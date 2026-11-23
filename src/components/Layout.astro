@@ -3,16 +3,18 @@ export interface Props {
   title?: string;
   description?: string;
   noindex?: boolean;
+  ogImage?: string; // site path of a 1200×630 share image; defaults to /og-image.jpg
 }
 
 const {
   title = 'TradeBuilt | Built by the Field. Backed by Experience.',
   description = 'Field perspectives, research, and career resources connecting the construction industry with its future workforce.',
   noindex = false,
+  ogImage: ogImagePath = '/og-image.jpg',
 } = Astro.props;
 
 const siteBase = Astro.site ?? new URL('https://tradebuiltga.com');
-const ogImage = new URL('/og-image.jpg', siteBase).href;
+const ogImage = new URL(ogImagePath, siteBase).href;
 const canonical = new URL(Astro.url.pathname, siteBase).href;
 ---
 

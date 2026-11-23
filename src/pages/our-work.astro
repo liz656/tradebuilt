@@ -48,16 +48,16 @@ import '../styles/hub.css';
       <div>
         <div class="section-label">Research spotlight</div>
         <h2 class="hub-h2">Georgia Construction <em>Talent Study</em></h2>
-        <p class="hub-p">A Georgia-focused research project exploring construction workforce experiences and pathways. Participation closed {STUDY.closedOn}. The report is anticipated in {STUDY.reportAnticipated}.</p>
+        <p class="hub-p">A Georgia-focused research project exploring construction workforce experiences and pathways. Participation closed {STUDY.closedOn}. The report, {STUDY.reportTitle}, was published {STUDY.publishedOn}.</p>
         <div class="hub-btns">
-          <a href="/study" class="btn-cream">View the Study</a>
-          <a href="/study#report-updates" class="btn-outline">Get Report Updates</a>
+          <a href={STUDY.summaryUrl} class="btn-cream">Read Executive Summary</a>
+          <a href={STUDY.requestUrl} class="btn-outline">Get the Full Report</a>
         </div>
       </div>
       <div class="hub-facts">
         <div class="hub-fact"><b>Georgia</b><span>Statewide focus</span></div>
         <div class="hub-fact"><b>Closed</b><span>{STUDY.closedOn}</span></div>
-        <div class="hub-fact"><b>{STUDY.reportAnticipated}</b><span>Report anticipated</span></div>
+        <div class="hub-fact"><b>Published</b><span>{STUDY.publishedOn}</span></div>
       </div>
     </div>
   </section>
